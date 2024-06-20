@@ -6,7 +6,7 @@ export default function Home() {
       <nav className="container mx-auto p-6 flex justify-between">
         <div><h1 className="font-title text-navy text-2xl max-w-sm">éditions in space</h1></div>
         <div className="flex gap-6 items-center justify-end">
-          <a href="#subscribe" className="text-navy text-lg">Join our artist network</a>
+          <a href="#subscribe" className="text-navy text-lg uppercase">Join our artist network</a>
           <a href="https://www.instagram.com">
             <Image
                   className="relative"
@@ -21,7 +21,7 @@ export default function Home() {
       </nav>
 
       <section className="bg-beige h-[80vh] bg-[url('/images/Asset-6.png')] bg-no-repeat bg-right-bottom bg-[length:60%]">
-        <div className="container mx-auto py-24 flex gap-8 h-full items-center">
+        <div className="container mx-auto py-24 flex gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
             <h2 className="font-title text-center text-6xl text-navy">Discover culture based on proximity</h2>
           </div>
@@ -43,7 +43,7 @@ export default function Home() {
       <section className="bg-navy text-beige">
         <div className="container mx-auto py-24">
           <h2 className="uppercase text-5xl font-medium mb-8">Vision</h2>
-          <div className="flex gap-8">
+          <div className="flex gap-8 lg:gap-12">
             <div className="flex-1">
               <p className="text-3xl">We dream of closer ties between art and communities that surround its production.</p>
             </div>
@@ -57,19 +57,28 @@ export default function Home() {
 
       <section className="bg-white text-navy">
         <div className="container mx-auto py-24">
-          <p className="max-w-md mx-auto text-3xl text-center mb-8">Find artists and events in your community</p>
-          <Image
-            className=""
-            src="/images/asset-10.png"
-            alt="laptop"
-            width={500}
-            height={500}
-            priority
-          />
+          <p className="max-w-md mx-auto text-3xl text-center mb-12">Find artists and events in your community</p>
+          <div className="relative max-w-3xl mx-auto">
+            <Image
+              className="w-full h-auto"
+              src="/images/laptop-mockup.png"
+              alt="laptop"
+              width={1800}
+              height={1043}
+            />
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-center font-title font-medium text-4xl text-navy">
+              <div>Music</div>
+              <div>Visual</div>
+              <div>Performance</div>
+              <div>Experimental</div>
+              <div>Literary</div>
+              <div>Media</div>
+            </div>
+          </div>
         
-          <div>
+          <div className="mt-24">
             <h2 className="uppercase text-5xl mb-8 text-center font-medium">Key features</h2>
-            <ul className="flex gap-8">
+            <ul className="flex gap-8 lg:gap-12">
               <li className="flex-1 flex flex-col items-center">
                 <p className="uppercase text-2xl text-center mb-4">Artist<br/>profiles</p>
                 <Image
@@ -78,7 +87,6 @@ export default function Home() {
                   alt="Collage"
                   width={220}
                   height={220}
-                  priority
                 />
               </li>
 
@@ -90,7 +98,6 @@ export default function Home() {
                   alt="Berries"
                   width={220}
                   height={220}
-                  priority
                 />
               </li>
 
@@ -102,7 +109,6 @@ export default function Home() {
                   alt="Flower"
                   width={220}
                   height={220}
-                  priority
                 />
               </li>
             </ul>
@@ -113,7 +119,7 @@ export default function Home() {
       <section id="subscribe" className="bg-white text-aubergine">
         <div className="container mx-auto pb-24">
           <div className="bg-lavendar rounded-xl p-16 container mx-auto">
-            <div className="flex gap-8">
+            <div className="flex gap-8 lg:gap-12">
               <div className="flex-1">
                 <h2 className="uppercase text-5xl mb-8 font-medium">Join our network</h2>
               </div>
@@ -155,9 +161,9 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div class="mt-6 flex items-center justify-end gap-x-6">
-                  <button type="button" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
-                  <button type="submit" class="rounded-md bg-aubergine px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Send</button>
+                <div className="mt-6 flex items-center justify-end gap-x-6">
+                  <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                  <button type="submit" className="rounded-md bg-aubergine px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Send</button>
                 </div>
               </form>
             </div>
@@ -177,7 +183,6 @@ export default function Home() {
                   alt="Prachi Khandekar, founder of Editions in Space"
                   width={800}
                   height={800}
-                  priority
                 />
               </div>
             </div>
@@ -195,43 +200,68 @@ export default function Home() {
       <section className="bg-white">
         <div className="container mx-auto py-24 text-navy">
             <h2 className="font-title text-center text-6xl text-navy max-w-lg mx-auto mb-48">Explore culture in your vicinity</h2>
-            <ul className="flex gap-8">
+            <ul className="flex gap-8 lg:gap-12">
               <li className="flex-1">
                 <Image
-                  className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+                  className=""
                   src="/images/Asset-1.png"
                   alt="flower"
                   width={180}
                   height={180}
-                  priority
                 />
                 <p className="text-2xl mt-4">Residents can browse ephemeral and permanent art nearby</p>
               </li>
 
               <li className="flex-1">
                 <Image
-                  className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+                  className=""
                   src="/images/Asset-1.png"
                   alt="flower"
                   width={180}
                   height={180}
-                  priority
                 />
                 <p className="text-2xl mt-4">Artists can post once and focus on art production</p>
               </li>
 
               <li className="flex-1">
                 <Image
-                  className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
+                  className=""
                   src="/images/Asset-1.png"
                   alt="flower"
                   width={180}
                   height={180}
-                  priority
                 />
                 <p className="text-2xl mt-4">Promoters can access relevant and invested audiences</p>
               </li>
             </ul>
+        </div>
+      </section>
+
+      <section className="bg-navy">
+        <div className="container mx-auto py-24 text-beige">
+          <div className="flex mb-12">
+            <div className="flex-1">
+              <div className="text-4xl">To <span className="font-title italic">collaborate</span></div>
+              <div><a href="mailto:info@editionsinspace.com" className="underline text-2xl">Contact us</a></div>
+            </div>
+
+            <div className="flex-1">
+              <div className="text-4xl">For <span className="font-title italic">updates</span></div>
+              <div><a href="#subscribe" className="underline text-2xl">Subscribe</a></div>
+            </div>
+          </div>
+
+          <div className="flex gap-8 lg:gap-12 justify-between">
+            <div className="flex gap-4 uppercase text-xl">
+              <a href="#" className="underline">FAQ</a>
+              <a href="https://www.instagram.com" target="_blank" className="underline">Instagram</a>
+            </div>
+
+            <div>
+              <p>© 2024, Project by Prachi Khandekar</p>
+            </div>
+          </div>
+          
         </div>
       </section>
 
