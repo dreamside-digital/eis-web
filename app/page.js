@@ -121,9 +121,12 @@ export default function Home() {
           <div className="bg-lavendar rounded-xl p-16 container mx-auto">
             <div className="flex gap-8 lg:gap-12">
               <div className="flex-1">
-                <h2 className="uppercase text-5xl mb-8 font-medium">Join our network</h2>
+                <h2 className="uppercase text-5xl mb-8 mt-8 font-medium">Join our network</h2>
               </div>
-              <form action="" className="flex-1">
+              <div className="flex-1 min-h-[734px]">
+                <iframe className="h-full w-full" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>
+              </div>
+{/*              <form action="" className="flex-1">
                 <div className="mb-4">
                   <label htmlFor="first-name" className="block text-sm leading-6 text-aubergine">First name</label>
                   <div className="mt-1">
@@ -165,7 +168,7 @@ export default function Home() {
                   <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
                   <button type="submit" className="rounded-md bg-aubergine px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Send</button>
                 </div>
-              </form>
+              </form>*/}
             </div>
           </div>
         </div>
@@ -197,9 +200,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-white">
+      <section className="bg-white bg-[url('/images/Asset-12.png')] bg-no-repeat bg-cover bg-center">
         <div className="container mx-auto py-24 text-navy">
-            <h2 className="font-title text-center text-6xl text-navy max-w-lg mx-auto mb-48">Explore culture in your vicinity</h2>
+            <h2 className="font-title text-center text-6xl text-white max-w-lg mx-auto mb-48">Explore culture in your vicinity</h2>
             <ul className="flex gap-8 lg:gap-12">
               <li className="flex-1">
                 <Image
