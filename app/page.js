@@ -101,14 +101,14 @@ export default function Home() {
       </section>
 
       <section id="subscribe" className="bg-white text-aubergine">
-        <div className="container mx-auto px-4 py-12 md:py-24">
-          <div className="bg-lavendar rounded-xl p-4 md:p-8 md:p-16 container mx-auto">
+        <div className="container mx-auto sm:px-4 sm:pb-12 md:pb-24">
+          <div className="bg-lavendar sm:rounded-xl p-4 md:p-8 md:p-16 container mx-auto">
             <div className="md:flex gap-8 lg:gap-12">
               <div className="flex-1">
                 <h2 className="uppercase text-3xl md:text-5xl md:mb-8 mt-8 font-medium">Join our network</h2>
               </div>
-              <div className="flex-1 min-h-[734px]">
-                <iframe className="h-full w-full min-h-[734px]" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>
+              <div className="flex-1 min-h-[800px]">
+                <iframe className="h-full w-full min-h-[800px]" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>
               </div>
 {/*              <form action="" className="flex-1">
                 <div className="mb-4">

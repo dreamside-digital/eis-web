@@ -11,8 +11,8 @@ export default function NewsModal() {
   return (
     <>
       <button onClick={() => setShowModal(true)}>
-        <div className="absolute inset-0 p-36 md:p-40 flex flex-col justify-center items-center text-center font-title font-medium md:text-4xl text-navy hover:text-aubergine">
-          <PlayCircleIcon />
+        <div className="absolute inset-0 pb-8 flex flex-col justify-center items-center text-center font-title font-medium md:text-4xl text-navy hover:text-aubergine">
+          <PlayCircleIcon className="min-h-8 min-w-8 h-24 w-24 md:h-40 md:w-40" />
         </div>
       </button>
       <Modal 
