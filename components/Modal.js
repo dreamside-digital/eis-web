@@ -45,7 +45,7 @@ export default function NewsModal() {
         }}
       >
         <div className="h-full w-full relative">
-          <iframe className="absolute inset-0 h-full w-full" width="560" height="315" src="https://www.youtube.com/embed/fsNuXnYkudQ?si=mvA28LjPFsN1raFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe className="absolute inset-0 h-full w-full" width="560" height="315" src="https://www.youtube.com/embed/fsNuXnYkudQ?si=mvA28LjPFsN1raFI?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
           <button className="absolute -top-10 right-2 bg-beige rounded-full text-navy flex gap-1 items-center uppercase font-medium p-1 px-2" onClick={() => setShowModal(false)}>Close<XMarkIcon className="h-6 w-6" /></button>
         </div>
       </Modal>

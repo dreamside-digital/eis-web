@@ -19,7 +19,7 @@ export default function Home() {
             <div className="flex justify-center">
               <Image
                 className="md:h-[80vh] md:translate-y-16 w-auto object-fit"
-                src="/images/phone-mockup.png"
+                src="/images/phone-mockup-2.png"
                 alt="GIF of website"
                 width={444}
                 height={884}
