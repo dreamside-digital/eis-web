@@ -1,37 +1,24 @@
 import Image from "next/image";
 import Modal from '@/components/Modal'
+import Navigation from '@/components/Navigation'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 
 
 export default function Home() {
+
   return (
     <main className="flex min-h-screen flex-col">
-      <nav className="container mx-auto p-6 flex justify-between">
-        <div><h1 className="font-title text-navy text-2xl max-w-sm">éditions in space</h1></div>
-        <div className="flex gap-6 items-center justify-end">
-          <a href="#subscribe" className="text-navy text-lg uppercase hover:text-aubergine">Join our artist network</a>
-          <a href="https://www.instagram.com">
-            <Image
-              className="relative"
-              src="/images/instagram.svg"
-              alt="Instagram"
-              width={30}
-              height={30}
-              priority
-            />
-          </a>
-        </div>
-      </nav>
+      <Navigation />
 
       <section className="bg-beige md:h-[80vh] bg-[url('/images/Asset-6.png')] bg-no-repeat bg-right-bottom bg-[length:160%] bg-cover md:bg-[length:60%]">
-        <div className="container mx-auto px-4 py-12 md:py-24 md:flex gap-8 lg:gap-12 h-full items-center">
+        <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
             <h2 className="font-title text-center text-4xl md:text-6xl text-navy">Discover culture based on proximity</h2>
           </div>
           <div className="flex-1">
             <div className="flex justify-center">
               <Image
-                className="md:h-[80vh] translate-y-12 md:translate-y-16 w-auto object-fit"
+                className="md:h-[80vh] md:translate-y-16 w-auto object-fit"
                 src="/images/phone-mockup.png"
                 alt="GIF of website"
                 width={444}
@@ -121,7 +108,7 @@ export default function Home() {
                 <h2 className="uppercase text-3xl md:text-5xl md:mb-8 mt-8 font-medium">Join our network</h2>
               </div>
               <div className="flex-1 min-h-[734px]">
-                <iframe className="h-full w-full h-[734px]" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>
+                <iframe className="h-full w-full min-h-[734px]" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>
               </div>
 {/*              <form action="" className="flex-1">
                 <div className="mb-4">
