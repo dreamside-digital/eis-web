@@ -37,7 +37,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal`}>{children}</body>
     </html>
   );
