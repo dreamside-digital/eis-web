@@ -13,7 +13,7 @@ export default function Home() {
       <section className="bg-beige md:h-[80vh] bg-[url('/images/Asset-6.png')] bg-no-repeat bg-right-bottom bg-[length:160%] bg-cover md:bg-[length:60%]">
         <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
-            <h2 className="font-title text-center text-4xl md:text-6xl text-navy">Discover culture based on proximity</h2>
+            <h2 className="font-title text-center text-4xl md:text-6xl text-navy"><div>Discover culture</div><div>based on proximity</div></h2>
           </div>
           <div className="flex-1">
             <div className="flex justify-center">
@@ -47,7 +47,8 @@ export default function Home() {
 
       <section className="bg-white text-navy">
         <div className="container mx-auto px-4 py-12 md:py-24">
-          <p className="max-w-md mx-auto text-xl md:text-3xl text-center mb-12">Find artists and events in your community</p>
+          <p className="max-w-md mx-auto text-xl md:text-3xl text-center mb-0">Find artists and events</p>
+          <p className="max-w-md mx-auto text-xl md:text-3xl text-center mb-12">in your community</p>
           <div className="relative max-w-3xl mx-auto">
             <Image
               className="w-full h-auto"
@@ -241,7 +242,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row gap-8 lg:gap-12 justify-between">
             <div className="flex gap-4 uppercase text-xl">
               <a href="#" className="underline hover:text-white">FAQ</a>
-              <a href="https://www.instagram.com" target="_blank" className="underline hover:text-white">Instagram</a>
+              <a href="https://www.instagram.com/editionsinspace/" target="_blank" className="underline hover:text-white">Instagram</a>
             </div>
 
             <div>
