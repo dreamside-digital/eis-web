@@ -3,6 +3,7 @@
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import Image from "next/image";
+import Link from "next/link";
 
 
 export default function Navigation() {
@@ -15,7 +16,7 @@ export default function Navigation() {
   return (
     <div className="bg-beige ">
       <nav className="container mx-auto p-6 flex justify-between">
-        <div>
+        <Link href="/">
           <Image
             className="max-h-20 w-auto object-fit"
             src="/logo.png"
@@ -24,7 +25,7 @@ export default function Navigation() {
             height={200}
             priority
           />
-        </div>
+        </Link>
         <div className="flex gap-6 items-center justify-end relative">
           <button className="h-8 w-8 text-navy" onClick={toggleMenu}>
             { menuOpen ? <XMarkIcon /> :<Bars2Icon /> }

@@ -24,12 +24,44 @@ export async function getProfile(slug) {
       })
     );
 
-
-
     const result = data.map(profile => {
       return {
         ...profile,
         tags: profile.tags.map(tag => ({ ...tag.tags_id })),
+      }
+    })
+
+    if (result[0]) {
+      return result[0]
+    } else {
+      throw Error("No results returned for query")
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+export async function getEvent(slug) {
+  try {
+    const data = await directus.request(
+      readSingleton('events', {
+        fields: '*,location,location.*,tags.tags_id.*,images,images.*',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+          slug: {
+            _eq: slug
+          }
+        }
+      })
+    );
+
+    const result = data.map(event => {
+      return {
+        ...event,
+        tags: event.tags.map(tag => ({ ...tag.tags_id })),
       }
     })
 
