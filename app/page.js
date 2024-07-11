@@ -1,15 +1,12 @@
 import Image from "next/image";
 import Modal from '@/components/Modal'
-import Navigation from '@/components/Navigation'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 
 
 export default function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col">
-      <Navigation />
-
+    <>
       <section className="bg-beige md:h-[80vh] bg-[url('/images/Asset-6.png')] bg-no-repeat bg-right-bottom bg-[length:160%] bg-cover md:bg-[length:60%]">
         <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
@@ -225,34 +222,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-navy">
-        <div className="container mx-auto px-4 py-12 md:py-24 text-beige">
-          <div className="md:flex mb-12 md:mb-4">
-            <div className="flex-1 mb-8">
-              <div className="text-4xl">To <span className="font-title italic">collaborate</span></div>
-              <div><a href="mailto:info@editionsinspace.com" className="underline text-2xl hover:text-white">Contact us</a></div>
-            </div>
-
-            <div className="flex-1 mb-8">
-              <div className="text-4xl">For <span className="font-title italic">updates</span></div>
-              <div><a href="#subscribe" className="underline text-2xl hover:text-white">Subscribe</a></div>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row gap-8 lg:gap-12 justify-between">
-            <div className="flex gap-4 uppercase text-xl">
-              <a href="#" className="underline hover:text-white">FAQ</a>
-              <a href="https://www.instagram.com/editionsinspace/" target="_blank" className="underline hover:text-white">Instagram</a>
-            </div>
-
-            <div>
-              <p>© 2024, Project by Prachi Khandekar</p>
-            </div>
-          </div>
-          
-        </div>
-      </section>
-
-    </main>
+    </>
   );
 }
