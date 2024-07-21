@@ -12,7 +12,7 @@ export async function getProfile(slug) {
   try {
     const data = await directus.request(
       readSingleton('profiles', {
-        fields: '*,location,location.*,tags.tags_id.*,profile_picture.*',
+        fields: '*,location,location.*,tags.tags_id.*,profile_picture,additional_images.*',
         filter: {
           status: {
             _eq: 'published',
