@@ -75,3 +75,68 @@ export async function getEvent(slug) {
     return []
   }
 }
+
+export async function getHomePageContent() {
+  try {
+    const data = await directus.request(
+      readSingleton('home_page', {
+        fields: '*,landing_section_background_image.*,origin_section_author_image.*,benefits_section_background_image.*,translations,translations.*,translations.key_features.features_id,translations.benefits.features_id'
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      return data
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+export async function getLayoutContent() {
+  try {
+    const data = await directus.request(
+      readSingleton('layout', {
+        fields: '*,translations.*'
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      return data
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+export async function getFeatures(ids) {
+  try {
+    const data = await directus.request(
+      readItems('features', {
+        fields: '*, translations.*',
+        filter: {
+          id: {
+            _in: ids,
+          },
+        }
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      return data
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}

@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 
-export default function Navigation() {
+export default function Navigation({ logo }) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => {
@@ -15,11 +15,12 @@ export default function Navigation() {
   
   return (
     <div className="bg-beige ">
-      <nav className="container mx-auto p-6 flex justify-between">
+      <nav className="container mx-auto pt-4 flex justify-between">
         <Link href="/">
           <Image
-            className="max-h-20 w-auto object-fit"
-            src="/logo.png"
+            id="logo"
+            className="max-h-24 w-auto object-fit"
+            src={logo}
             alt="Editions in Space logo"
             width={360}
             height={200}
