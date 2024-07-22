@@ -6,13 +6,13 @@ import { XMarkIcon, PlayCircleIcon } from '@heroicons/react/24/solid'
 
 Modal.setAppElement('#root');
 
-export default function NewsModal() {
+export default function VideoModal() {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
       <button onClick={() => setShowModal(true)}>
         <div className="absolute inset-0 pb-8 flex flex-col justify-center items-center text-center font-title font-medium md:text-4xl text-navy hover:text-aubergine">
-          <PlayCircleIcon className="min-h-8 min-w-8 h-24 w-24 md:h-40 md:w-40" />
+          <PlayCircleIcon className="min-h-8 min-w-8 h-24 w-24 md:h-32 md:w-32" />
         </div>
       </button>
       <Modal 

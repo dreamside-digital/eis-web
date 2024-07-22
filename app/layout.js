@@ -60,7 +60,7 @@ export default async function RootLayout({ children }) {
             <div className="container mx-auto px-4 py-12 md:py-24 text-beige">
               <div className="md:flex mb-12 md:mb-4">
                 <div className="flex-1 mb-8">
-                  <div className="text-4xl">{footerCol1Parts.join(" ")} <span className="font-title italic">{footerCol1LastWord}</span></div>
+                  <div className="text-4xl mb-2">{footerCol1Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol1LastWord}</span></div>
                   <div>
                     <a href={translation.footer_column_1_link} className="underline text-2xl hover:text-white">
                       {translation.footer_column_1_link_text}
@@ -69,7 +69,7 @@ export default async function RootLayout({ children }) {
                 </div>
 
                 <div className="flex-1 mb-8 text-right">
-                  <div className="text-4xl">{footerCol2Parts.join(" ")} <span className="font-title italic">{footerCol2LastWord}</span></div>
+                  <div className="text-4xl mb-2">{footerCol2Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol2LastWord}</span></div>
                   <div>
                     <a href={translation.footer_column_2_link} className="underline text-2xl hover:text-white">
                       {translation.footer_column_2_link_text}

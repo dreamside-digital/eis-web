@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Modal from '@/components/Modal'
+import VideoModal from '@/components/VideoModal'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/utils/directus'
 
@@ -33,15 +33,16 @@ export default async function Home() {
               <div>{translation.landing_section_title_line_2}</div></h2>
           </div>
           <div className="flex-1">
-            <div className="flex justify-center">
+            <div className="flex justify-center relative md:translate-y-16">
               <Image
-                className="md:h-[80vh] md:translate-y-16 w-auto object-fit"
+                className="md:h-[80vh] w-auto object-fit"
                 src="/images/phone-mockup-2.png"
                 alt="GIF of website"
                 width={444}
                 height={884}
                 priority
               />
+              <VideoModal />
             </div>
           </div>
         </div>
@@ -81,7 +82,6 @@ export default async function Home() {
               width={1800}
               height={1043}
             />
-            <Modal />
           </div>
 
         
@@ -168,7 +168,7 @@ export default async function Home() {
             <h2 className="font-title text-center text-4xl md:text-6xl max-w-lg mx-auto mb-12 md:mb-48">
               {translation.benefits_section_title}
             </h2>
-            <ul className="flex flex-col md:flex-row gap-8 lg:gap-12">
+            <ul className="flex flex-col md:flex-row gap-12 lg:gap-20">
                 {
                   benefits.map(feature => {
                     const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
@@ -182,7 +182,7 @@ export default async function Home() {
                           width={220}
                           height={220}
                         />
-                        <p className="text-lg md:text-2xl  mt-4">
+                        <p className="text-lg md:text-2xl mt-4">
                           {translatedFeature.description}
                         </p>
                       </li>
