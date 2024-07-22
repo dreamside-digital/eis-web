@@ -70,6 +70,7 @@ export default async function ProfilePage({params}) {
             profile.additional_images?.map(img => {
               return (
                 <Image
+                  key={img.directus_files_id}
                   className="relative w-full h-full object-cover rounded-xl mb-6"
                   src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${img.directus_files_id}`}
                   alt={""} 
