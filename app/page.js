@@ -71,7 +71,7 @@ export default async function Home() {
 
       <section className="bg-white text-navy">
         <div className="container mx-auto px-4 py-12 md:py-24">
-          <p className="max-w-96 mx-auto text-xl md:text-3xl text-center mb-12">
+          <p className="font-title text-center text-4xl md:text-6xl max-w-[16ch] mx-auto mb-12">
             {translation.key_features_section_subtitle}
           </p>
           <div className="relative max-w-3xl mx-auto">
@@ -86,7 +86,7 @@ export default async function Home() {
 
         
           <div className="mt-24">
-            <h2 className="uppercase text-3xl md:text-5xl mb-16 text-center font-medium">
+            <h2 className="uppercase text-3xl md:text-4xl mb-16 text-center font-medium">
               {translation.key_features_section_title}
             </h2>
             <ul className="md:flex gap-8 lg:gap-12">
