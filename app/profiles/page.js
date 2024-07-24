@@ -25,7 +25,7 @@ export default async function AllProfilesPage({params}) {
                 {
                   profile.profile_picture &&
                   <Image
-                    className="relative w-full h-full object-cover rounded-xl mb-6"
+                    className="relative w-full h-full aspect-square object-cover rounded-xl mb-6"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
                     alt={profile.profile_picture.description || profile.public_name} 
                     width={800}

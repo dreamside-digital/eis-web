@@ -176,7 +176,7 @@ export default async function Home() {
                     return (
                       <li className="flex-1 flex flex-col items-center" key={feature.id}>
                         <Image
-                          className="max-w-28"
+                          className="h-[220px] w-[220px]"
                           src={imgUrl}
                           alt="benefit icon"
                           width={220}
