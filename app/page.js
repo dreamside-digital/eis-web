@@ -25,10 +25,10 @@ export default async function Home() {
 
   return (
     <>
-      <section style={landingBgStyle} className={`bg-beige md:h-[80vh] bg-no-repeat bg-right-bottom bg-cover`}>
+      <section style={landingBgStyle} className={`bg-light md:h-[80vh] bg-no-repeat bg-right-bottom bg-cover`}>
         <div className="container mx-auto px-4 py-12 md:py-24 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
-            <h2 className="font-title text-center text-4xl md:text-6xl text-navy">
+            <h2 className="font-title text-center text-4xl md:text-6xl text-dark">
               <div>{translation.landing_section_title_line_1}</div>
               <div>{translation.landing_section_title_line_2}</div></h2>
           </div>
@@ -48,7 +48,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="bg-navy text-beige">
+      <section className="bg-dark text-light">
         <div className="container mx-auto px-4 py-12 md:py-24">
           <h2 className="uppercase text-3xl md:text-5xl font-medium mb-8">
             {translation.vision_section_title}
@@ -69,7 +69,7 @@ export default async function Home() {
         
       </section>
 
-      <section className="bg-white text-navy">
+      <section className="bg-white text-dark">
         <div className="container mx-auto px-4 py-12 md:py-24">
           <p className="font-title text-center text-4xl md:text-6xl max-w-[16ch] mx-auto mb-12">
             {translation.key_features_section_subtitle}
@@ -116,9 +116,9 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="subscribe" className="bg-white text-aubergine">
+      <section id="subscribe" className="bg-white text-dark">
         <div className="container mx-auto sm:px-4 sm:pb-12 md:pb-24">
-          <div className="bg-lavendar sm:rounded-xl p-4 md:p-8 md:p-16 container mx-auto">
+          <div className="bg-medium sm:rounded-xl p-4 md:p-8 md:p-16 container mx-auto">
             <div className="md:flex gap-8 lg:gap-12">
               <div className="flex-1">
                 <h2 className="uppercase text-3xl md:text-5xl md:mb-8 mt-8 font-medium">
@@ -133,16 +133,16 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="bg-beige">
+      <section className="bg-light text-dark">
         <div className="container mx-auto px-4 py-12 md:py-24">
-          <h2 className="font-title text-4xl md:text-6xl text-aubergine mb-6 md:mb-10">
+          <h2 className="font-title text-4xl md:text-6xl mb-6 md:mb-10">
             {translation.origin_section_title}
           </h2>
           <div className="md:flex gap-12">
             <div className="flex-1 mb-6">
               <div>
                 <Image
-                  className="relative w-full h-full object-cover rounded-xl"
+                  className="relative w-full aspect-square object-cover rounded-xl"
                   src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.origin_section_author_image.id}`}
                   alt={translation.origin_section_author_name}
                   width={800}
@@ -150,13 +150,13 @@ export default async function Home() {
                 />
               </div>
             </div>
-            <div className="flex-1 text-aubergine">
-              <p className="text-xl md:text-3xl mb-8 leading-relaxed">
+            <div className="flex-1 text-dark">
+              <p className="text-xl lg:text-3xl mb-8 lg:leading-relaxed">
                 {translation.origin_section_body}
               </p>
               <div>
-                <p className="font-title text-3xl md:text-4xl text-right mb-2">{translation.origin_section_author_name}</p>
-                <p className="text-right md:text-xl">{translation.origin_section_author_title}</p>
+                <p className="font-title text-3xl lg:text-4xl text-right mb-2">{translation.origin_section_author_name}</p>
+                <p className="text-right lg:text-xl">{translation.origin_section_author_title}</p>
               </div>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default async function Home() {
       </section>
 
       <section style={benefitsBgStyle} className="bg-white bg-no-repeat bg-cover md:bg-center">
-        <div className="container mx-auto px-4 py-12 md:py-24 text-navy">
+        <div className="container mx-auto px-4 py-12 md:py-24 text-dark">
             <h2 className="font-title text-center text-4xl md:text-6xl max-w-lg mx-auto mb-12 md:mb-48">
               {translation.benefits_section_title}
             </h2>
@@ -174,7 +174,7 @@ export default async function Home() {
                     const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
                     const translatedFeature = feature.translations.find(t => t.languages_code === lang)
                     return (
-                      <li className="flex-1" key={feature.id}>
+                      <li className="flex-1 flex flex-col items-center" key={feature.id}>
                         <Image
                           className="max-w-28"
                           src={imgUrl}
@@ -182,7 +182,7 @@ export default async function Home() {
                           width={220}
                           height={220}
                         />
-                        <p className="text-lg md:text-2xl mt-4">
+                        <p className="text-lg md:text-2xl mt-4 text-center">
                           {translatedFeature.description}
                         </p>
                       </li>

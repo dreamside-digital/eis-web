@@ -56,13 +56,13 @@ export default async function RootLayout({ children }) {
           <div className="grow">
             {children}
           </div>
-          <section className="bg-navy">
-            <div className="container mx-auto px-4 py-12 md:py-24 text-beige">
+          <section className="bg-dark">
+            <div className="container mx-auto px-4 py-12 md:py-24 text-light">
               <div className="md:flex mb-12 md:mb-4">
                 <div className="flex-1 mb-8">
                   <div className="text-4xl mb-2">{footerCol1Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol1LastWord}</span></div>
                   <div>
-                    <a href={translation.footer_column_1_link} className="underline text-2xl hover:text-white">
+                    <a href={translation.footer_column_1_link} className="underline text-2xl hover:text-highlight">
                       {translation.footer_column_1_link_text}
                     </a>
                   </div>
@@ -71,7 +71,7 @@ export default async function RootLayout({ children }) {
                 <div className="flex-1 mb-8 text-right">
                   <div className="text-4xl mb-2">{footerCol2Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol2LastWord}</span></div>
                   <div>
-                    <a href={translation.footer_column_2_link} className="underline text-2xl hover:text-white">
+                    <a href={translation.footer_column_2_link} className="underline text-2xl hover:text-highlight">
                       {translation.footer_column_2_link_text}
                     </a>
                   </div>
@@ -80,7 +80,7 @@ export default async function RootLayout({ children }) {
 
               <div className="flex flex-col md:flex-row gap-8 lg:gap-12 justify-between">
                 <div className="flex gap-4 uppercase text-xl">
-                  <a href="https://www.instagram.com/editionsinspace/" target="_blank" className="underline hover:text-white">Instagram</a>
+                  <a href="https://www.instagram.com/editionsinspace/" target="_blank" className="underline hover:text-highlight">Instagram</a>
                 </div>
 
                 <div>

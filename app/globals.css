@@ -26,6 +26,12 @@ body {
   }
 }
 
+@layer components {
+  a {
+    @apply hover:text-highlight;
+  }
+}
+
 
 @keyframes fade-in-right {
   from {

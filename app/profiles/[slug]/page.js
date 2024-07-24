@@ -6,7 +6,6 @@ import DOMPurify from "isomorphic-dompurify";
 export default async function ProfilePage({params}) {
   const { slug } = params
   const profile = await getProfile(slug)
-  console.log(profile)
 
   const cleanIntroduction = DOMPurify.sanitize(profile.introduction, { USE_PROFILES: { html: true } })
   const cleanDescription = DOMPurify.sanitize(profile.artistic_practice, { USE_PROFILES: { html: true } })
@@ -15,10 +14,10 @@ export default async function ProfilePage({params}) {
 
   return (
     <>
-    <section className="bg-white text-navy p-6 py-12 pt-24 relative">
+    <section className="bg-white text-dark p-6 py-12 pt-24 relative">
       <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-1/2 w-full">
       </div>
-      <div className="container mx-auto max-w-xl p-6 bg-beige  text-navy rounded-xl relative">
+      <div className="container mx-auto max-w-xl p-6 bg-light text-dark rounded-xl relative">
         <h1 className="font-title text-4xl md:text-6xl mb-6 text-center">
           {profile.public_name}{profile.profile_type === "collective" ? "*" : ""}
         </h1>
@@ -45,7 +44,7 @@ export default async function ProfilePage({params}) {
       </div>
     </section>
 
-    <section className="bg-white text-navy relative">
+    <section className="bg-white text-dark relative">
       <div className="container mx-auto px-6 pb-12 lg:pb-24">
         <div className="lg:grid grid-flow-col auto-cols-fr gap-6">
           <div className="mb-12">
@@ -63,7 +62,7 @@ export default async function ProfilePage({params}) {
     </section>
 
     {profile.additional_images &&
-      <section className="bg-beige text-navy relative">
+      <section className="bg-light text-dark relative">
         <div className="container mx-auto px-6 py-12 lg:py-24">
           <div className="lg:grid grid-cols-2 gap-6">
           {
@@ -86,7 +85,7 @@ export default async function ProfilePage({params}) {
     }
 
     {profile.links &&
-      <section className="bg-white text-navy relative">
+      <section className="bg-white text-dark relative">
         <div className="container mx-auto px-6 py-12 lg:py-24">
           <div className="flex-1">
             <p className="font-title text-4xl mb-6">Links</p>

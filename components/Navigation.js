@@ -14,7 +14,7 @@ export default function Navigation({ logo }) {
   }
   
   return (
-    <div className="bg-beige ">
+    <div className="bg-light">
       <nav className="container mx-auto pt-4 flex justify-between">
         <Link href="/">
           <Image
@@ -28,12 +28,14 @@ export default function Navigation({ logo }) {
           />
         </Link>
         <div className="flex gap-6 items-center justify-end relative">
-          <button className="h-8 w-8 text-navy" onClick={toggleMenu}>
+          <button className="h-8 w-8 text-dark" onClick={toggleMenu}>
             { menuOpen ? <XMarkIcon /> :<Bars2Icon /> }
           </button>
           <div className={`menu ${menuOpen ? 'flex flex-col gap-2 absolute top-16 w-60 bg-white p-4 z-10' : 'hidden'}`}>
-            <a href="#subscribe" onClick={toggleMenu} className="text-navy text-lg uppercase hover:text-aubergine">Join our artist network</a>
-            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="text-navy text-lg uppercase hover:text-aubergine">Instagram</a>
+            {/*<Link href="/profiles" onClick={toggleMenu} className="text-dark text-lg uppercase">Discover artists</Link>*/}
+            {/*<Link href="/events" onClick={toggleMenu} className="text-dark text-lg uppercase">Discover events</Link>*/}
+            <a href="#subscribe" onClick={toggleMenu} className="text-dark text-lg uppercase">Join our artist network</a>
+            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="text-dark text-lg uppercase">Instagram</a>
           </div>
         </div>
       </nav>

@@ -17,13 +17,12 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        beige: "#E8DED3",
-        navy: '#22365B',
-        lavendar: '#E2E5F8',
-        aubergine: '#584963',
-        orange: '#EE5D0F',
-        pink: '#F094B2',
-        latte: '#C7B3A8'
+        primary: '#584963', // purple
+        secondary: "#C7B3A8", // beige
+        dark: '#223659', // navy
+        light: '#E0E9E6', // mint cream
+        medium: '#B8D0CA', // mint
+        highlight: '#E3328D' // pink
       },
     },
   },

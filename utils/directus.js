@@ -46,7 +46,7 @@ export async function getEvent(slug) {
   try {
     const data = await directus.request(
       readSingleton('events', {
-        fields: '*,location,location.*,tags.tags_id.*,images,images.*',
+        fields: '*,location,location.*,tags.tags_id.*,main_image,additional_images.*',
         filter: {
           status: {
             _eq: 'published',
@@ -134,6 +134,68 @@ export async function getFeatures(ids) {
       throw Error("No results returned for query")
     } else {
       return data
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+export async function getProfiles() {
+  try {
+    const data = await directus.request(
+      readItems('profiles', {
+        fields: '*,tags.tags_id.*',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+        }
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      const result = data.map(profile => {
+        return {
+          ...profile,
+          tags: profile.tags.map(tag => ({ ...tag.tags_id })),
+        }
+      })
+      return result
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+export async function getEvents() {
+  try {
+    const data = await directus.request(
+      readItems('events', {
+        fields: '*,tags.tags_id.*,additional_images.*',
+        filter: {
+          status: {
+            _eq: 'published',
+          },
+        }
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      const result = data.map(event => {
+        return {
+          ...event,
+          tags: event.tags.map(tag => ({ ...tag.tags_id })),
+        }
+      })
+      return result
     }   
   } catch (error) {
     console.log({error})
