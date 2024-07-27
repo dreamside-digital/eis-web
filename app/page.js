@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <>
       <section style={landingBgStyle} className={`pt-28 bg-light md:h-[80vh] bg-no-repeat bg-cover bg-left md:bg-right-bottom md:bg-contain`}>
-        <div className="container mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
+        <div className="container mx-auto px-4 py-12 lg:py-20 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
             <h2 className="font-title text-center text-3xl md:text-5xl text-dark">
               <div>{translation.landing_section_title_line_1}</div>
@@ -49,7 +49,7 @@ export default async function Home() {
       </section>
 
       <section className="bg-dark text-light">
-        <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="container mx-auto px-4 py-12 lg:py-20">
           <h2 className="uppercase text-3xl font-medium mb-8">
             {translation.vision_section_title}
           </h2>
@@ -70,7 +70,7 @@ export default async function Home() {
       </section>
 
       <section className="bg-white text-dark">
-        <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="container mx-auto px-4 py-12 lg:py-20">
           <p className="font-title text-center text-3xl md:text-4xl max-w-[16ch] mx-auto mb-12">
             {translation.key_features_section_subtitle}
           </p>
@@ -134,7 +134,7 @@ export default async function Home() {
       </section>
 
       <section className="bg-light text-highlight">
-        <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="container mx-auto px-4 py-12 lg:py-20">
           <h2 className="font-title text-3xl lg:text-4xl mb-6 md:mb-10">
             {translation.origin_section_title}
           </h2>
@@ -164,7 +164,7 @@ export default async function Home() {
       </section>
 
       <section style={benefitsBgStyle} className="bg-white bg-no-repeat bg-cover md:bg-center">
-        <div className="container mx-auto px-4 py-12 md:py-20 text-dark">
+        <div className="container mx-auto px-4 py-12 lg:py-20 text-dark">
             <h2 className="font-title text-center text-3xl lg:text-4xl max-w-sm mx-auto mb-12 md:mb-36">
               {translation.benefits_section_title}
             </h2>

@@ -14,7 +14,7 @@ export default function Navigation({ logo }) {
   }
   
   return (
-    <div className="absolute top-0 left-0 w-full">
+    <div className="absolute top-0 left-0 w-full text-dark">
       <nav className="container mx-auto pt-4 flex justify-between">
         <Link href="/">
           <Image

@@ -18,7 +18,7 @@ export default async function EventPage({slug}) {
 
   return (
     <>
-    <section className="bg-white text-dark p-6 py-12 pt-24 relative">
+    <section className="pt-28 bg-white text-dark p-6 py-12 pt-24 relative">
       <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-1/2 w-full">
       </div>
       <div className="container mx-auto max-w-xl p-6 bg-light text-dark rounded-xl relative">

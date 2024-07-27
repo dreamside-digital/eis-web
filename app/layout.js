@@ -53,7 +53,7 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal`}>
-        <main className="flex min-h-screen flex-col">
+        <main className="flex min-h-screen flex-col relative">
           <Navigation logo={logoImg} />
           <div className="grow">
             {children}
