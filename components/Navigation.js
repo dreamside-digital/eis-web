@@ -14,12 +14,12 @@ export default function Navigation({ logo }) {
   }
   
   return (
-    <div className="bg-light">
+    <div className="absolute top-0 left-0 w-full">
       <nav className="container mx-auto pt-4 flex justify-between">
         <Link href="/">
           <Image
             id="logo"
-            className="max-h-24 w-auto object-fit"
+            className="max-h-[92px] w-auto object-fit"
             src={logo}
             alt="Editions in Space logo"
             width={360}

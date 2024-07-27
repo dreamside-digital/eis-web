@@ -2,6 +2,8 @@ import { getProfiles } from '@/utils/directus'
 import Image from 'next/image'
 import Link from 'next/link'
 import DOMPurify from "isomorphic-dompurify";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 
 export default async function AllProfilesPage({params}) {
@@ -10,13 +12,20 @@ export default async function AllProfilesPage({params}) {
   return (
     <section className="bg-white text-dark p-6 py-12 pt-24 relative">
       <div className="container mx-auto grid grid-cols-3 gap-12">
+       <Swiper
+      spaceBetween={50}
+      slidesPerView={3}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+    >
       {profiles.map(profile => {
         const tagsText = profile.tags.map(t => t.name).join(", ")
         return (
+          <SwiperSlide key={profile.id}>
           <div key={profile.id}>
             <div className="p-6 bg-light text-dark rounded-xl relative">
               <Link href={`/profiles/${profile.slug}`}>
-              <h1 className="font-title text-3xl md:text-4xl mb-4 text-center">
+              <h1 className="font-title text-2xl md:text-3xl mb-4 text-center">
                 {profile.public_name}{profile.profile_type === "collective" ? "*" : ""}
               </h1>
               </Link>
@@ -46,8 +55,10 @@ export default async function AllProfilesPage({params}) {
               </div>
             </div>
           </div>
+          </SwiperSlide>
         )
       })}
+      </Swiper>
       </div>
     </section>
   )
