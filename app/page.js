@@ -25,7 +25,7 @@ export default async function Home() {
 
   return (
     <>
-      <section style={landingBgStyle} className={`pt-28 bg-light md:h-[80vh] bg-no-repeat bg-right-bottom bg-cover`}>
+      <section style={landingBgStyle} className={`pt-28 bg-light md:h-[80vh] bg-no-repeat bg-cover bg-left md:bg-right-bottom md:bg-contain`}>
         <div className="container mx-auto px-4 py-12 md:py-20 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
             <h2 className="font-title text-center text-3xl md:text-5xl text-dark">
@@ -33,9 +33,9 @@ export default async function Home() {
               <div>{translation.landing_section_title_line_2}</div></h2>
           </div>
           <div className="flex-1">
-            <div className="flex justify-center relative md:translate-y-16">
+            <div className="flex justify-center relative md:translate-y-12">
               <Image
-                className="md:h-[80vh] w-auto object-fit"
+                className="md:h-[75vh] w-auto object-fit"
                 src="/images/phone-mockup-2.png"
                 alt="GIF of website"
                 width={444}
@@ -77,7 +77,7 @@ export default async function Home() {
           <div className="relative max-w-3xl mx-auto">
             <Image
               className="w-full h-auto"
-              src="/images/laptop-mockup.png"
+              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.laptop_mockup_image}`}
               alt="laptop"
               width={1800}
               height={1043}
@@ -85,8 +85,8 @@ export default async function Home() {
           </div>
 
         
-          <div className="mt-24">
-            <h2 className="uppercase text-3xl mb-16 text-center font-medium">
+          <div className="mt-12">
+            <h2 className="uppercase text-3xl mb-12 text-center font-medium">
               {translation.key_features_section_title}
             </h2>
             <ul className="md:flex gap-8 lg:gap-12">
@@ -118,7 +118,7 @@ export default async function Home() {
 
       <section id="subscribe" className="bg-white text-dark">
         <div className="container mx-auto sm:px-4 sm:pb-12 md:pb-24">
-          <div className="bg-medium sm:rounded-xl p-4 md:p-8 md:p-16 container mx-auto">
+          <div className="bg-primary sm:rounded-xl p-4 md:p-8 md:p-16 container mx-auto">
             <div className="md:flex gap-8 lg:gap-12">
               <div className="flex-1">
                 <h2 className="uppercase text-3xl md:mb-8 mt-8 font-medium">
@@ -133,13 +133,13 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="bg-light text-dark">
+      <section className="bg-light text-highlight">
         <div className="container mx-auto px-4 py-12 md:py-20">
           <h2 className="font-title text-3xl lg:text-4xl mb-6 md:mb-10">
             {translation.origin_section_title}
           </h2>
-          <div className="md:flex gap-12">
-            <div className="flex-1 mb-6">
+          <div className="md:grid grid-cols-3 gap-12">
+            <div className="mb-6">
               <div>
                 <Image
                   className="relative w-full aspect-square object-cover rounded-xl"
@@ -150,7 +150,7 @@ export default async function Home() {
                 />
               </div>
             </div>
-            <div className="flex-1 text-dark">
+            <div className="col-span-2 xl:p-8">
               <p className="text-xl lg:text-2xl mb-8 lg:leading-relaxed">
                 {translation.origin_section_body}
               </p>
