@@ -37,7 +37,7 @@ export default function Filters({ tags, currentFilters, setCurrentFilters }) {
         </div>*/}
         {tags.map(tag => {
           return (
-            <div>
+            <div key={tag.slug}>
               <input 
                 className="mr-2" 
                 type="checkbox" 

@@ -69,14 +69,16 @@ export default async function ProfilePage({params}) {
           {
             profile.additional_images?.map(img => {
               return (
-                <Image
-                  key={img.directus_files_id}
-                  className="relative w-full h-full object-cover rounded-xl mb-6"
-                  src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${img.directus_files_id}`}
-                  alt={""} 
-                  width={800}
-                  height={800}
-                />
+                <div key={img.directus_files_id.id}>
+                  <Image
+                    className="relative w-full h-full object-cover rounded-xl mb-2"
+                    src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${img.directus_files_id.id}`}
+                    alt={img.directus_files_id.description} 
+                    width={800}
+                    height={800}
+                  />
+                  {img.directus_files_id.description && <small className="mb-6 block lg:mb-2">{img.directus_files_id.description}</small>}
+                </div>
               )
             })
           }
