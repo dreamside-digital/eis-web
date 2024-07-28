@@ -15,11 +15,11 @@ export default function Navigation({ logo }) {
   
   return (
     <div className="absolute top-0 left-0 right-0 w-full text-dark z-10">
-      <div className="container max-w-screen-xl mx-auto py-2 flex justify-between">
+      <div className="container max-w-screen-xl mx-auto p-2 md:px-0 flex justify-between">
         <Link href="/">
           <Image
             id="logo"
-            className="max-h-[92px] w-auto object-fit"
+            className="max-h-16 md:max-h-[92px] w-auto object-fit"
             src={logo}
             alt="Editions in Space logo"
             width={360}

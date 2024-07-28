@@ -1,3 +1,5 @@
+"use server"
+
 import { 
   createDirectus, 
   staticToken, 
@@ -141,15 +143,28 @@ export async function getFeatures(ids) {
   }
 }
 
-export async function getProfiles() {
+export async function getProfiles(filters) {
   try {
     const data = await directus.request(
       readItems('profiles', {
         fields: '*,tags.tags_id.*',
         filter: {
-          status: {
-            _eq: 'published',
-          },
+          _and: [
+            {
+              status: {
+                _eq: 'published',
+              },
+            },
+            {
+              tags: {
+                tags_id: {
+                  id: {
+                    _in: filters?.tags
+                  }
+                }
+              }
+            }
+          ]
         }
       })
     );
@@ -172,15 +187,28 @@ export async function getProfiles() {
   }
 }
 
-export async function getEvents() {
+export async function getEvents(filters) {
   try {
     const data = await directus.request(
       readItems('events', {
         fields: '*,tags.tags_id.*,additional_images.*',
         filter: {
-          status: {
-            _eq: 'published',
-          },
+          _and: [
+            {
+              status: {
+                _eq: 'published',
+              },
+            },
+            {
+              tags: {
+                tags_id: {
+                  id: {
+                    _in: filters?.tags
+                  }
+                }
+              }
+            }
+          ]
         }
       })
     );
@@ -196,6 +224,26 @@ export async function getEvents() {
         }
       })
       return result
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+export async function getTags() {
+  try {
+    const data = await directus.request(
+      readItems('tags', {
+        fields: '*',
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      return data
     }   
   } catch (error) {
     console.log({error})
