@@ -26,7 +26,7 @@ export default function Carousel({profiles, events}) {
             <SwiperSlide key={profile.id} className="rounded-xl">
               <div className="p-6 bg-light text-dark rounded-xl relative">
                 <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
-                  <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
+                  <h1 className="font-title text-xl md:text-2xl mb-4">
                     {profile.public_name}
                   </h1>
                 </Link>
