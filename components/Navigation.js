@@ -14,8 +14,8 @@ export default function Navigation({ logo }) {
   }
   
   return (
-    <div className="absolute top-0 left-0 w-full text-dark">
-      <nav className="container mx-auto pt-4 flex justify-between">
+    <div className="absolute top-0 left-0 right-0 w-full text-dark z-10">
+      <div className="container max-w-screen-xl mx-auto py-2 flex justify-between">
         <Link href="/">
           <Image
             id="logo"
@@ -38,7 +38,7 @@ export default function Navigation({ logo }) {
             <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="text-dark text-lg uppercase">Instagram</a>
           </div>
         </div>
-      </nav>
+      </div>
     </div>
   )
 }

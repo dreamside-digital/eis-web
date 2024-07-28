@@ -7,7 +7,7 @@ export default function Footer({ logo }) {
   
   return (
     <section className="bg-dark">
-      <div className="container mx-auto px-4 py-12 md:py-20 text-light">
+      <div className="container max-w-screen-xl mx-auto px-4 py-12 md:py-20 text-light">
         <div className="md:flex mb-12 md:mb-4">
           <div className="flex-1 mb-8">
             <div className="text-3xl mb-2">{footerCol1Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol1LastWord}</span></div>

@@ -52,55 +52,53 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en" className="scroll-smooth" id="root">
-      <body className={`${poppins.className} ${monarque.variable} font-light leading-normal`}>
-        <main className="flex min-h-screen flex-col relative">
-          <Navigation logo={logoImg} />
-          <div className="grow">
-            {children}
-          </div>
-          <section className="bg-dark">
-            <div className="container mx-auto px-4 py-12 md:py-20 text-light">
-              <div className="lg:grid grid-cols-3 gap-24">
-                <div className="mb-8">
-                  <div className="text-2xl lg:text-3xl mb-4">{footerCol1Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol1LastWord}</span></div>
-                  <div>
-                    <a href={translation.footer_column_1_link} className="underline lg:text-lg hover:text-white">
-                      {translation.footer_column_1_link_text}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="mb-8">
-                  <div className="text-2xl lg:text-3xl mb-4">{footerCol2Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol2LastWord}</span></div>
-                  <div>
-                    <p><a href={translation.footer_column_2_link} className="underline lg:text-lg hover:text-white">
-                      {translation.footer_column_2_link_text}
-                    </a></p>
-                    <p>
-                    <a href="https://www.instagram.com/editionsinspace/" target="_blank" className="underline lg:text-lg hover:text-white">Follow on Instagram</a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mb-8 ">
-                  <div className="lg:text-lg mb-4">{translation.funding_credit}</div>
-                  <div>
-                    <Image
-                      src={ccaImg}
-                      height={60}
-                      width={280}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-8 lg:gap-12 justify-between">
-                <p>{translation.copyright}</p>
-              </div>
-              
-            </div>
-          </section>
+      <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative`}>
+        <Navigation logo={logoImg} />
+        <main className="grow">
+          {children}
         </main>
+        <footer className="bg-dark">
+          <div className="container max-w-screen-xl mx-auto px-4 py-12 md:py-20 text-light">
+            <div className="lg:grid grid-cols-3 gap-24">
+              <div className="mb-8">
+                <div className="text-2xl lg:text-3xl mb-4">{footerCol1Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol1LastWord}</span></div>
+                <div>
+                  <a href={translation.footer_column_1_link} className="underline lg:text-lg hover:text-white">
+                    {translation.footer_column_1_link_text}
+                  </a>
+                </div>
+              </div>
+
+              <div className="mb-8">
+                <div className="text-2xl lg:text-3xl mb-4">{footerCol2Parts.join(" ")} <span className="font-title italic tracking-wide">{footerCol2LastWord}</span></div>
+                <div>
+                  <p><a href={translation.footer_column_2_link} className="underline lg:text-lg hover:text-white">
+                    {translation.footer_column_2_link_text}
+                  </a></p>
+                  <p>
+                  <a href="https://www.instagram.com/editionsinspace/" target="_blank" className="underline lg:text-lg hover:text-white">Follow on Instagram</a>
+                  </p>
+                </div>
+              </div>
+
+              <div className="mb-8 ">
+                <div className="lg:text-lg mb-4">{translation.funding_credit}</div>
+                <div>
+                  <Image
+                    src={ccaImg}
+                    height={60}
+                    width={280}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-8 lg:gap-12 justify-between">
+              <p>{translation.copyright}</p>
+            </div>
+            
+          </div>
+        </footer>
       </body>
     </html>
   );

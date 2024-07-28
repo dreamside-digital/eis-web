@@ -62,6 +62,7 @@ body {
   animation-delay: 0.4s;
 }
 
-main .grow > section:first-of-type {
+main section:first-of-type {
   padding-top: 108px; 
+  display: block;
 }

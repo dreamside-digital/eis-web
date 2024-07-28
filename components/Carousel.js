@@ -4,23 +4,26 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper/modules';
 
 
-export default async function Carousel({profiles}) {
+export default function Carousel({profiles}) {
 
   return (
     <Swiper
-      spaceBetween={30}
-      slidesPerView={3}
+      effect={'cards'}
+      grabCursor={true}
+      modules={[EffectCards]}
+      className="mySwiper"
       onSlideChange={() => console.log('slide change')}
       onSwiper={(swiper) => console.log(swiper)}
     >
       {profiles.map(profile => {
         const tagsText = profile.tags.map(t => t.name).join(", ")
         return (
-          <SwiperSlide key={profile.id}>
-          <div key={profile.id}>
-            <div className="p-6 bg-light text-dark rounded-xl relative">
+          <SwiperSlide key={profile.id} className="rounded-xl">
+            <div className="p-6 bg-light text-dark relative">
               <Link href={`/profiles/${profile.slug}`}>
               <h1 className="font-title text-xl md:text-2xl mb-2">
                 {profile.public_name}{profile.profile_type === "collective" ? "*" : ""}
@@ -51,7 +54,6 @@ export default async function Carousel({profiles}) {
                 </Link>
               </div>
             </div>
-          </div>
           </SwiperSlide>
         )
       })}
