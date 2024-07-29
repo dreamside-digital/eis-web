@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import Navigation from '@/components/Navigation'
 import { getLayoutContent } from '@/utils/directus'
 import Image from 'next/image'
+import Head from 'next/head'
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 const monarque = localFont({
@@ -49,9 +50,26 @@ export default async function RootLayout({ children }) {
   const footerCol2Parts = translation.footer_column_2_title.split(" ")
   const footerCol1LastWord = footerCol1Parts.splice(-1).join(" ")
   const footerCol2LastWord = footerCol2Parts.splice(-1).join(" ")
+  const shareImgUrl = `${process.env.NEXT_PUBLIC_ROOT_URL}/images/share-img.png`
+  const url = `${process.env.NEXT_PUBLIC_ROOT_URL}` // update this to get current path
 
   return (
     <html lang="en" className="scroll-smooth" id="root">
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="image" content={shareImageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metadata.title} />
+        <meta name="twitter:url" content={url} />
+        <meta name="twitter:description" content={metadata.description} />
+        <meta name="twitter:image" content={shareImageUrl} />
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={url} />
+        <meta property="og:image" content={shareImgUrl} />
+        <meta property="og:description" content={metadata.description} />
+      </Head>
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative`}>
         <Navigation logo={logoImg} />
         <main className="grow">
