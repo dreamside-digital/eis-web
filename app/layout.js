@@ -58,12 +58,12 @@ export default async function RootLayout({ children }) {
       <Head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
-        <meta name="image" content={shareImageUrl} />
+        <meta name="image" content={shareImgUrl} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={metadata.title} />
         <meta name="twitter:url" content={url} />
         <meta name="twitter:description" content={metadata.description} />
-        <meta name="twitter:image" content={shareImageUrl} />
+        <meta name="twitter:image" content={shareImgUrl} />
         <meta property="og:title" content={metadata.title} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={url} />
