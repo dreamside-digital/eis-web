@@ -119,11 +119,12 @@ export default async function Home() {
       <section id="subscribe" className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto sm:px-4 sm:pb-12 md:pb-24">
           <div className="bg-primary sm:rounded-xl p-4 md:p-8 md:p-16 container max-w-screen-xl mx-auto">
-            <div className="md:flex gap-8 lg:gap-12">
+            <div className="md:flex gap-6 lg:gap-12">
               <div className="flex-1">
-                <h2 className="uppercase text-3xl md:mb-8 mt-8 font-medium">
+                <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">
                   {translation.join_section_title}
                 </h2>
+                <div className="" dangerouslySetInnerHTML={{ __html: translation.join_section_body }} />
               </div>
               <div className="flex-1 min-h-[800px]">
                 <iframe className="h-full w-full min-h-[800px]" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>

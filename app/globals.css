@@ -32,6 +32,10 @@ body {
   a {
     @apply hover:text-highlight;
   }
+
+  p {
+    @apply mb-4;
+  }
 }
 
 
