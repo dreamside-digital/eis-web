@@ -53,7 +53,7 @@ export default async function Home() {
           <h2 className="uppercase text-3xl font-medium mb-8">
             {translation.vision_section_title}
           </h2>
-          <div className="md:flex gap-8 lg:gap-12">
+          <div className="md:flex gap-12 lg:gap-16">
             <div className="flex-1">
               <p className="text-xl md:text-2xl mb-6">
                 {translation.vision_section_subtitle}
@@ -89,7 +89,7 @@ export default async function Home() {
             <h2 className="uppercase text-3xl mb-12 text-center font-medium">
               {translation.key_features_section_title}
             </h2>
-            <ul className="md:flex gap-8 lg:gap-12">
+            <ul className="md:flex gap-12 lg:gap-16">
               {
                 keyFeatures.map(feature => {
                   const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
@@ -119,7 +119,7 @@ export default async function Home() {
       <section id="subscribe" className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto sm:px-4 sm:pb-12 md:pb-24">
           <div className="bg-primary sm:rounded-xl p-4 md:p-8 md:p-16 container max-w-screen-xl mx-auto">
-            <div className="md:flex gap-6 lg:gap-12">
+            <div className="md:flex gap-12 lg:gap-20">
               <div className="flex-1">
                 <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">
                   {translation.join_section_title}
