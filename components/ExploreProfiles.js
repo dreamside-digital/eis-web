@@ -32,7 +32,7 @@ export default function ExploreProfiles({profiles, tags}) {
         />
       </div>
       <div className="basis-3/4 flex justify-center">
-        <div className="max-w-lg">
+        <div className="">
           <Carousel profiles={filteredProfiles} />
         </div>
       </div>

@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
-import { EffectCards } from 'swiper/modules';
+import 'swiper/css/effect-coverflow';
+import { EffectCoverflow } from 'swiper/modules';
 import { DATE_FORMAT } from '@/utils/constants'
 import DOMPurify from "isomorphic-dompurify";
 
@@ -14,16 +15,25 @@ export default function Carousel({profiles, events}) {
   if (profiles) {
     return (
       <Swiper
-        effect={'cards'}
+        effect={'coverflow'}
         grabCursor={true}
-        modules={[EffectCards]}
-        className="swiper-carousel"
+        centeredSlides={true}
+        slidesPerView={'auto'}
+        modules={[EffectCoverflow]}
+        className="mySwiper"
         onSlideChange={() => console.log('slide change')}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
       >
         {profiles.map(profile => {
           const tagsText = profile.tags.map(t => t.name).join(", ")
           return (
-            <SwiperSlide key={profile.id} className="rounded-xl">
+            <SwiperSlide key={profile.id} className="rounded-xl max-w-md">
               <div className="p-6 bg-light text-dark rounded-xl relative">
                 <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
                   <h1 className="font-title text-xl md:text-2xl mb-4">
@@ -65,11 +75,20 @@ export default function Carousel({profiles, events}) {
   if (events) {
     return (
       <Swiper
-        effect={'cards'}
+        effect={'coverflow'}
         grabCursor={true}
-        modules={[EffectCards]}
+        centeredSlides={true}
+        slidesPerView={'auto'}
+        modules={[EffectCoverflow]}
         className="mySwiper"
         onSlideChange={() => console.log('slide change')}
+        coverflowEffect={{
+          rotate: 50,
+          stretch: 0,
+          depth: 100,
+          modifier: 1,
+          slideShadows: true,
+        }}
       >
         {events.map(event => {
             const tagsText = event.tags.map(t => t.name).join(", ")
@@ -81,7 +100,7 @@ export default function Carousel({profiles, events}) {
             const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
 
             return (
-              <SwiperSlide key={event.id} className="rounded-xl">
+              <SwiperSlide key={event.id} className="rounded-xl max-w-lg">
                 <div className="p-6 bg-light text-dark rounded-xl relative">
                   <Link className="text-xl no-underline hover:text-highlight" href={`/events/${event.slug}`}>
                     <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
