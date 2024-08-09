@@ -1,6 +1,7 @@
 "use client"
 
 import Carousel from "@/components/Carousel"
+import Accordion from "@/components/Accordion"
 import Filters from "@/components/Filters"
 import {useState, useEffect} from 'react'
 import {getProfiles} from '@/utils/directus'
@@ -33,7 +34,7 @@ export default function ExploreProfiles({profiles, tags}) {
       </div>
       <div className="basis-3/4 flex justify-center">
         <div className="">
-          <Carousel profiles={filteredProfiles} />
+          <Accordion profiles={filteredProfiles} />
         </div>
       </div>
     </div>
