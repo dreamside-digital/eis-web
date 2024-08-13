@@ -118,7 +118,7 @@ export default async function Home() {
 
       <section id="subscribe" className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto sm:px-4 sm:pb-12 md:pb-24">
-          <div className="bg-primary sm:rounded-xl p-4 md:p-8 md:p-16 container max-w-screen-xl mx-auto">
+          <div className="bg-primary sm:rounded-xl p-4 md:p-16 container max-w-screen-xl mx-auto">
             <div className="md:flex gap-12 lg:gap-20">
               <div className="flex-1">
                 <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">

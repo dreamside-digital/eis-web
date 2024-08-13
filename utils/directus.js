@@ -5,7 +5,8 @@ import {
   staticToken, 
   rest,
   readItems,
-  readSingleton
+  readSingleton,
+  createItem
 } from '@directus/sdk'
 
 const directus = createDirectus(process.env.DIRECTUS_URL).with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
@@ -248,5 +249,28 @@ export async function getTags() {
   } catch (error) {
     console.log({error})
     return []
+  }
+}
+
+export async function createProfile(data) {
+  try {
+    const result = await directus.request(createItem('profiles', data))
+    return result
+  } catch(error) {
+    console.log({error})
+    return error
+  }
+}
+
+export async function uploadImage(title, file) {
+  try {
+    const formData = new FormData();
+    formData.append('title', title)
+    formData.append('file', file, title);
+
+    const result = await client.rsequest(uploadFiles(formData));
+  } catch(error) {
+    console.log({error})
+    return error
   }
 }
