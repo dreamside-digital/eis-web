@@ -2,39 +2,56 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/effect-cards';
-import 'swiper/css/effect-coverflow';
-import { EffectCoverflow } from 'swiper/modules';
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemHeading,
+    AccordionItemButton,
+    AccordionItemPanel,
+} from 'react-accessible-accordion';
+import { useState } from "react"
 import { DATE_FORMAT } from '@/utils/constants'
 import DOMPurify from "isomorphic-dompurify";
 
+const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
+  const selected = currentItemUid.includes(uuid)
+
+  return(
+    <AccordionItem uuid={uuid} className={`tab flex flex-col sm:flex-row ${selected ? "tab-selected flex-grow overflow-hidden sm:border-l border-white" : "bg-light"}`} dangerouslySetExpanded={selected}>
+      <AccordionItemHeading className={`bg-latte tab-heading flex sm:flex-grow relative px-5 py-3 sm:p-8 border-0 border-b sm:border-t-0 sm:border-l border-white ${selected ? "hidden" : ""}`}>
+        <AccordionItemButton className={`tab-title sm:p-4 flex flex-grow rotate-tab-title ${selected ? "sm:hidden" : "block"}`}>
+          <div className="text-xl flex items-center">
+            <span>{title}</span>
+          </div>
+        </AccordionItemButton>
+      </AccordionItemHeading>
+      <AccordionItemPanel className="flex-grow fade-in overflow-auto border-b border-white">
+        {children}
+      </AccordionItemPanel>
+    </AccordionItem>
+  )
+}
+
 export default function Carousel({profiles, events}) {
+  const [currentItemUid, setCurrentItemUid] = useState([profiles[0].id])
+
+  const handleChange = uid => {
+    console.log({ uid })
+    if (uid !== currentItemUid) {
+      setCurrentItemUid(uid)
+    }
+  }
 
   if (profiles) {
     return (
-      <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        modules={[EffectCoverflow]}
-        className="mySwiper"
-        onSlideChange={() => console.log('slide change')}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-      >
+      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[profiles[0].id]}>
+
         {profiles.map(profile => {
           const tagsText = profile.tags.map(t => t.name).join(", ")
           return (
-            <SwiperSlide key={profile.id} className="rounded-xl max-w-md">
-              <div className="p-6 bg-light text-dark rounded-xl relative">
+            <CustomAccordionItem key={profile.id} uuid={profile.id} currentItemUid={currentItemUid} title={profile.public_name}>
+            <div className="max-w-lg h-full">
+              <div className="h-full p-6 bg-light text-dark relative">
                 <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
                   <h1 className="font-title text-xl md:text-2xl mb-4">
                     {profile.public_name}
@@ -65,31 +82,17 @@ export default function Carousel({profiles, events}) {
                   </Link>
                 </div>
               </div>
-            </SwiperSlide>
-          )
-        })}
-        </Swiper>
+            </div>
+            </CustomAccordionItem>
+        )})}
+      </Accordion>
     )    
   }
 
   if (events) {
     return (
-      <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        slidesPerView={'auto'}
-        modules={[EffectCoverflow]}
-        className="mySwiper"
-        onSlideChange={() => console.log('slide change')}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-      >
+      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[profiles[0].id]}>
+
         {events.map(event => {
             const tagsText = event.tags.map(t => t.name).join(", ")
             const startDate = new Date(event.starts_at)
@@ -100,8 +103,8 @@ export default function Carousel({profiles, events}) {
             const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
 
             return (
-              <SwiperSlide key={event.id} className="rounded-xl max-w-lg">
-                <div className="p-6 bg-light text-dark rounded-xl relative">
+              <CustomAccordionItem key={event.id} uuid={event.id} currentItemUid={currentItemUid} title={event.title}>
+                <div className="p-6 bg-light text-dark relative">
                   <Link className="text-xl no-underline hover:text-highlight" href={`/events/${event.slug}`}>
                     <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
                       {event.title}
@@ -132,10 +135,10 @@ export default function Carousel({profiles, events}) {
                     </div>
                   </div>
                 </div>
-              </SwiperSlide>
+              </CustomAccordionItem>
             )
           })}
-        </Swiper>
+      </Accordion>
     )    
   }
 
