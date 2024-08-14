@@ -147,27 +147,43 @@ export async function getFeatures(ids) {
 
 export async function getProfiles(filters) {
   try {
+    let filterRules = {
+      _and: [
+        {
+          status: {
+            _eq: 'published',
+          },
+        }
+      ]
+    }
+    if (!filters?.tags.includes('all'))  {
+      filterRules = {
+        _and: [
+          {
+            status: {
+              _eq: 'published',
+            },
+          },
+          {
+            tags: {
+              _or: [
+                {
+                  tags_id: {
+                    id: {
+                      _in: filters?.tags
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
     const data = await directus.request(
       readItems('profiles', {
         fields: '*,tags.tags_id.*',
-        filter: {
-          _and: [
-            {
-              status: {
-                _eq: 'published',
-              },
-            },
-            {
-              tags: {
-                tags_id: {
-                  id: {
-                    _in: filters?.tags
-                  }
-                }
-              }
-            }
-          ]
-        }
+        filter: filterRules
       })
     );
 
@@ -178,7 +194,7 @@ export async function getProfiles(filters) {
       const result = data.map(profile => {
         return {
           ...profile,
-          tags: profile.tags.map(tag => ({ ...tag.tags_id })),
+          tags: profile.tags?.map(tag => ({ ...tag.tags_id })),
         }
       })
       return result

@@ -9,7 +9,7 @@ import {
     AccordionItemButton,
     AccordionItemPanel,
 } from 'react-accessible-accordion';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { DATE_FORMAT } from '@/utils/constants'
 import DOMPurify from "isomorphic-dompurify";
 
@@ -32,8 +32,8 @@ const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
   )
 }
 
-export default function Carousel({profiles, events}) {
-  const [currentItemUid, setCurrentItemUid] = useState([profiles[0].id])
+export default function ProfileDrawers({profiles, events}) {
+  const [currentItemUid, setCurrentItemUid] = useState([profiles[0]?.id])
 
   const handleChange = uid => {
     console.log({ uid })
@@ -42,9 +42,13 @@ export default function Carousel({profiles, events}) {
     }
   }
 
+  useEffect(() => {
+    setCurrentItemUid([profiles[0]?.id])
+  }, [profiles])
+
   if (profiles) {
     return (
-      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[profiles[0].id]}>
+      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[profiles[0]?.id]}>
 
         {profiles.map(profile => {
           const tagsText = profile.tags.map(t => t.name).join(", ")
@@ -62,9 +66,9 @@ export default function Carousel({profiles, events}) {
                   {
                     profile.profile_picture &&
                     <Image
-                      className="relative w-full h-full aspect-video object-cover rounded-xl mb-4"
+                      className="relative w-full h-auto aspect-video object-cover rounded-xl mb-4"
                       src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
-                      alt={profile.profile_picture.description || profile.public_name} 
+                      alt={profile.public_name} 
                       width={500}
                       height={500}
                     />
@@ -91,7 +95,7 @@ export default function Carousel({profiles, events}) {
 
   if (events) {
     return (
-      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[profiles[0].id]}>
+      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[profiles[0]?.id]}>
 
         {events.map(event => {
             const tagsText = event.tags.map(t => t.name).join(", ")

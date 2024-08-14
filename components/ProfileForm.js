@@ -4,9 +4,10 @@ import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
 import { useState } from 'react'
 import { createProfile, uploadImage } from '@/utils/directus'
+import { useRouter } from 'next/navigation'
 
 const defaultProfile = {
-  status: "draft",
+  status: "published",
   profile_type: "individual",
   public_name: "",
   short_introduction: "",
@@ -22,27 +23,32 @@ const defaultProfile = {
 export default function ProfileForm({tags}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [fileUploading, setFileUploading] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [errors, setErrors] = useState()
+  const router = useRouter()
 
   const updateProfile = field => input => {
+
     setProfile({
       ...profile,
-      [field]: input.target?.value || input
+      [field]: typeof(input) === "string" ? input : input.target?.value
     })
   }
 
   const updateTags = (tag, e) => {
     e.preventDefault()
-    if (profile.tags.includes(tag.id)) {
+    const tagIndex = profile.tags.findIndex(t => t.tags_id === tag.id)
+    if (tagIndex === -1) {
+      setProfile({
+        ...profile,
+        tags: profile.tags.concat({ tags_id: tag.id })
+      })
+    } else {
       const newTags = [...profile.tags]
-      newTags.splice(profile.tags.indexOf(tag.id),1)
+      newTags.splice(tagIndex,1)
       setProfile({
         ...profile,
         tags: newTags
-      })
-    } else {
-      setProfile({
-        ...profile,
-        tags: profile.tags.concat(tag.id)
       })
     }
   }
@@ -58,18 +64,25 @@ export default function ProfileForm({tags}) {
 
   const handleSubmit = async(e) => {
     e.preventDefault()
-    console.log(e)
+    setSubmitting(true)
     const data = {
       ...profile,
       links: JSON.stringify(profile.links),
-      profile_picture: profile.profile_picture.id,
+      profile_picture: profile.profile_picture?.id,
     }
+    console.log({data})
     const result = await createProfile(data)
-    console.log(result)
+    if (result.errors) {
+      setErrors(result.errors)
+    } else {
+      
+      const profileLink = `/profiles/${result.slug}`
+      router.push(profileLink)
+    }
+    setSubmitting(false)
   }
 
   const handleFileChange = async(e) => {
-    console.log(e)
 
     if (e.target.files[0]) {
       setFileUploading(true)
@@ -88,19 +101,20 @@ export default function ProfileForm({tags}) {
       })
     }
   }
+
  
   return (
     <>
       <section className="bg-white text-dark relative">
-        <div className="container bg-primary max-w-screen-xl rounded-lg p-16 mx-auto my-8 lg:my-12">
+        <div className="container bg-primary max-w-md sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl rounded-lg p-16 mx-auto my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">Create your profile</h1>
           <form className="" onSubmit={handleSubmit}>
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="public_name">
-                Public name
+                Public name*
               </label>
               <small className="mb-2 block">How would you like to be known publicly?</small>
-              <input onChange={updateProfile("public_name")} value={profile.public_name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
+              <input required onChange={updateProfile("public_name")} value={profile.public_name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
             </div>
 
             <div className="mb-6">
@@ -113,42 +127,42 @@ export default function ProfileForm({tags}) {
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="current_projects">
-                Current project
+                Current project*
               </label>
               <small className="mb-2 block">What are you working on now?</small>
-              <RichTextEditor onChange={updateProfile("current_projects")} value={profile.current_projects} />
+              <RichTextEditor required onChange={updateProfile("current_projects")} value={profile.current_projects} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="artistic_practice">
-                Artist bio
+                Artist bio*
               </label>
               <small className="mb-2 block">Describe your artistic practice</small>
-              <RichTextEditor onChange={updateProfile("artistic_practice")} value={profile.artistic_practice} />
+              <RichTextEditor required onChange={updateProfile("artistic_practice")} value={profile.artistic_practice} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="inspirations">
-                Inspirations
+                Inspirations*
               </label>
               <small className="mb-2 block">What has inspired you?</small>
-              <RichTextEditor onChange={updateProfile("inspirations")} value={profile.inspirations} />
+              <RichTextEditor required onChange={updateProfile("inspirations")} value={profile.inspirations} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="past_projects">
-                Past projects
+                Past projects*
               </label>
               <small className="mb-2 block">Tell us about your past projects</small>
-              <RichTextEditor onChange={updateProfile("past_projects")} value={profile.past_projects} />
+              <RichTextEditor required onChange={updateProfile("introduction")} value={profile.introduction} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="short_introduction">
-                Profile preview
+                Profile preview*
               </label>
               <small className="mb-2 block">Write a short intro that will appear on your profile preview card</small>
-              <input onChange={updateProfile("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
+              <input required onChange={updateProfile("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
             </div>
 
             <div className="mb-6">
@@ -158,9 +172,9 @@ export default function ProfileForm({tags}) {
               <div className="flex gap-2">
               {
                 tags.map(tag => {
-                  const selected = profile.tags.includes(tag.id)
+                  const selected = profile.tags.findIndex(t => t.tags_id === tag.id)
                   return (
-                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`rounded-full border py-1 px-3 shadow text-sm ${selected ? 'bg-highlight text-white' : 'bg-white'}`}>{tag.name}</button>
+                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`rounded-full border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-light'}`}>{tag.name}</button>
                   )
                 })
               }
@@ -192,13 +206,14 @@ export default function ProfileForm({tags}) {
               </label>
               <input onChange={handleFileChange} type="file" className="" id="profile_picture" />
               {
-                fileUploading && <p>Uploading...</p>
+                fileUploading && 
+                <div className="mt-2 w-48 h-48 bg-white animate-pulse" />
               }
               {
                 profile.profile_picture && 
                 <div className="mt-2">
                   <Image
-                    className="max-w-48 aspect-square relative w-full h-auto object-cover"
+                    className="w-48 aspect-square relative w-full h-auto object-cover bg-white"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture.id}`}
                     alt={profile.profile_picture.description || profile.public_name} 
                     width={profile.profile_picture.width}

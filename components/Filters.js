@@ -8,9 +8,24 @@ export default function Filters({ tags, currentFilters, setCurrentFilters }) {
     const checked = event.target.checked
     let selected = [...currentFilters.tags]
 
+    if (id === 'all') {
+      if (event.target.checked) {
+        selected = tags.map(t => t.id).concat('all')
+      } else {
+        selected = []
+      }
+    }
+
     if (checked) {
       selected = selected.concat(id)
+      if (selected.length == tags.length && selected.indexOf('all') === -1) {
+        selected = selected.concat('all')
+      }
     } else {
+      const allIndex = selected.indexOf('all')
+      if (allIndex >=0 ) {
+        selected.splice(allIndex, 1)
+      }
       selected.splice(selected.indexOf(id), 1)
     }
 
@@ -22,19 +37,19 @@ export default function Filters({ tags, currentFilters, setCurrentFilters }) {
 
   return (
     <div className="">
-      <fieldset className="mb-4">
+      {/*<fieldset className="mb-4">
         <legend className="uppercase text-lg mb-2 font-medium">Location</legend>
         <div>
           <input className="mr-2" type="checkbox" id={'proximity'} name={'proximity'} checked={currentFilters.proximity} />
           <label htmlFor={`proximity`}>Order by proximity to me</label>
         </div>
-      </fieldset>
+      </fieldset>*/}
       <fieldset>
         <legend className="uppercase text-lg mb-2 font-medium">Tags</legend>
-       {/*<div>
-          <input className="mr-2" type="checkbox" id={'allTags'} name={'allTags'} checked={currentFilters.tags.all}  onChange={handleTagInput("allTags")}/>
-          <label htmlFor={'allTags'}>All</label>
-        </div>*/}
+       <div>
+          <input className="mr-2" type="checkbox" id={'all'} name={'all'} checked={currentFilters.tags.includes('all')}  onChange={handleTagInput("all")}/>
+          <label htmlFor={'all'}>All</label>
+        </div>
         {tags.map(tag => {
           return (
             <div key={tag.slug}>

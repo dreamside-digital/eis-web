@@ -10,7 +10,8 @@ export default async function ProfilePage({params}) {
   const cleanIntroduction = DOMPurify.sanitize(profile.introduction, { USE_PROFILES: { html: true } })
   const cleanDescription = DOMPurify.sanitize(profile.artistic_practice, { USE_PROFILES: { html: true } })
   const cleanCurrentProjects = DOMPurify.sanitize(profile.current_projects, { USE_PROFILES: { html: true } })
-  const tagsText = profile.tags.map(t => t.name).join(", ")
+  const cleanInspirations = DOMPurify.sanitize(profile.inspirations, { USE_PROFILES: { html: true } })
+  const tagsText = profile.tags?.map(t => t.name).join(", ") || ""
 
   return (
     <>
@@ -18,7 +19,7 @@ export default async function ProfilePage({params}) {
       <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-2/3 w-full">
       </div>
       <div className="container max-w-screen-xl mx-auto relative flex justify-center pt-6">
-        <div className="p-6 max-w-xl bg-light text-dark rounded-xl">
+        <div className="p-6 w-full max-w-xl bg-light text-dark rounded-xl">
           <div className="flex flex-col lg:flex-row gap-6">
             <div>
                 {
@@ -37,32 +38,42 @@ export default async function ProfilePage({params}) {
                 {profile.public_name}{profile.profile_type === "collective" ? "*" : ""}
               </h1>
               <p className="uppercase tracking-wide mb-4">{profile.pronouns}</p>
-              {(profile.tags.length > 0) && <p className="uppercase text-sm font-medium tracking-wide">{`Tags: ${tagsText}`}</p>}
+              {(profile.tags?.length > 0) && <p className="uppercase text-sm font-medium tracking-wide">{`Tags: ${tagsText}`}</p>}
             </div>
           </div>
-          <div className="mt-6 leading-relaxed" dangerouslySetInnerHTML={{ __html: cleanCurrentProjects }} />
+          <p className="mt-6 leading-relaxed">{profile.short_introduction}</p>
         </div>
       </div>
     </section>
 
     <section className="bg-white text-dark relative">
       <div className="container max-w-screen-xl mx-auto px-6 mb-12 lg:mb-20">
-        <div className="lg:grid grid-flow-col auto-cols-fr gap-12">
+        <div className="lg:grid md:grid-cols-2 gap-16">
           <div className="mb-6 lg:mb-0">
-            <p className="uppercase text-xl mb-4 font-medium">Introduction</p>
-            <div className="" dangerouslySetInnerHTML={{ __html: cleanIntroduction }} />
+            <p className="uppercase text-xl mb-4 font-medium">Current projects</p>
+            <div className="" dangerouslySetInnerHTML={{ __html: cleanCurrentProjects }} />
           </div>
 
           <div className="mb-6 lg:mb-0">
             <p className="uppercase text-xl mb-4 font-medium">Artistic Practice</p>
             <div className="" dangerouslySetInnerHTML={{ __html: cleanDescription }} />
           </div>
+
+          <div className="mb-6 lg:mb-0">
+            <p className="uppercase text-xl mb-4 font-medium">Past Projects</p>
+            <div className="" dangerouslySetInnerHTML={{ __html: cleanIntroduction }} />
+          </div>
+
+          <div className="mb-6 lg:mb-0">
+            <p className="uppercase text-xl mb-4 font-medium">Inspirations</p>
+            <div className="" dangerouslySetInnerHTML={{ __html: cleanInspirations }} />
+          </div>
         </div>
         
       </div>
     </section>
 
-    {(profile.additional_images.length > 0) &&
+    {(profile.additional_images?.length > 0) &&
       <section className="bg-light text-dark relative">
         <div className="container max-w-screen-xl mx-auto px-6 py-12 lg:py-20">
           <div className="lg:grid grid-cols-3 gap-6">
@@ -88,7 +99,7 @@ export default async function ProfilePage({params}) {
     }
 
     {profile.links &&
-      <section className="bg-white text-dark relative">
+      <section className="bg-primary text-dark relative">
         <div className="container max-w-screen-xl mx-auto px-6 py-12 lg:py-20">
           <div className="flex-1">
             <p className="font-title text-2xl mb-4">Links</p>

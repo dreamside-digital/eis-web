@@ -103,6 +103,8 @@ export default async function RootLayout({ children }) {
                     src={ccaImg}
                     height={60}
                     width={280}
+                    alt="Canadian Council for the Arts"
+                    className="w-full h-auto"
                   />
                 </div>
               </div>

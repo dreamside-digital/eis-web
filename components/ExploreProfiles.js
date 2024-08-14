@@ -9,7 +9,7 @@ import {getProfiles} from '@/utils/directus'
 export default function ExploreProfiles({profiles, tags}) {
   const [filteredProfiles, setFilteredProfiles] = useState(profiles)
   
-  const selectedTags = tags.map(t => t.id)
+  const selectedTags = tags.map(t => t.id).concat('all')
   const [currentFilters, setCurrentFilters] = useState({ proximity: true, tags: selectedTags})
 
   useEffect(() => {
