@@ -111,7 +111,7 @@ export default function ProfileForm({tags}) {
           <form className="" onSubmit={handleSubmit}>
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="public_name">
-                Public name*
+                Public Name*
               </label>
               <small className="mb-2 block">How would you like to be known publicly?</small>
               <input required onChange={updateProfile("public_name")} value={profile.public_name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
@@ -127,42 +127,42 @@ export default function ProfileForm({tags}) {
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="current_projects">
-                Current project*
+                Current Project*
               </label>
-              <small className="mb-2 block">What are you working on now?</small>
+              <small className="mb-2 block">What are you working on now? (300 words)</small>
               <RichTextEditor required onChange={updateProfile("current_projects")} value={profile.current_projects} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="artistic_practice">
-                Artist bio*
+                Artist Bio*
               </label>
-              <small className="mb-2 block">Describe your artistic practice</small>
+              <small className="mb-2 block">Describe your artistic practice (300 words)</small>
               <RichTextEditor required onChange={updateProfile("artistic_practice")} value={profile.artistic_practice} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="inspirations">
-                Inspirations*
+                Inspirations
               </label>
-              <small className="mb-2 block">What has inspired you?</small>
-              <RichTextEditor required onChange={updateProfile("inspirations")} value={profile.inspirations} />
+              <small className="mb-2 block">What has inspired you? (300 words)</small>
+              <RichTextEditor onChange={updateProfile("inspirations")} value={profile.inspirations} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="past_projects">
-                Past projects*
+                Past Projects
               </label>
-              <small className="mb-2 block">Tell us about your past projects</small>
-              <RichTextEditor required onChange={updateProfile("introduction")} value={profile.introduction} />
+              <small className="mb-2 block">Tell us about your past projects (300 words)</small>
+              <RichTextEditor onChange={updateProfile("introduction")} value={profile.introduction} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="short_introduction">
-                Profile preview*
+                Profile Preview*
               </label>
-              <small className="mb-2 block">Write a short intro that will appear on your profile preview card</small>
-              <input required onChange={updateProfile("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
+              <small className="mb-2 block">Write a short intro that will appear on your profile preview card (500 characters)</small>
+              <input required maxLength={500} onChange={updateProfile("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
             </div>
 
             <div className="mb-6">
@@ -202,7 +202,7 @@ export default function ProfileForm({tags}) {
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profile_picture">
-                Profile picture
+                Profile Picture
               </label>
               <input onChange={handleFileChange} type="file" className="" id="profile_picture" />
               {
