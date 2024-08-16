@@ -2,13 +2,15 @@
 
 import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { createProfile, uploadImage } from '@/utils/directus'
+import { userSession, currentUser } from '@/utils/data-access'
 import { useRouter } from 'next/navigation'
 
 const defaultProfile = {
   status: "published",
   profile_type: "individual",
+  email_address: "",
   public_name: "",
   short_introduction: "",
   pronouns: "",
@@ -25,7 +27,19 @@ export default function ProfileForm({tags}) {
   const [fileUploading, setFileUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
+  const [user, setUser] = useState()
   const router = useRouter()
+
+  useEffect(() => {
+    (async () => {
+      const session = await userSession();
+
+      if (session.accessToken) {
+        const authedUser = await currentUser(session.accessToken)
+        return setUser(authedUser)
+      }
+    })();
+  }, []);
 
   const updateProfile = field => input => {
 
@@ -67,6 +81,7 @@ export default function ProfileForm({tags}) {
     setSubmitting(true)
     const data = {
       ...profile,
+      user_created: user?.id,
       links: JSON.stringify(profile.links),
       profile_picture: profile.profile_picture?.id,
     }
@@ -74,12 +89,12 @@ export default function ProfileForm({tags}) {
     const result = await createProfile(data)
     if (result.errors) {
       setErrors(result.errors)
+      setSubmitting(false)
     } else {
-      
       const profileLink = `/profiles/${result.slug}`
+      setSubmitting(false)
       router.push(profileLink)
     }
-    setSubmitting(false)
   }
 
   const handleFileChange = async(e) => {
@@ -109,6 +124,15 @@ export default function ProfileForm({tags}) {
         <div className="container bg-primary max-w-md sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl rounded-lg p-16 mx-auto my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">Create your profile</h1>
           <form className="" onSubmit={handleSubmit}>
+
+            <div className="mb-6">
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="email_address">
+                Email address
+              </label>
+              <small className="mb-2 block">Your email address will not be shown publicly.</small>
+              <input disabled={!!user} onChange={updateProfile("email_address")} value={user ? user.email : profile.email_address} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email_address" type="email" />
+            </div>
+
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="public_name">
                 Public Name*
@@ -129,7 +153,7 @@ export default function ProfileForm({tags}) {
               <label className="block text-gray-700 text-sm font-bold" htmlFor="current_projects">
                 Current Project*
               </label>
-              <small className="mb-2 block">What are you working on now? (300 words)</small>
+              <small className="mb-2 block">What are you working on now? (500 words)</small>
               <RichTextEditor required onChange={updateProfile("current_projects")} value={profile.current_projects} />
             </div>
 
@@ -137,7 +161,7 @@ export default function ProfileForm({tags}) {
               <label className="block text-gray-700 text-sm font-bold" htmlFor="artistic_practice">
                 Artist Bio*
               </label>
-              <small className="mb-2 block">Describe your artistic practice (300 words)</small>
+              <small className="mb-2 block">Describe your artistic practice (500 words)</small>
               <RichTextEditor required onChange={updateProfile("artistic_practice")} value={profile.artistic_practice} />
             </div>
 
@@ -145,7 +169,7 @@ export default function ProfileForm({tags}) {
               <label className="block text-gray-700 text-sm font-bold" htmlFor="inspirations">
                 Inspirations
               </label>
-              <small className="mb-2 block">What has inspired you? (300 words)</small>
+              <small className="mb-2 block">What has inspired you? (500 words)</small>
               <RichTextEditor onChange={updateProfile("inspirations")} value={profile.inspirations} />
             </div>
 
@@ -153,7 +177,7 @@ export default function ProfileForm({tags}) {
               <label className="block text-gray-700 text-sm font-bold" htmlFor="past_projects">
                 Past Projects
               </label>
-              <small className="mb-2 block">Tell us about your past projects (300 words)</small>
+              <small className="mb-2 block">Tell us about your past projects (500 words)</small>
               <RichTextEditor onChange={updateProfile("introduction")} value={profile.introduction} />
             </div>
 
@@ -224,7 +248,8 @@ export default function ProfileForm({tags}) {
             </div>
 
             <div className="flex items-center justify-between mt-8">
-              <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="submit" />
+              {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
+              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="submit" value="Submit profile" />}
             </div>
           </form>
         </div>

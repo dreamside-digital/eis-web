@@ -1,16 +1,38 @@
 "use client"
 
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from "next/link";
+import { userSession, currentUser, deleteSession } from '@/utils/data-access'
+import { useRouter, usePathname } from 'next/navigation'
 
 
 export default function Navigation({ logo }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [user, setUser] = useState(false)
+  const router = useRouter()
+  const pathname = usePathname();
+
+  useEffect(() => {
+    (async () => {
+      const session = await userSession();
+
+      if (session.accessToken) {
+        setUser(true)
+      }
+    })();
+  }, [pathname]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
+  }
+
+  const handleLogout = async() => {
+    await deleteSession()
+    toggleMenu()
+    setUser(false)
+    router.push('/')
   }
   
   return (
@@ -34,6 +56,8 @@ export default function Navigation({ logo }) {
           <div className={`menu ${menuOpen ? 'flex flex-col gap-2 absolute top-16 w-60 bg-white p-4 z-10' : 'hidden'}`}>
             {/*<Link href="/profiles" onClick={toggleMenu} className="text-dark text-lg uppercase">Discover artists</Link>*/}
             {/*<Link href="/events" onClick={toggleMenu} className="text-dark text-lg uppercase">Discover events</Link>*/}
+            {!user && <Link href="/login" onClick={toggleMenu} className="text-dark text-lg uppercase">Login</Link>}
+            {user && <button onClick={handleLogout} className="inline-flex text-dark text-lg uppercase">Logout</button>}
             <a href="#subscribe" onClick={toggleMenu} className="text-dark text-lg uppercase">Join our artist network</a>
             <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="text-dark text-lg uppercase">Instagram</a>
           </div>
