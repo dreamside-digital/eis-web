@@ -33,7 +33,6 @@ export default function LoginForm({tags}) {
       setErrors(errors)
     } else {
       console.log(session)
-      setSubmitting(false)
       router.push('/profiles/new')
     }
   }

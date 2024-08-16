@@ -93,7 +93,6 @@ export default function ProfileForm({tags}) {
       setSubmitting(false)
     } else {
       const profileLink = `/profiles/${result.slug}`
-      setSubmitting(false)
       router.push(profileLink)
     }
   }
