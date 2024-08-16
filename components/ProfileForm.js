@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { createProfile, uploadImage } from '@/utils/directus'
 import { userSession, currentUser } from '@/utils/data-access'
 import { useRouter } from 'next/navigation'
+import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
 const defaultProfile = {
   status: "published",

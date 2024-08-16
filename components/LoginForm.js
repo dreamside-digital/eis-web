@@ -43,7 +43,7 @@ export default function LoginForm({tags}) {
       <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">Login</h1>
       { errors && 
         <div className="errors">
-          { errors.map(error => <p>{error.message}</p>)}
+          { errors.map(error => <p key={error.message}>{error.message}</p>)}
         </div>
       }
       <form className="" onSubmit={handleSubmit}>
