@@ -13,8 +13,8 @@ const RichTextEditor = ({onChange, value}) => {
       init={{
         height: 300,
         menubar: false,
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker powerpaste advtable advcode editimage autocorrect typography',
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | spellcheckdialog a11ycheck | removeformat',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media table visualblocks wordcount linkchecker',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | spellcheckdialog | removeformat',
         content_style: `body { font-family: Helvetica, Arial, sans-serif; font-size:14px }`
       }}
       onEditorChange={(newContent) => onChange(newContent)}

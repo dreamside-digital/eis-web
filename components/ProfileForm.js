@@ -95,6 +95,7 @@ export default function ProfileForm({tags}) {
       const profileLink = `/profiles/${result.slug}`
       router.push(profileLink)
     }
+    setSubmitting(false)
   }
 
   const handleFileChange = async(e) => {
