@@ -13,6 +13,7 @@ export default function Navigation({ logo, locale }) {
   const [user, setUser] = useState(false)
   const router = useRouter()
   const pathname = usePathname();
+  console.log(pathname)
 
   useEffect(() => {
     (async () => {
@@ -51,14 +52,14 @@ export default function Navigation({ logo, locale }) {
         </Link>
         <div className="flex gap-6 items-center justify-end relative">
           <div className="flex gap-2">
-            <Link href={`/en`} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
-            <Link href={`/fr`} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
+            <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
+            <Link href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
           </div>
           <button className="h-8 w-8 text-dark" onClick={toggleMenu}>
             { menuOpen ? <XMarkIcon /> :<Bars2Icon /> }
           </button>
           <div className={`menu ${menuOpen ? 'shadow flex flex-col divide-y absolute top-16 w-60 bg-white z-10' : 'hidden'}`}>
-            <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Join our artist network</Link>
+            <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Create an artist profile</Link>
             <Link href={`/${locale}/profiles`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Discover artists</Link>
             <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Partners and Collaborators</Link>
             <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Follow us</a>
