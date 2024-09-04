@@ -57,7 +57,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children, params: { locale } }) {
-  console.log({locale})
   const content = await getLayoutContent()
   const { translations } = content;
   const translation = translations.find(t => t.languages_code === locale)
@@ -81,9 +80,18 @@ export default async function RootLayout({ children, params: { locale } }) {
               <div className="mb-8">
                 <div className="text-2xl lg:text-3xl mb-4">{footerCol1Parts?.join(" ")} <span className="font-title italic tracking-wide">{footerCol1LastWord}</span></div>
                 <div>
-                  <a href={translation?.footer_column_1_link} className="underline lg:text-lg hover:text-white">
-                    {translation?.footer_column_1_link_text}
-                  </a>
+                  <p>
+                    <a href={translation?.footer_column_1_link} className="underline lg:text-lg hover:text-white">
+                      {translation?.footer_column_1_link_text}
+                    </a>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <a href={translation?.footer_column_1_link_2_url} className="underline lg:text-lg hover:text-white">
+                      {translation?.footer_column_1_link_2_text}
+                    </a>
+                  </p>
                 </div>
               </div>
 

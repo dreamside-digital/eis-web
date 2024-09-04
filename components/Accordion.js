@@ -32,7 +32,7 @@ const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
   )
 }
 
-export default function ProfileDrawers({profiles, events}) {
+export default function ProfileDrawers({profiles, events, locale}) {
   const [currentItemUid, setCurrentItemUid] = useState([profiles[0]?.id])
 
   const handleChange = uid => {
@@ -56,7 +56,7 @@ export default function ProfileDrawers({profiles, events}) {
             <CustomAccordionItem key={profile.id} uuid={profile.id} currentItemUid={currentItemUid} title={profile.public_name}>
             <div className="max-w-lg h-full">
               <div className="h-full p-6 bg-light text-dark relative">
-                <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
+                <Link className="text-xl no-underline hover:text-highlight" href={`/${locale}/profiles/${profile.slug}`}>
                   <h1 className="font-title text-xl md:text-2xl mb-4">
                     {profile.public_name}
                   </h1>
@@ -81,7 +81,7 @@ export default function ProfileDrawers({profiles, events}) {
                     {(profile.tags.length > 0) && <p className="uppercase font-medium tracking-wide text-sm">{`Tags: ${tagsText}`}</p>}
                   </div>
 
-                  <Link href={`/profiles/${profile.slug}`} className="font-medium underline">
+                  <Link href={`/${locale}/profiles/${profile.slug}`} className="font-medium underline">
                     Full profile
                   </Link>
                 </div>
@@ -135,7 +135,7 @@ export default function ProfileDrawers({profiles, events}) {
                     </div>
 
                     <div className="">
-                      <Link className="font-medium underline" href={`/events/${event.slug}`}>{`Event page`}</Link>
+                      <Link className="font-medium underline" href={`${locale}/events/${event.slug}`}>{`Event page`}</Link>
                     </div>
                   </div>
                 </div>

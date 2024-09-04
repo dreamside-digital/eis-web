@@ -97,3 +97,22 @@ main section:first-of-type {
   }  
 }
 
+.wysiwyg-content ul {
+  list-style: disc;
+  margin-bottom: 1em;
+}
+
+.wysiwyg-content li {
+  margin-left: 2em;
+  line-height: 2;
+}
+
+.wysiwyg-content a {
+  font-weight: 500;
+}
+np
+.wysiwyg-content h2 {
+  font-size: 1.25em;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+}

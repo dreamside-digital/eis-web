@@ -8,7 +8,7 @@ import {getProfiles} from '@/utils/directus'
 
 const PAGE_LIMIT = 5
 
-export default function ExploreProfiles({profiles, tags}) {
+export default function ExploreProfiles({profiles, tags, locale }) {
   const [filteredProfiles, setFilteredProfiles] = useState(profiles)
   const [currentPage, setCurrentPage] = useState(0)
   
@@ -50,7 +50,7 @@ export default function ExploreProfiles({profiles, tags}) {
       <div className="basis-3/4">
         <div className="flex justify-center">
           <div>
-          <Accordion profiles={profilesPage} />
+          <Accordion profiles={profilesPage} locale={locale} />
           </div>
         </div>
         <div className="flex justify-center gap-2 p-3">
