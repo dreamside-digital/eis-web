@@ -34,7 +34,7 @@ const monarque = localFont({
   variable: "--font-title"
 })
 
-import "../globals.css";
+import "./globals.css";
 
 export const metadata = {
   title: "Editions in Space",
