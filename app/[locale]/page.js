@@ -4,13 +4,12 @@ import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/utils/directus'
 
 
-export default async function Home() {
+export default async function Home({ params: { locale } }) {
   const content = await getHomePageContent()
   const {translations} = content
-  const lang = "en"
-  const translation = translations.find(t => t.languages_code === lang)
-  const keyFeatures = await getFeatures(translation.key_features.map(f=>f.features_id))
-  const benefits = await getFeatures(translation.benefits.map(f=>f.features_id))
+  const translation = translations.find(t => t.languages_code === locale)
+  const keyFeatures = await getFeatures(translation?.key_features.map(f=>f.features_id))
+  const benefits = await getFeatures(translation?.benefits.map(f=>f.features_id))
 
   const landingBgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.landing_section_background_image.id}`
   const benefitsBgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.benefits_section_background_image.id}`
@@ -29,8 +28,8 @@ export default async function Home() {
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
             <h2 className="font-title text-center text-3xl md:text-5xl text-dark">
-              <div>{translation.landing_section_title_line_1}</div>
-              <div>{translation.landing_section_title_line_2}</div></h2>
+              <div>{translation?.landing_section_title_line_1}</div>
+              <div>{translation?.landing_section_title_line_2}</div></h2>
           </div>
           <div className="flex-1">
             <div className="flex justify-center relative md:translate-y-12">
@@ -51,17 +50,17 @@ export default async function Home() {
       <section className="bg-dark text-light">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20">
           <h2 className="uppercase text-3xl font-medium mb-8">
-            {translation.vision_section_title}
+            {translation?.vision_section_title}
           </h2>
           <div className="md:flex gap-12 lg:gap-16">
             <div className="flex-1">
               <p className="text-xl md:text-2xl mb-6">
-                {translation.vision_section_subtitle}
+                {translation?.vision_section_subtitle}
               </p>
             </div>
             <div className="flex-1">
               <p className="">
-                {translation.vision_section_body}
+                {translation?.vision_section_body}
               </p>
             </div>
           </div>
@@ -72,7 +71,7 @@ export default async function Home() {
       <section className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20">
           <p className="font-title text-center text-3xl md:text-4xl max-w-[16ch] mx-auto mb-12">
-            {translation.key_features_section_subtitle}
+            {translation?.key_features_section_subtitle}
           </p>
           <div className="relative max-w-3xl mx-auto">
             <Image
@@ -87,17 +86,17 @@ export default async function Home() {
         
           <div className="mt-12">
             <h2 className="uppercase text-3xl mb-12 text-center font-medium">
-              {translation.key_features_section_title}
+              {translation?.key_features_section_title}
             </h2>
             <ul className="md:flex gap-12 lg:gap-16">
               {
                 keyFeatures.map(feature => {
                   const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
-                  const translatedFeature = feature.translations.find(t => t.languages_code === lang)
+                  const translatedFeature = feature.translations.find(t => t.languages_code === locale)
                   return (
                     <li key={feature.id} className="flex-1 flex flex-col items-center mb-16">
                       <p className="uppercase text-xl text-center mb-4">
-                        {translatedFeature.title}
+                        {translatedFeature?.title}
                       </p>
                       <Image
                         className="relative"
@@ -122,9 +121,9 @@ export default async function Home() {
             <div className="md:flex gap-12 lg:gap-20">
               <div className="flex-1">
                 <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">
-                  {translation.join_section_title}
+                  {translation?.join_section_title}
                 </h2>
-                <div className="" dangerouslySetInnerHTML={{ __html: translation.join_section_body }} />
+                <div className="" dangerouslySetInnerHTML={{ __html: `${translation?.join_section_body}` }} />
               </div>
               <div className="flex-1 min-h-[800px]">
                 <iframe className="h-full w-full min-h-[800px]" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>
@@ -137,7 +136,7 @@ export default async function Home() {
       <section className="bg-light text-highlight">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20">
           <h2 className="font-title text-3xl lg:text-4xl mb-6 md:mb-10">
-            {translation.origin_section_title}
+            {translation?.origin_section_title}
           </h2>
           <div className="md:grid grid-cols-3 gap-12">
             <div className="mb-6">
@@ -145,7 +144,7 @@ export default async function Home() {
                 <Image
                   className="relative w-full aspect-square object-cover rounded-xl"
                   src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.origin_section_author_image.id}`}
-                  alt={translation.origin_section_author_name}
+                  alt={translation?.origin_section_author_name}
                   width={800}
                   height={800}
                 />
@@ -153,11 +152,11 @@ export default async function Home() {
             </div>
             <div className="col-span-2 xl:p-8">
               <p className="text-xl lg:text-2xl mb-8 lg:leading-relaxed">
-                {translation.origin_section_body}
+                {translation?.origin_section_body}
               </p>
               <div>
-                <p className="font-title text-2xl lg:text-3xl text-right mb-2">{translation.origin_section_author_name}</p>
-                <p className="text-right">{translation.origin_section_author_title}</p>
+                <p className="font-title text-2xl lg:text-3xl text-right mb-2">{translation?.origin_section_author_name}</p>
+                <p className="text-right">{translation?.origin_section_author_title}</p>
               </div>
             </div>
           </div>
@@ -167,13 +166,13 @@ export default async function Home() {
       <section style={benefitsBgStyle} className="bg-white bg-no-repeat bg-cover md:bg-center">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20 text-dark">
             <h2 className="font-title text-center text-3xl lg:text-4xl max-w-sm mx-auto mb-12 md:mb-36">
-              {translation.benefits_section_title}
+              {translation?.benefits_section_title}
             </h2>
             <ul className="flex flex-col md:flex-row gap-12 lg:gap-20">
                 {
                   benefits.map(feature => {
                     const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
-                    const translatedFeature = feature.translations.find(t => t.languages_code === lang)
+                    const translatedFeature = feature.translations.find(t => t.languages_code === locale)
                     return (
                       <li className="flex-1 flex flex-col items-center" key={feature.id}>
                         <Image
@@ -184,7 +183,7 @@ export default async function Home() {
                           height={180}
                         />
                         <p className="text-lg mt-4 text-center">
-                          {translatedFeature.description}
+                          {translatedFeature?.description}
                         </p>
                       </li>
                     )

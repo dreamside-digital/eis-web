@@ -253,7 +253,7 @@ export async function getTags() {
   try {
     const data = await directus.request(
       readItems('tags', {
-        fields: '*',
+        fields: '*,translations.*',
       })
     );
 
@@ -290,5 +290,25 @@ export async function uploadImage(formData) {
   } catch(error) {
     console.log({error})
     return error
+  }
+}
+
+export async function getCreditsContent() {
+  try {
+    const data = await directus.request(
+      readSingleton('credits_page', {
+        fields: '*,translations.*'
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      return data
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
   }
 }
