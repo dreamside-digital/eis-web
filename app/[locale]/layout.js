@@ -70,7 +70,7 @@ export default async function RootLayout({ children, params: { locale } }) {
     <html lang={locale} className="scroll-smooth" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative`}>
         <NextIntlClientProvider messages={translation}>
-        <Navigation logo={logoImg} />
+        <Navigation logo={logoImg} locale={locale} />
         <main className="grow">
           {children}
         </main>

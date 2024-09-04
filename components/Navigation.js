@@ -8,7 +8,7 @@ import { userSession, currentUser, deleteSession } from '@/utils/data-access'
 import { useRouter, usePathname } from 'next/navigation'
 
 
-export default function Navigation({ logo }) {
+export default function Navigation({ logo, locale }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState(false)
   const router = useRouter()
@@ -50,16 +50,20 @@ export default function Navigation({ logo }) {
           />
         </Link>
         <div className="flex gap-6 items-center justify-end relative">
+          <div className="flex gap-2">
+            <Link href={`/en`} className={locale === 'en' ? 'border-b-2 border-navy' : ''}>EN</Link>
+            <Link href={`/fr`} className={locale === 'fr' ? 'border-b-2 border-navy' : ''}>FR</Link>
+          </div>
           <button className="h-8 w-8 text-dark" onClick={toggleMenu}>
             { menuOpen ? <XMarkIcon /> :<Bars2Icon /> }
           </button>
-          <div className={`menu ${menuOpen ? 'flex flex-col gap-2 absolute top-16 w-60 bg-white p-4 z-10' : 'hidden'}`}>
-            {/*<Link href="/profiles" onClick={toggleMenu} className="text-dark text-lg uppercase">Discover artists</Link>*/}
-            {/*<Link href="/events" onClick={toggleMenu} className="text-dark text-lg uppercase">Discover events</Link>*/}
-            {!user && <Link href="/login" onClick={toggleMenu} className="text-dark text-lg uppercase">Login</Link>}
-            {user && <button onClick={handleLogout} className="inline-flex text-dark text-lg uppercase">Logout</button>}
-            <a href="#subscribe" onClick={toggleMenu} className="text-dark text-lg uppercase">Join our artist network</a>
-            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="text-dark text-lg uppercase">Instagram</a>
+          <div className={`menu ${menuOpen ? 'shadow flex flex-col divide-y absolute top-16 w-60 bg-white z-10' : 'hidden'}`}>
+            <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Join our artist network</Link>
+            <Link href={`/${locale}/profiles`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Discover artists</Link>
+            <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Partners and Collaborators</Link>
+            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Instagram</a>
+            {!user && <Link href={`/${locale}/login`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Login</Link>}
+            {user && <button onClick={handleLogout} className="inline-flex px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Logout</button>}
           </div>
         </div>
       </div>
