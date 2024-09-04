@@ -3,7 +3,7 @@
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 
-export default function Filters({ tags, currentFilters, setCurrentFilters }) {
+export default function Filters({ tags, currentFilters, setCurrentFilters, messages }) {
   const handleTagInput = id => event => {
     const checked = event.target.checked
     let selected = [...currentFilters.tags]
@@ -45,10 +45,10 @@ export default function Filters({ tags, currentFilters, setCurrentFilters }) {
         </div>
       </fieldset>*/}
       <fieldset>
-        <legend className="uppercase text-lg mb-2 font-medium">Tags</legend>
+        <legend className="uppercase text-lg mb-2 font-medium">{messages.tags}</legend>
        <div>
           <input className="mr-2" type="checkbox" id={'all'} name={'all'} checked={currentFilters.tags.includes('all')}  onChange={handleTagInput("all")}/>
-          <label htmlFor={'all'}>All</label>
+          <label htmlFor={'all'}>{messages.all}</label>
         </div>
         {tags.map(tag => {
           return (

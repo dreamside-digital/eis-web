@@ -24,6 +24,9 @@ export const profileFormFields = {
     url: "URL",
     photo: "Profile photo",
     submit: "Submit profiles",
+    explore_profiles: "Explore Profiles",
+    all: "All",
+    full_profile: "Full profile",
   },
   fr: {
     title: "Création du profil",
@@ -50,6 +53,9 @@ export const profileFormFields = {
     url: "URL",
     photo: "Photo de profil",
     submit: "Envoyer",
+    explore_profiles: "Explorer les Profils",
+    all: "Tous",
+    full_profile: "Profil complet",
   }
 }
 

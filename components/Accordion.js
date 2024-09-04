@@ -32,7 +32,7 @@ const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
   )
 }
 
-export default function ProfileDrawers({profiles, events, locale}) {
+export default function ProfileDrawers({profiles, events, locale, messages}) {
   const [currentItemUid, setCurrentItemUid] = useState([profiles[0]?.id])
 
   const handleChange = uid => {
@@ -78,11 +78,11 @@ export default function ProfileDrawers({profiles, events, locale}) {
                   </div>
 
                   <div className="flex-1 mb-4">
-                    {(profile.tags.length > 0) && <p className="uppercase font-medium tracking-wide text-sm">{`Tags: ${tagsText}`}</p>}
+                    {(profile.tags.length > 0) && <p className="uppercase font-medium tracking-wide text-sm">{`${messages.tags}: ${tagsText}`}</p>}
                   </div>
 
                   <Link href={`/${locale}/profiles/${profile.slug}`} className="font-medium underline">
-                    Full profile
+                    {messages.full_profile}
                   </Link>
                 </div>
               </div>
