@@ -23,7 +23,7 @@ const defaultProfile = {
   links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}]
 }
 
-export default function ProfileForm({tags, messages}) {
+export default function ProfileForm({tags, messages, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [fileUploading, setFileUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -92,7 +92,7 @@ export default function ProfileForm({tags, messages}) {
       setErrors(result.errors)
       setSubmitting(false)
     } else {
-      const profileLink = `/profiles/${result.slug}`
+      const profileLink = `/${locale}/profiles/${result.slug}`
       router.push(profileLink)
     }
     setSubmitting(false)

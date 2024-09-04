@@ -17,6 +17,6 @@ export default async function NewProfilePage({params: {locale}}) {
   const messages = profileFormFields[locale]
 
   return (
-    <ProfileForm tags={tagTranslations} createProfile={createProfile} messages={messages} />
+    <ProfileForm tags={tagTranslations} createProfile={createProfile} messages={messages} locale={locale} />
   )
 }

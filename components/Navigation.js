@@ -51,8 +51,8 @@ export default function Navigation({ logo, locale }) {
         </Link>
         <div className="flex gap-6 items-center justify-end relative">
           <div className="flex gap-2">
-            <Link href={`/en`} className={locale === 'en' ? 'border-b-2 border-navy' : ''}>EN</Link>
-            <Link href={`/fr`} className={locale === 'fr' ? 'border-b-2 border-navy' : ''}>FR</Link>
+            <Link href={`/en`} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
+            <Link href={`/fr`} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
           </div>
           <button className="h-8 w-8 text-dark" onClick={toggleMenu}>
             { menuOpen ? <XMarkIcon /> :<Bars2Icon /> }
@@ -61,7 +61,7 @@ export default function Navigation({ logo, locale }) {
             <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Join our artist network</Link>
             <Link href={`/${locale}/profiles`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Discover artists</Link>
             <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Partners and Collaborators</Link>
-            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Instagram</a>
+            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Follow us</a>
             {!user && <Link href={`/${locale}/login`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Login</Link>}
             {user && <button onClick={handleLogout} className="inline-flex px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Logout</button>}
           </div>

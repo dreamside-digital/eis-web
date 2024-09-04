@@ -2,7 +2,7 @@ import { getEvents, getTags } from '@/utils/directus'
 import LoginForm from "@/components/LoginForm"
 
 
-export default async function LoginPage({params}) {
+export default async function LoginPage({params: {locale}}) {
   const events = await getEvents()
   const tags = await getTags()
 
@@ -12,7 +12,7 @@ export default async function LoginPage({params}) {
       </div>
       <div className="container max-w-screen-xl mx-auto relative flex justify-center pt-6">
         <div className="p-6 w-full max-w-xl bg-light text-dark rounded-xl">
-          <LoginForm />
+          <LoginForm locale={locale} />
         </div>
       </div>
     </section>

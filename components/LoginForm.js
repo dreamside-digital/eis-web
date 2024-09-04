@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
 
-export default function LoginForm({tags}) {
+export default function LoginForm({locale}) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [submitting, setSubmitting] = useState(false)
@@ -33,7 +33,7 @@ export default function LoginForm({tags}) {
       setErrors(errors)
     } else {
       console.log(session)
-      router.push('/profiles/new')
+      router.push(`/${locale}/profiles/new`)
     }
   }
  
