@@ -7,13 +7,31 @@ import Link from "next/link";
 import { userSession, currentUser, deleteSession } from '@/utils/data-access'
 import { useRouter, usePathname } from 'next/navigation'
 
+const navigationLinks = {
+  en: {
+    newProfile: "Create an artist profile",
+    allProfiles: "Discover artists",
+    partners: "Partners and collaborators",
+    instagram: "Follow us",
+    login: "Login",
+    logout: "Logout"
+  },
+  fr: {
+    newProfile: "Créer un profil d’artiste",
+    allProfiles: "Découvrir les artistes",
+    partners: "Partenaires et collaborateur(-trice)s",
+    instagram: "Nous suivre",
+    login: "Ouvrir une session",
+    logout: "Fermer la session"
+  }
+}
+
 
 export default function Navigation({ logo, locale }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState(false)
   const router = useRouter()
   const pathname = usePathname();
-  console.log(pathname)
 
   useEffect(() => {
     (async () => {
@@ -58,13 +76,13 @@ export default function Navigation({ logo, locale }) {
           <button className="h-8 w-8 text-dark" onClick={toggleMenu}>
             { menuOpen ? <XMarkIcon /> :<Bars2Icon /> }
           </button>
-          <div className={`menu ${menuOpen ? 'shadow flex flex-col divide-y absolute top-16 w-60 bg-white z-10' : 'hidden'}`}>
-            <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Create an artist profile</Link>
-            <Link href={`/${locale}/profiles`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Discover artists</Link>
-            <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Partners and Collaborators</Link>
-            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Follow us</a>
-            {!user && <Link href={`/${locale}/login`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Login</Link>}
-            {user && <button onClick={handleLogout} className="inline-flex px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">Logout</button>}
+          <div className={`menu ${menuOpen ? 'shadow flex flex-col divide-y absolute top-16 w-72 bg-white z-10' : 'hidden'}`}>
+            <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].newProfile}</Link>
+            <Link href={`/${locale}/profiles`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].allProfiles}</Link>
+            <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].partners}</Link>
+            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].instagram}</a>
+            {!user && <Link href={`/${locale}/login`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].login}</Link>}
+            {user && <button onClick={handleLogout} className="inline-flex px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].logout}</button>}
           </div>
         </div>
       </div>
