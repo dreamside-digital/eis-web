@@ -78,7 +78,7 @@ export default async function RootLayout({ children, params: { locale } }) {
           <div className="container max-w-screen-xl mx-auto px-4 py-12 md:py-20 text-light">
             <div className="lg:grid grid-cols-3 gap-24">
               <div className="mb-8">
-                <div className="text-2xl lg:text-3xl mb-4">{footerCol1Parts?.join(" ")} <span className="font-title italic tracking-wide">{footerCol1LastWord}</span></div>
+                <div className="text-2xl lg:text-3xl mb-4">{translation?.footer_column_1_title} <span className="font-title italic tracking-wide">{translation?.footer_column_1_title_italics}</span></div>
                 <div>
                   <p>
                     <a href={translation?.footer_column_1_link} className="underline lg:text-lg hover:text-white">
@@ -96,7 +96,7 @@ export default async function RootLayout({ children, params: { locale } }) {
               </div>
 
               <div className="mb-8">
-                <div className="text-2xl lg:text-3xl mb-4">{footerCol2Parts?.join(" ")} <span className="font-title italic tracking-wide">{footerCol2LastWord}</span></div>
+                <div className="text-2xl lg:text-3xl mb-4">{translation?.footer_column_2_title} <span className="font-title italic tracking-wide">{translation?.footer_column_2_title_italics}</span></div>
                 <div>
                   <p><a href={translation?.footer_column_2_link} className="underline lg:text-lg hover:text-white">
                     {translation?.footer_column_2_link_text}
