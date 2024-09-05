@@ -122,7 +122,7 @@ export default function ProfileForm({tags, messages, locale}) {
   return (
     <>
       <section className="bg-white text-dark relative">
-        <div className="container bg-primary max-w-md sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl sm:rounded-lg p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
+        <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl sm:rounded-lg p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.title}</h1>
           <form className="" onSubmit={handleSubmit}>
 

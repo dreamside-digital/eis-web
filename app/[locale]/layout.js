@@ -56,6 +56,13 @@ export const metadata = {
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1
+}
+
+
 export default async function RootLayout({ children, params: { locale } }) {
   const content = await getLayoutContent()
   const { translations } = content;
@@ -67,7 +74,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   const footerCol1LastWord = footerCol1Parts?.splice(-1).join(" ")
   const footerCol2LastWord = footerCol2Parts?.splice(-1).join(" ")
   return (
-    <html lang={locale} className="scroll-smooth" id="root">
+    <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative`}>
         <NextIntlClientProvider messages={translation}>
         <Navigation logo={logoImg} locale={locale} />
