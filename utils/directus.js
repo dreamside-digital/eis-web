@@ -7,7 +7,9 @@ import {
   readItems,
   readSingleton,
   createItem,
-  uploadFiles
+  uploadFiles,
+  registerUser,
+  registerUserVerify
 } from '@directus/sdk'
 
 const directus = createDirectus(process.env.DIRECTUS_URL).with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
@@ -312,3 +314,38 @@ export async function getCreditsContent() {
     return []
   }
 }
+
+export async function createUserAccount(userData)  {
+  try {
+    const { status, errors } = await directus.request(registerUser(
+      userData.email, 
+      userData.password, 
+      { 
+        first_name: userData.first_name, 
+        last_name: userData.last_name, 
+        verification_url: process.env.NEXT_PUBLIC_EMAIL_VERIFICATION_URL
+      }
+    ));
+
+    if (status === 204) {
+      return { status }
+    } else {
+      throw Error("Unable to complete registration")
+    }
+
+  } catch (error) {
+    console.log(error.errors)
+    return { errors: error.errors }
+  }
+}
+
+export async function verifyEmail(token)  {
+  try {
+    const result = await directus.request(registerUserVerify(token));
+    return result
+
+  } catch (error) {
+    return { errors: error.errors }
+  }
+}
+
