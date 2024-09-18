@@ -274,10 +274,11 @@ export async function getTags() {
 export async function createProfile(data) {
   try {
     const result = await directus.request(createItem('profiles', data))
+    console.log({result})
     return result
   } catch(error) {
     console.log(error.errors)
-    return error
+    return {errors: error.errors}
   }
 }
 

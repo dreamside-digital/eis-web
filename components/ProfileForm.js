@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
+import MapPointSelector from '@/components/MapPointSelector'
 import { useState, useEffect } from 'react'
 import { createProfile, uploadImage } from '@/utils/directus'
 import { userSession, currentUser } from '@/utils/data-access'
@@ -20,12 +21,14 @@ const defaultProfile = {
   inspirations: "",
   past_projects: "",
   tags: [],
-  links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}]
+  links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
+  location: ""
 }
 
 export default function ProfileForm({tags, messages, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [fileUploading, setFileUploading] = useState(false)
+  const [location, setLocation] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
   const [user, setUser] = useState()
@@ -85,6 +88,7 @@ export default function ProfileForm({tags, messages, locale}) {
       user_created: user?.id,
       links: JSON.stringify(profile.links),
       profile_picture: profile.profile_picture?.id,
+      location: location,
     }
     console.log({data})
     const result = await createProfile(data)
@@ -246,6 +250,14 @@ export default function ProfileForm({tags, messages, locale}) {
                   />
                 </div>
               }
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
+                {messages.location}
+              </label>
+              <small className="mb-2 block">{messages.location_hint}</small>
+              <MapPointSelector setLocation={setLocation} selectedLocation={location} />
             </div>
 
             <div className="flex items-center justify-between mt-8">
