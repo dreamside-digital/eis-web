@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
 const defaultProfile = {
-  status: "published",
+  status: "draft",
   profile_type: "individual",
   email_address: "",
   public_name: "",

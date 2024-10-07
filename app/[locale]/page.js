@@ -2,6 +2,7 @@ import Image from "next/image";
 import VideoModal from '@/components/VideoModal'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/utils/directus'
+import RegistrationForm from "@/components/RegistrationForm"
 
 
 export default async function Home({ params: { locale } }) {
@@ -118,15 +119,15 @@ export default async function Home({ params: { locale } }) {
       <section id="subscribe" className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto sm:px-4 sm:pb-12 md:pb-24">
           <div className="bg-primary sm:rounded-xl p-4 md:p-16 container max-w-screen-xl mx-auto">
+            <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">
+              {translation?.join_section_title}
+            </h2>
             <div className="md:flex gap-12 lg:gap-20">
               <div className="flex-1">
-                <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">
-                  {translation?.join_section_title}
-                </h2>
                 <div className="" dangerouslySetInnerHTML={{ __html: `${translation?.join_section_body}` }} />
               </div>
-              <div className="flex-1 min-h-[800px]">
-                <iframe className="h-full w-full min-h-[800px]" src="https://cdn.forms-content-1.sg-form.com/8a1a9e4a-2f29-11ef-b521-e2837eaeccec"/>
+              <div className="flex-1">
+                <RegistrationForm locale={locale} />
               </div>
             </div>
           </div>

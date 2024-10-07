@@ -12,6 +12,8 @@ import {
   registerUserVerify
 } from '@directus/sdk'
 
+import { createContact } from "./sendgrid"
+
 const directus = createDirectus(process.env.DIRECTUS_URL).with(rest()).with(staticToken(process.env.DIRECTUS_TOKEN));
 
 export async function getProfile(slug) {
@@ -329,6 +331,9 @@ export async function createUserAccount(userData)  {
     ));
 
     if (status === 204) {
+      if (userData.subscribe) {
+        createContact(userData)
+      }
       return { status }
     } else {
       throw Error("Unable to complete registration")

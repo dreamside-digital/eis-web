@@ -14,6 +14,8 @@ const formFields = {
     email: "",
     password: "",
     confirmedPassword: "",
+    subscribe: true,
+    language: "en"
   }
 
 export default function LoginForm({locale}) {
@@ -30,6 +32,20 @@ export default function LoginForm({locale}) {
     setUserData({
       ...userData,
       [field]: input.target.value
+    })
+  }
+
+  const updateSubscribe = e => {
+    setUserData({
+      ...userData,
+      subscribe: e.target.checked
+    })
+  }
+
+  const updateLanguage = e => {
+    setUserData({
+      ...userData,
+      language: e.target.value
     })
   }
 
@@ -92,7 +108,6 @@ export default function LoginForm({locale}) {
  
   return (
     <>
-      <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">Register</h1>
       { verification === "failed" &&
         <p>Your email verification failed. Please try again.</p>
       }
@@ -135,6 +150,29 @@ export default function LoginForm({locale}) {
             Confirm password
           </label>
           <input required onChange={updateUserData("confirmedPassword")} value={userData.confirmedPassword} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirmed_password" type="password" />
+        </div>
+
+        <div className="mb-6">
+          <fieldset>
+          <legend className="block text-gray-700 text-sm font-medium flex items-center mb-1" htmlFor="language">
+            Preferred language
+          </legend>
+          <label className="block text-gray-700 text-sm flex items-center" htmlFor="en">
+            <input onChange={updateLanguage} className="mr-2 h-4 w-4" type="radio" id="en" value="en" checked={userData.language === "en"} name="language" />
+            English
+          </label>
+          <label className="block text-gray-700 text-sm flex items-center" htmlFor="fr">
+            <input onChange={updateLanguage} className="mr-2 h-4 w-4" type="radio" id="fr" value="fr" checked={userData.language === "fr"} name="language" />
+            French
+          </label>
+          </fieldset>
+        </div>
+
+        <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-medium flex items-center" htmlFor="subscribe">
+            <input required onChange={updateSubscribe} checked={userData.subscribe} className="mr-2 h-4 w-4" id="subscribe" type="checkbox" />
+            Subscribe to the mailing list
+          </label>
         </div>
 
         <div className="flex items-center justify-between mt-8">
