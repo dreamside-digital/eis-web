@@ -11,6 +11,7 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 const MapPointSelector = ({setLocation, selectedLocation}) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
+  const markerDiv = useRef(null);
   const [lng, setLng] = useState(-79.34);
   const [lat, setLat] = useState(43.65);
   const [zoom, setZoom] = useState(9);
@@ -21,9 +22,10 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: 'mapbox://styles/mapbox/light-v11',
       center: [lng, lat],
-      zoom: zoom
+      zoom: zoom,
+      maxZoom: 15
     });
 
     map.current.on('click', (e) => {
@@ -35,7 +37,15 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
       }
 
       // add marker to map
-      marker = new mapboxgl.Marker({ color: "#223659"}).setLngLat(lngLat).addTo(map.current)
+      const el = markerDiv.current
+      el.className = 'marker';
+      el.style.backgroundImage = "url('/map-icon.svg')";
+      el.style.width = `40px`;
+      el.style.height = `40px`;
+      el.style.backgroundSize = 'cover';
+      el.style.cursor = "pointer";
+
+      marker = new mapboxgl.Marker(el).setLngLat(lngLat).addTo(map.current)
 
       // convert to point data for backend
       const locationJson = {
@@ -50,6 +60,7 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
   return (
     <div id="location">
       <div ref={mapContainer} className="map-container" style={{ height: '400px' }} />
+      <div ref={markerDiv} />
     </div>
   );
 };
