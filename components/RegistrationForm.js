@@ -100,7 +100,7 @@ export default function LoginForm({locale}) {
   if (success) {
     return (
       <>
-        <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">You're in!</h1>
+        <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">You&apos;re in!</h1>
         <p>Please check your inbox and verify your email address.</p>
       </>
     )
