@@ -345,13 +345,44 @@ export async function createUserAccount(userData)  {
   }
 }
 
-export async function verifyEmail(token)  {
+export async function verifyEmail(token) {
   try {
     const result = await directus.request(registerUserVerify(token));
     return result
 
   } catch (error) {
     return { errors: error.errors }
+  }
+}
+
+export async function getUserProfiles(user) {
+  try {
+    const data = await directus.request(
+      readItems('profiles', {
+        fields: '*,tags.tags_id.*',
+        filter: {
+          user_created: {
+            _eq: user.id
+          }
+        }
+      })
+    );
+
+    if (data.error) {
+      console.log(data.error)
+      throw Error("No results returned for query")
+    } else {
+      const result = data.map(profile => {
+        return {
+          ...profile,
+          tags: profile.tags?.map(tag => ({ ...tag.tags_id })),
+        }
+      })
+      return result
+    }   
+  } catch (error) {
+    console.log({error})
+    return []
   }
 }
 
