@@ -24,11 +24,12 @@ export const profileFormFields = {
     url: "URL",
     profile_picture: "Profile photo",
     location: "What is your location?",
-    location_hint: "This will not be shown publicly.",
+    location_hint: "Your location particulars will be kept private and only used to calculate proximity to help others discover your profile and event. Please read our privacy policy for additional details. If you are more comfortable sharing your postal code, you may do that instead.",
     submit: "Submit profile",
     explore_profiles: "Explore Profiles",
     all: "All",
     full_profile: "Full profile",
+    postal_code: "Postal code",
   },
   fr: {
     title: "Création du profil",
@@ -55,11 +56,12 @@ export const profileFormFields = {
     url: "URL",
     profile_picture: "Photo de profil",
     location: "What is your location?",
-    location_hint: "This will not be shown publicly.",
+    location_hint: "Your location particulars will be kept private and only used to calculate proximity to help others discover your profile and event. Please read our privacy policy for additional details. If you are more comfortable sharing your postal code, you may do that instead.",
     submit: "Envoyer",
     explore_profiles: "Explorer les Profils",
     all: "Tous",
     full_profile: "Profil complet",
+    postal_code: "Postal code",
   }
 }
 

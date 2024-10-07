@@ -11,21 +11,22 @@ export default async function ProfilePage({params}) {
   const cleanDescription = DOMPurify.sanitize(profile.artistic_practice, { USE_PROFILES: { html: true } })
   const cleanCurrentProjects = DOMPurify.sanitize(profile.current_projects, { USE_PROFILES: { html: true } })
   const cleanInspirations = DOMPurify.sanitize(profile.inspirations, { USE_PROFILES: { html: true } })
-  const tagsText = profile.tags?.map(t => t.name).join(", ") || ""
+
+  console.log(profile)
 
   return (
     <>
     <section className="bg-white text-dark p-6 py-12 pt-20 relative">
       <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-2/3 w-full">
       </div>
-      <div className="container max-w-screen-xl mx-auto relative flex justify-center pt-6">
-        <div className="p-6 w-full max-w-xl bg-light text-dark rounded-xl">
-          <div className="flex flex-col lg:flex-row gap-6">
+      <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
+        <div className="p-6 w-full bg-light text-dark rounded-xl">
+          <div className="flex flex-col lg:flex-row">
             <div>
                 {
                   profile.profile_picture &&
                   <Image
-                    className="max-w-48 relative w-full h-full object-cover rounded-xl aspect-square"
+                    className="max-w-48 relative w-full h-full object-cover rounded-xl aspect-square mr-6"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
                     alt={profile.profile_picture.description || profile.public_name} 
                     width={800}
@@ -38,35 +39,57 @@ export default async function ProfilePage({params}) {
                 {profile.public_name}{profile.profile_type === "collective" ? "*" : ""}
               </h1>
               <p className="uppercase tracking-wide mb-4">{profile.pronouns}</p>
-              {(profile.tags?.length > 0) && <p className="uppercase text-sm font-medium tracking-wide">{`Tags: ${tagsText}`}</p>}
+              <p className="leading-relaxed">{profile.short_introduction}</p>
             </div>
           </div>
-          <p className="mt-6 leading-relaxed">{profile.short_introduction}</p>
         </div>
       </div>
     </section>
 
     <section className="bg-white text-dark relative">
-      <div className="container max-w-screen-xl mx-auto px-6 mb-12 lg:mb-20">
-        <div className="lg:grid md:grid-cols-2 gap-16">
-          <div className="mb-6 lg:mb-0">
-            <p className="uppercase text-xl mb-4 font-medium">Current projects</p>
-            <div className="" dangerouslySetInnerHTML={{ __html: cleanCurrentProjects }} />
+      <div className="container max-w-screen-lg mx-auto px-6 mb-12 lg:mb-20">
+        <div className="flex flex-col md:flex-row max-md:divide-y md:divide-x">
+          <div className="basis-3/4 md:pr-8">
+            <div className="mb-6">
+              <p className="font-title text-2xl">Current projects</p>
+              <div className="" dangerouslySetInnerHTML={{ __html: cleanCurrentProjects }} />
+            </div>
+
+            <div className="mb-6">
+              <p className="font-title text-2xl">Artistic Practice</p>
+              <div className="" dangerouslySetInnerHTML={{ __html: cleanDescription }} />
+            </div>
+
+            <div className="mb-6">
+              <p className="font-title text-2xl">Past Projects</p>
+              <div className="" dangerouslySetInnerHTML={{ __html: cleanIntroduction }} />
+            </div>
+
+            <div className="mb-6">
+              <p className="font-title text-2xl">Inspirations</p>
+              <div className="" dangerouslySetInnerHTML={{ __html: cleanInspirations }} />
+            </div>
           </div>
 
-          <div className="mb-6 lg:mb-0">
-            <p className="uppercase text-xl mb-4 font-medium">Artistic Practice</p>
-            <div className="" dangerouslySetInnerHTML={{ __html: cleanDescription }} />
-          </div>
+          <div className="basis-1/4 md:pl-8">
+            {(profile.tags?.length > 0) &&
+            <div className="mb-6">
+              <p className="uppercase text-lg mb-4 font-medium">Tags</p>
+              {profile.tags?.map(tag => {
+                return <div key={tag.name} className="">{tag.name}</div>
+              })}
+            </div>
+            }
 
-          <div className="mb-6 lg:mb-0">
-            <p className="uppercase text-xl mb-4 font-medium">Past Projects</p>
-            <div className="" dangerouslySetInnerHTML={{ __html: cleanIntroduction }} />
-          </div>
+            {(profile.links?.length > 0) &&
+              <div className="">
+                <p className="uppercase text-lg mb-4 font-medium">Links</p>
+                {profile.links?.map(link => {
+                  return <div key={link.url} className=""><a className="underline hover:text-aubergine" href={link.url}>{link.link_text}</a></div>
+                })}
+              </div>
+            }
 
-          <div className="mb-6 lg:mb-0">
-            <p className="uppercase text-xl mb-4 font-medium">Inspirations</p>
-            <div className="" dangerouslySetInnerHTML={{ __html: cleanInspirations }} />
           </div>
         </div>
         
@@ -75,7 +98,7 @@ export default async function ProfilePage({params}) {
 
     {(profile.additional_images?.length > 0) &&
       <section className="bg-light text-dark relative">
-        <div className="container max-w-screen-xl mx-auto px-6 py-12 lg:py-20">
+        <div className="container max-w-screen-lg mx-auto px-6 py-12 lg:py-20">
           <div className="lg:grid grid-cols-3 gap-6">
           {
             profile.additional_images?.map(img => {
@@ -98,18 +121,6 @@ export default async function ProfilePage({params}) {
       </section>
     }
 
-    {profile.links &&
-      <section className="bg-primary text-dark relative">
-        <div className="container max-w-screen-xl mx-auto px-6 py-12 lg:py-20">
-          <div className="flex-1">
-            <p className="font-title text-2xl mb-4">Links</p>
-            {profile.links?.map(link => {
-              return <div key={link.url} className=""><a className="text-lg underline hover:text-aubergine" href={link.url}>{link.link_text}</a></div>
-            })}
-          </div>
-        </div>
-      </section>
-    }
     </>
   )
 }
