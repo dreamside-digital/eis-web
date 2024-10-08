@@ -8,10 +8,17 @@ import Image from 'next/image'
 import { profileFormFields } from '@/utils/profileFormFields'
 
 const statusColors = {
-  'draft': 'slate-100',
-  'review': 'lavendar',
-  'private': 'light',
-  'published': 'medium'
+  'draft': 'border-slate-100',
+  'review': 'border-lavendar',
+  'private': 'border-light',
+  'published': 'border-medium'
+}
+
+const statusColorsBg = {
+  'draft': 'bg-slate-100',
+  'review': 'bg-lavendar',
+  'private': 'bg-light',
+  'published': 'bg-medium'
 }
 
 
@@ -59,9 +66,11 @@ export default function AccountPage({params: {locale}}) {
           <div className="grid grid-cols-3 gap-6">
             {profiles?.map(profile => {
               const tagsText = profile.tags.map(t => t.name).join(", ")
+              const borderColor = statusColors[profile.status]
+              const bbColor = statusColorsBg[profile.status]
               return (
-                  <div key={profile.id} className={`border-2 ${profile.status === "draft" && "border-slate-200"} ${profile.status === "published" && "border-medium"} text-dark relative rounded-xl`}>
-                    <div className={`${profile.status === "draft" && "bg-slate-200"} ${profile.status === "published" && "bg-medium"} text-dark px-6 py-2 uppercase font-medium text-sm`}>{profile.status}</div>
+                  <div key={profile.id} className={`border-2 ${borderColor} text-dark relative rounded-xl`}>
+                    <div className={`${bbColor} text-dark px-6 py-2 uppercase font-medium text-sm rounded-t-lg`}>{profile.status}</div>
                     <div className="p-6">
                       <Link className="text-xl no-underline hover:text-highlight" href={`/${locale}/profiles/${profile.slug}`}>
                         <h1 className="font-title text-xl md:text-2xl mb-4">

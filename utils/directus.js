@@ -22,9 +22,6 @@ export async function getProfile(slug) {
       readSingleton('profiles', {
         fields: '*,location,location.*,tags.tags_id.*,profile_picture,additional_images.directus_files_id.id,additional_images.directus_files_id.description',
         filter: {
-          status: {
-            _eq: 'published',
-          },
           slug: {
             _eq: slug
           }
