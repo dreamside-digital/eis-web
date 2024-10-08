@@ -37,7 +37,7 @@ export default function LoginForm({locale}) {
       setErrors(errors)
     } else {
       console.log(session)
-      router.push(`/${locale}/profiles/new`)
+      router.push(`/${locale}/account`)
     }
   }
  
