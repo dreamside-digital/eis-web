@@ -55,8 +55,8 @@ export default function AccountPage({params: {locale}}) {
         <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
           <div className="p-6 w-full bg-lavendar text-dark rounded-xl">
             <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">Account</h1>
-            <p>{`${user?.first_name} ${user?.last_name}`}</p>
-            <p>{user?.email}</p>
+            { user && <p>{`${user.first_name} ${user.last_name}`}</p>}
+            { user && <p>{user.email}</p>}
           </div>
         </div>
       </section>
