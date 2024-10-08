@@ -105,7 +105,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
             { filteredProfiles.map(profile => {
               const tagsText = profile.tags.map(t => t.name).join(", ")
               return (
-                <div className="max-w-lg h-full">
+                <div className="max-w-lg h-full" key={profile.id}>
                   <div className="h-full p-6 bg-light text-dark relative">
                     <Link className="text-xl no-underline hover:text-highlight" href={`/${locale}/profiles/${profile.slug}`}>
                       <h1 className="font-title text-xl md:text-2xl mb-4">
