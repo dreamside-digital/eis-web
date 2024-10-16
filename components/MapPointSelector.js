@@ -12,9 +12,9 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const markerDiv = useRef(null);
-  const [lng, setLng] = useState(-79.34);
-  const [lat, setLat] = useState(43.65);
-  const [zoom, setZoom] = useState(9);
+  const [lng, setLng] = useState(-76.17);
+  const [lat, setLat] = useState(44.478);
+  const [zoom, setZoom] = useState(6);
   let marker;
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
 
     map.current.on('click', (e) => {
       const lngLat = e.lngLat.wrap()
+      console.log(lngLat)
 
       // remove marker if there is already one on the map
       if (marker !== undefined) {
@@ -39,7 +40,7 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
       // add marker to map
       const el = markerDiv.current
       el.className = 'marker';
-      el.style.backgroundImage = "url('/map-icon.svg')";
+      el.style.backgroundImage = "url('/map-icon.png')";
       el.style.width = `40px`;
       el.style.height = `40px`;
       el.style.backgroundSize = 'cover';

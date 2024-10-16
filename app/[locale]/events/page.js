@@ -14,3 +14,4 @@ export default async function AllEventsPage({params}) {
     </section>
   )
 }
+
