@@ -11,6 +11,8 @@ const navigationLinks = {
   en: {
     newProfile: "Create an artist profile",
     allProfiles: "Discover artists",
+    allEvents: "Discover events",
+    newEvent: "Post an event",
     partners: "Partners and collaborators",
     instagram: "Follow us",
     login: "Login",
@@ -19,6 +21,8 @@ const navigationLinks = {
   fr: {
     newProfile: "Créer un profil d’artiste",
     allProfiles: "Découvrir les artistes",
+    allEvents: "Découvrir les événements",
+    newEvent: "Créer un événement",
     partners: "Partenaires et collaborateur(-trice)s",
     instagram: "Nous suivre",
     login: "Ouvrir une session",
@@ -79,6 +83,8 @@ export default function Navigation({ logo, locale }) {
           <div className={`menu ${menuOpen ? 'shadow flex flex-col divide-y absolute top-16 w-72 bg-white z-10' : 'hidden'}`}>
             <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].newProfile}</Link>
             <Link href={`/${locale}/profiles`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].allProfiles}</Link>
+            <Link href={`/${locale}/events`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].allEvents}</Link>
+            <Link href={`/${locale}/events/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].newEvent}</Link>
             <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].partners}</Link>
             <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].instagram}</a>
             {!user && <Link href={`/${locale}/login`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].login}</Link>}

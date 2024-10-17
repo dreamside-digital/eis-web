@@ -33,7 +33,7 @@ const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
 }
 
 export default function ProfileDrawers({profiles, events, locale, messages}) {
-  const [currentItemUid, setCurrentItemUid] = useState([profiles[0]?.id])
+  const [currentItemUid, setCurrentItemUid] = useState(profiles ? [profiles[0]?.id] : [events[0]?.id])
 
   const handleChange = uid => {
     console.log({ uid })
@@ -43,8 +43,8 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
   }
 
   useEffect(() => {
-    setCurrentItemUid([profiles[0]?.id])
-  }, [profiles])
+    setCurrentItemUid(profiles ? [profiles[0]?.id] : [events[0]?.id] )
+  }, [profiles, events])
 
   if (profiles) {
     return (
@@ -95,7 +95,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
 
   if (events) {
     return (
-      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[profiles[0]?.id]}>
+      <Accordion className="flex flex-col sm:flex-row flex-grow min-h-[70vh]" onChange={handleChange} preExpanded={[events[0]?.id]}>
 
         {events.map(event => {
             const tagsText = event.tags.map(t => t.name).join(", ")
