@@ -33,7 +33,7 @@ body {
 
 @layer components {
   a {
-    @apply hover:text-highlight;
+    @apply hover:text-highlight hover:underline underline-offset-1;
   }
 
   p {

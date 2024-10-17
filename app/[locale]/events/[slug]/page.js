@@ -39,14 +39,12 @@ export default async function EventPage({params}) {
                 }
             </div>
             <div className="flex-1 flex flex-col">
-              <h1 className="font-title text-2xl md:text-3xl mb-4">
+              <h1 className="font-title text-2xl md:text-4xl mb-6">
                 {event.title}
               </h1>
-              <p className="uppercase tracking-wide mb-2">{`Starts at: ${startDateText}`}</p>
-              <p className="uppercase tracking-wide mb-2">{`Ends at: ${endDateText}`}</p>
-              <p className="uppercase tracking-wide mb-2">{`Location: ${locationText}`}</p>
-              <p className="uppercase tracking-wide mb-2">{`Organizer: ${event.organizer}`}</p>
-              <p className="uppercase tracking-wide mb-2">{`Contact: ${event.contact}`}</p>
+              <p className="uppercase tracking-wide text-sm mb-2">{`${startDateText} - ${endDateText}`}</p>
+              <p className="uppercase tracking-wide text-sm mb-2">{`${locationText}`}</p>
+              <p className="my-4">{event.event_preview}</p>
             </div>
           </div>
         </div>
@@ -72,10 +70,10 @@ export default async function EventPage({params}) {
           } 
           </div>
 
-          <div className="basis-1/4 md:pl-8">
+          <div className="basis-1/4 max-md:pt-6 md:pl-8">
             {(event.tags?.length > 0) &&
             <div className="mb-6">
-              <p className="uppercase text-lg mb-4 font-medium">Tags</p>
+              <p className="uppercase mb-2 font-medium">Tags</p>
               {event.tags?.map(tag => {
                 return <div key={tag.name} className="">{tag.name}</div>
               })}
@@ -83,13 +81,23 @@ export default async function EventPage({params}) {
             }
 
             {(event.links?.length > 0) &&
-              <div className="">
-                <p className="uppercase text-lg mb-4 font-medium">Links</p>
+              <div className="mb-6">
+                <p className="uppercase mb-2 font-medium">Links</p>
                 {event.links?.map(link => {
                   return <div key={link.url} className=""><a className="underline hover:text-aubergine" href={link.url}>{link.link_text}</a></div>
                 })}
               </div>
             }
+
+            <div className="mb-6">
+              <p className="uppercase mb-2 font-medium">Organizer</p>
+              <p>{event.organizer}</p>
+            </div>
+
+            <div className="mb-6">
+              <p className="uppercase mb-2 font-medium">Contact</p>
+              <p>{event.contact}</p>
+            </div>
           </div>
         </div>
       </div>

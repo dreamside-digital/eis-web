@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import VideoModal from '@/components/VideoModal'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/utils/directus'
@@ -94,18 +95,35 @@ export default async function Home({ params: { locale } }) {
                 keyFeatures.map(feature => {
                   const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
                   const translatedFeature = feature.translations.find(t => t.languages_code === locale)
+                  const url = translatedFeature.link
+
                   return (
                     <li key={feature.id} className="flex-1 flex flex-col items-center mb-16">
-                      <p className="uppercase text-xl text-center mb-4">
-                        {translatedFeature?.title}
-                      </p>
-                      <Image
-                        className="relative"
-                        src={imgUrl}
-                        alt=""
-                        width={180}
-                        height={180}
-                      />
+                      { url ? (
+                        <Link href={url} className="cursor-pointer hover:underline underline-offset-1">
+                          <span className="block uppercase text-xl text-center mb-4">{translatedFeature?.title}</span>
+                          <Image
+                            className="relative"
+                            src={imgUrl}
+                            alt=""
+                            width={180}
+                            height={180}
+                          />
+                        </Link>
+                      ) : (
+                        <>
+                          <p className="uppercase text-xl text-center mb-4">
+                            {translatedFeature?.title}
+                          </p>
+                          <Image
+                            className="relative"
+                            src={imgUrl}
+                            alt=""
+                            width={180}
+                            height={180}
+                          />
+                        </>
+                      )}
                     </li>
                   )
                 })
@@ -174,6 +192,7 @@ export default async function Home({ params: { locale } }) {
                   benefits.map(feature => {
                     const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
                     const translatedFeature = feature.translations.find(t => t.languages_code === locale)
+
                     return (
                       <li className="flex-1 flex flex-col items-center" key={feature.id}>
                         <Image

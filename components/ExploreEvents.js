@@ -4,7 +4,7 @@ import Carousel from "@/components/Carousel"
 import Accordion from "@/components/Accordion"
 import Filters from "@/components/Filters"
 import {useState, useEffect} from 'react'
-import {getEvent} from '@/utils/directus'
+import {getEvents} from '@/utils/directus'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
 
 
