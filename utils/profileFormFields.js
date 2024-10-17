@@ -20,7 +20,7 @@ export const profileFormFields = {
     tags: "Tags",
     links: "Links",
     links_hint: "Add up to three links to your website, portfolio, or other socials.",
-    link: "Link",
+    link: "Link Text",
     url: "URL",
     profile_picture: "Profile Photo",
     location: "What is your location?",

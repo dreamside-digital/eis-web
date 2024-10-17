@@ -281,6 +281,17 @@ export async function createProfile(data) {
   }
 }
 
+export async function createEvent(data) {
+  try {
+    const result = await directus.request(createItem('events', data))
+    console.log({result})
+    return result
+  } catch(error) {
+    console.log(error.errors)
+    return {errors: error.errors}
+  }
+}
+
 export async function uploadImage(formData) {
   try {
     // const formData = new FormData();

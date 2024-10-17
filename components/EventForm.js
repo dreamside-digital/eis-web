@@ -11,26 +11,25 @@ import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
 const defaultEvent = {
   status: "draft",
-  event_type: "individual",
-  email_address: "",
-  public_name: "",
-  short_introduction: "",
-  pronouns: "",
-  current_projects: "",
-  artistic_practice: "",
-  inspirations: "",
-  past_projects: "",
+  title: "",
+  description: "",
+  starts_at: "",
+  ends_at: "",
+  organizer: "",
+  contact: "",
+  instructions: "",
+  venue: "",
+  address: "",
+  price: "",
   tags: [],
   links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
   location: ""
 }
 
 export default function EventForm({tags, messages, locale}) {
-  const [event, setEvent] = useState(defaultProfile)
+  const [event, setEvent] = useState(defaultEvent)
   const [fileUploading, setFileUploading] = useState(false)
-  const [location, setLocation] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [showPostalCodeField, setShowPostalCodeField] = useState(false)
   const [errors, setErrors] = useState()
   const [user, setUser] = useState()
   const router = useRouter()
@@ -92,8 +91,7 @@ export default function EventForm({tags, messages, locale}) {
       ...event,
       user_created: user?.id,
       links: JSON.stringify(links),
-      event_picture: event.event_picture?.id,
-      location: location,
+      main_image: event.main_image?.id,
     }
     console.log({data})
     const result = await createEvent(data)
@@ -116,20 +114,15 @@ export default function EventForm({tags, messages, locale}) {
       const result = await uploadImage(formData)
       setEvent({
         ...event,
-        event_picture: result
+        main_image: result
       })
       setFileUploading(false)
     } else {
       setEvent({
         ...event,
-        event_picture: null
+        main_image: null
       })
     }
-  }
-
-  const revealPostalCodeField = (e) => {
-    e.preventDefault()
-    setShowPostalCodeField(true)
   }
 
  
@@ -137,71 +130,79 @@ export default function EventForm({tags, messages, locale}) {
     <>
       <section className="bg-white text-dark relative">
         <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl sm:rounded-lg p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
-          <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.title}</h1>
+          <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.page_title}</h1>
           <form className="" onSubmit={handleSubmit}>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="email_address">
-                {messages.email}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="title">
+                {messages.title}
               </label>
-              <small className="mb-2 block">{messages.email_hint}</small>
-              <input disabled={!!user} onChange={updateEvent("email_address")} value={user ? user.email : event.email_address} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email_address" type="email" />
+              <small className="mb-2 block">{messages.title_hint}</small>
+              <input required onChange={updateEvent("title")} value={event.title} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" />
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="public_name">
-                {messages.public_name}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="description">
+                {messages.description}
               </label>
-              <small className="mb-2 block">{messages.public_name_hint}</small>
-              <input required onChange={updateEvent("public_name")} value={event.public_name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
+              <small className="mb-2 block">{messages.description_hint}</small>
+              <RichTextEditor required onChange={updateEvent("description")} value={event.description} />
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="pronouns">
-                {messages.pronouns}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="starts_at">
+                {messages.starts_at}
               </label>
-              <small className="mb-2 block">{messages.pronouns_hint}</small>
-              <input onChange={updateEvent("pronouns")} value={event.pronouns} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pronouns" type="text" />
+              <small className="mb-2 block">{messages.starts_at_hint}</small>
+              <input required onChange={updateEvent("starts_at")} value={event.starts_at} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="starts_at" type="datetime-local" />
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="current_projects">
-                {messages.current_project}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="ends_at">
+                {messages.ends_at}
               </label>
-              <small className="mb-2 block">{messages.current_project_hint}</small>
-              <RichTextEditor required onChange={updateEvent("current_projects")} value={event.current_projects} />
+              <small className="mb-2 block">{messages.ends_at_hint}</small>
+              <input required onChange={updateEvent("ends_at")} value={event.ends_at} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ends_at" type="datetime-local" />
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="artistic_practice">
-                {messages.artistic_practice}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="venue">
+                {messages.venue}
               </label>
-              <small className="mb-2 block">{messages.artistic_practice_hint}</small>
-              <RichTextEditor required onChange={updateEvent("artistic_practice")} value={event.artistic_practice} />
+              <small className="mb-2 block">{messages.venue_hint}</small>
+              <input onChange={updateEvent("venue")} value={event.venue} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="venue" type="text" />
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="inspirations">
-                {messages.inspirations}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="address">
+                {messages.address}
               </label>
-              <small className="mb-2 block">{messages.inspirations_hint}</small>
-              <RichTextEditor onChange={updateEvent("inspirations")} value={event.inspirations} />
+              <small className="mb-2 block">{messages.address_hint}</small>
+              <input required onChange={updateEvent("address")} value={event.address} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" />
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="past_projects">
-                {messages.past_projects}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="organizer">
+                {messages.organizer}
               </label>
-              <small className="mb-2 block">{messages.past_projects_hint}</small>
-              <RichTextEditor onChange={updateEvent("introduction")} value={event.introduction} />
+              <small className="mb-2 block">{messages.organizer_hint}</small>
+              <input required onChange={updateEvent("organizer")} value={event.organizer} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="organizer" type="text" />
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="short_introduction">
-                {messages.event_preview}
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="contact">
+                {messages.contact}
               </label>
-              <small className="mb-2 block">{messages.event_preview_hint}</small>
-              <input required maxLength={500} onChange={updateEvent("short_introduction")} value={event.short_introduction} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
+              <small className="mb-2 block">{messages.contact_hint}</small>
+              <input required onChange={updateEvent("contact")} value={event.contact} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="contact" type="text" />
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="instructions">
+                {messages.instructions}
+              </label>
+              <small className="mb-2 block">{messages.instructions_hint}</small>
+              <RichTextEditor required onChange={updateEvent("instructions")} value={event.instructions} />
             </div>
 
             <div className="mb-6">
@@ -240,45 +241,26 @@ export default function EventForm({tags, messages, locale}) {
             </div>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="event_picture">
-                {messages.event_picture}
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="main_image">
+                {messages.main_image}
               </label>
-              <input onChange={handleFileChange} type="file" className="" id="event_picture" />
+              <input onChange={handleFileChange} type="file" className="" id="main_image" />
               {
                 fileUploading && 
                 <div className="mt-2 w-48 h-48 bg-white animate-pulse" />
               }
               {
-                event.event_picture && 
+                event.main_image && 
                 <div className="mt-2">
                   <Image
                     className="w-48 aspect-square relative w-full h-auto object-cover bg-white"
-                    src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.event_picture.id}`}
-                    alt={event.event_picture.description || event.public_name} 
-                    width={event.event_picture.width}
-                    height={event.event_picture.height}
+                    src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.main_image.id}`}
+                    alt={event.main_image.description || event.title} 
+                    width={event.main_image.width}
+                    height={event.main_image.height}
                   />
                 </div>
               }
-            </div>
-
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
-                {messages.location}
-              </label>
-              <small className="mb-2 block">{messages.location_hint}</small>
-              <MapPointSelector setLocation={setLocation} selectedLocation={location} />
-            </div>
-
-            <div className="mb-6">
-              <button hidden={showPostalCodeField} className="text-sm underline" onClick={revealPostalCodeField}>I do not feel comfortable disclosing my location on a map</button>
-              <div hidden={!showPostalCodeField}>
-                <label className="block text-gray-700 text-sm font-bold" htmlFor="postal_code">
-                  {messages.postal_code}
-                </label>
-                <small className="mb-2 block">{messages.postal_code_hint}</small>
-                <input required onChange={updateEvent("postal_code")} value={event.postal_code} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
-              </div>
             </div>
 
             <div className="flex items-center justify-between mt-8">
