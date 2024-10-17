@@ -23,7 +23,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
 
   useEffect(() => {
     const fetchEvents = async() => {
-      const data = await getEvents(currentFilters)
+      const data = await getEvents()
       setFilteredEvents(data)
     }
 

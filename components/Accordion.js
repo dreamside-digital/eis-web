@@ -103,7 +103,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
             const startDateText = startDate.toLocaleString('en-CA', DATE_FORMAT)
             const endDate = new Date(event.ends_at)
             const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
-            const locationText = [event.location.name, event.location.street_address, event.location.city].filter(i=>i).join(", ")
+            const locationText = [event.title, event.address].filter(i=>i).join(", ")
             const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
 
             return (
