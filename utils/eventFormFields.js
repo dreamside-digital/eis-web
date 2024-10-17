@@ -4,6 +4,8 @@ export const eventFormFields = {
     title: "Event Title*",
     description: "Description*",
     description_hint: "Max 500 words",
+    event_preview: "Event Preview",
+    event_preview_hint: "A short description of the event (max 250 characters)",
     organizer: "Organizer*",
     starts_at: "Start Date and Time*",
     ends_at: "End Date and Time*",
@@ -57,6 +59,8 @@ export const eventFormFields = {
     explore_profiles: "Explore Profiles",
     all: "All",
     full_profile: "Full Profile",
+    event_preview: "Event preview",
+    event_preview_hint: "A short description of the event (max 250 characters)"
   }
 }
 

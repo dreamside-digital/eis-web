@@ -49,13 +49,11 @@ export async function getProfile(slug) {
 
 export async function getEvent(slug) {
   try {
+    console.log({slug})
     const data = await directus.request(
       readSingleton('events', {
         fields: '*,location,location.*,tags.tags_id.*,main_image,additional_images.*',
         filter: {
-          status: {
-            _eq: 'published',
-          },
           slug: {
             _eq: slug
           }

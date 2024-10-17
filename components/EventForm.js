@@ -17,13 +17,11 @@ const defaultEvent = {
   ends_at: "",
   organizer: "",
   contact: "",
-  instructions: "",
   venue: "",
   address: "",
-  price: "",
+  instructions: "",
   tags: [],
   links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
-  location: ""
 }
 
 export default function EventForm({tags, messages, locale}) {
@@ -142,11 +140,19 @@ export default function EventForm({tags, messages, locale}) {
             </div>
 
             <div className="mb-6">
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="event_preview">
+                {messages.event_preview}
+              </label>
+              <small className="mb-2 block">{messages.event_preview_hint}</small>
+              <input required onChange={updateEvent("event_preview")} value={event.event_preview} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="event_preview" type="text" />
+            </div>
+
+            <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="description">
                 {messages.description}
               </label>
               <small className="mb-2 block">{messages.description_hint}</small>
-              <RichTextEditor required onChange={updateEvent("description")} value={event.description} />
+              <RichTextEditor onChange={updateEvent("description")} value={event.description} />
             </div>
 
             <div className="mb-6">
@@ -202,7 +208,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.instructions}
               </label>
               <small className="mb-2 block">{messages.instructions_hint}</small>
-              <RichTextEditor required onChange={updateEvent("instructions")} value={event.instructions} />
+              <RichTextEditor  onChange={updateEvent("instructions")} value={event.instructions} />
             </div>
 
             <div className="mb-6">
@@ -235,8 +241,8 @@ export default function EventForm({tags, messages, locale}) {
                 <input onChange={updateLinks(1, 'url')} value={event.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(2, 'link_text')} value={event.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
-                <input onChange={updateLinks(2, 'url')} value={event.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
+                <input onChange={updateLinks(2, 'link_text')} value={event.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
+                <input onChange={updateLinks(2, 'url')} value={event.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
               </div>
             </div>
 
@@ -253,7 +259,7 @@ export default function EventForm({tags, messages, locale}) {
                 event.main_image && 
                 <div className="mt-2">
                   <Image
-                    className="w-48 aspect-square relative w-full h-auto object-cover bg-white"
+                    className="w-48 max-w-48 aspect-square relative w-full h-auto object-cover bg-white"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.main_image.id}`}
                     alt={event.main_image.description || event.title} 
                     width={event.main_image.width}

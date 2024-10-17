@@ -1,4 +1,4 @@
-export default function ProfileLayout({children}) {
+export default function EventLayout({children}) {
   return (
     <div>
       {children}

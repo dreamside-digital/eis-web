@@ -22,7 +22,8 @@ const defaultProfile = {
   past_projects: "",
   tags: [],
   links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
-  location: ""
+  location: "",
+  postal_code: "",
 }
 
 export default function ProfileForm({tags, messages, locale}) {
@@ -234,8 +235,8 @@ export default function ProfileForm({tags, messages, locale}) {
                 <input onChange={updateLinks(1, 'url')} value={profile.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(2, 'link_text')} value={profile.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
-                <input onChange={updateLinks(2, 'url')} value={profile.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
+                <input onChange={updateLinks(2, 'link_text')} value={profile.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
+                <input onChange={updateLinks(2, 'url')} value={profile.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
               </div>
             </div>
 
@@ -277,7 +278,7 @@ export default function ProfileForm({tags, messages, locale}) {
                   {messages.postal_code}
                 </label>
                 <small className="mb-2 block">{messages.postal_code_hint}</small>
-                <input required onChange={updateProfile("postal_code")} value={profile.postal_code} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
+                <input onChange={updateProfile("postal_code")} value={profile.postal_code} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
               </div>
             </div>
 

@@ -12,8 +12,6 @@ export default async function ProfilePage({params}) {
   const cleanCurrentProjects = DOMPurify.sanitize(profile.current_projects, { USE_PROFILES: { html: true } })
   const cleanInspirations = DOMPurify.sanitize(profile.inspirations, { USE_PROFILES: { html: true } })
 
-  console.log(profile)
-
   return (
     <>
     <section className="bg-white text-dark p-6 py-12 pt-20 relative">
