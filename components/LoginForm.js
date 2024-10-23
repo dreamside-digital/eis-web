@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from "next/navigation";
 import { useState } from 'react'
-import { createSession } from '@/utils/data-access'
+import { createSession } from '@/utils/auth'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 

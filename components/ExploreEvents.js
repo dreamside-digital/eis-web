@@ -117,7 +117,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
                       {
                         event.event_picture &&
                         <Image
-                          className="relative w-full h-auto aspect-video object-cover rounded-xl mb-4"
+                          className="relative w-full max-w-48 h-auto aspect-video object-cover rounded-xl mb-4"
                           src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.event_picture}`}
                           alt={event.public_name} 
                           width={500}

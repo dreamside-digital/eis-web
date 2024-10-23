@@ -1,6 +1,6 @@
 "use client"
 
-import { userSession, currentUser } from '@/utils/data-access'
+import { userSession, currentUser } from '@/utils/auth'
 import { getUserProfiles } from '@/utils/directus'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -33,6 +33,7 @@ export default function AccountPage({params: {locale}}) {
 
       if (session.accessToken) {
         const authedUser = await currentUser(session.accessToken)
+        console.log({authedUser})
         return setUser(authedUser)
       }
     })();

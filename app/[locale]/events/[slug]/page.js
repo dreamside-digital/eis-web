@@ -30,7 +30,7 @@ export default async function EventPage({params}) {
                 {
                   event.main_image &&
                   <Image
-                    className="max-w-96 relative w-full h-full object-cover rounded-xl aspect-square mr-6"
+                    className="max-w-80 relative w-full h-full object-cover rounded-xl aspect-square mr-6"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.main_image}`}
                     alt={event.main_image.description || event.title} 
                     width={800}

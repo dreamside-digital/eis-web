@@ -73,6 +73,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   const footerCol2Parts = translation?.footer_column_2_title.split(" ")
   const footerCol1LastWord = footerCol1Parts?.splice(-1).join(" ")
   const footerCol2LastWord = footerCol2Parts?.splice(-1).join(" ")
+  
   return (
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative`}>

@@ -135,7 +135,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
                     </div>
 
                     <div className="">
-                      <Link className="font-medium underline" href={`${locale}/events/${event.slug}`}>{`Event page`}</Link>
+                      <Link className="font-medium underline" href={`/events/${event.slug}`}>{`Event page`}</Link>
                     </div>
                   </div>
                 </div>

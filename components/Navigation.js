@@ -4,7 +4,7 @@ import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from "next/link";
-import { userSession, currentUser, deleteSession } from '@/utils/data-access'
+import { userSession, currentUser, deleteSession } from '@/utils/auth'
 import { useRouter, usePathname } from 'next/navigation'
 
 const navigationLinks = {
@@ -37,13 +37,12 @@ export default function Navigation({ logo, locale }) {
   const router = useRouter()
   const pathname = usePathname();
 
+  console.log({pathname})
+
   useEffect(() => {
     (async () => {
-      const session = await userSession();
-
-      if (session.accessToken) {
-        setUser(true)
-      }
+      const authedUser = await currentUser()
+      return setUser(authedUser)
     })();
   }, [pathname]);
 

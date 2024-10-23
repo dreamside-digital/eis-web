@@ -30,6 +30,7 @@ export const createSession = async (email, password) => {
 } 
 
 export const deleteSession = async () => {
+  await directus.logout()
   cookies().delete(AUTH_USER);
   cookies().delete(COOKIE_NAME);
 };

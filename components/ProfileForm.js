@@ -5,7 +5,7 @@ import RichTextEditor from '@/components/RichTextEditor'
 import MapPointSelector from '@/components/MapPointSelector'
 import { useState, useEffect } from 'react'
 import { createProfile, uploadImage } from '@/utils/directus'
-import { userSession, currentUser } from '@/utils/data-access'
+import { userSession, currentUser } from '@/utils/auth'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
@@ -38,12 +38,11 @@ export default function ProfileForm({tags, messages, locale}) {
 
   useEffect(() => {
     (async () => {
-      const session = await userSession();
-
-      if (session.accessToken) {
-        const authedUser = await currentUser(session.accessToken)
+        const token = await userSession()
+        console.log({token})
+        const authedUser = await currentUser()
+        console.log({authedUser})
         return setUser(authedUser)
-      }
     })();
   }, []);
 
