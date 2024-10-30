@@ -1,8 +1,9 @@
 "use client"
 
 import { userSession, currentUser } from '@/utils/auth'
-import { getUserProfiles } from '@/utils/directus'
+import { getUserProfiles, updateProfile } from '@/utils/directus'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { profileFormFields } from '@/utils/profileFormFields'
@@ -25,11 +26,18 @@ const statusColorsBg = {
   'published': 'bg-medium'
 }
 
+const statusLabels = {
+  'draft': 'Draft',
+  'review': 'In Review',
+  'private': 'Private',
+  'published': 'Published'
+}
 
 export default function AccountPage({params: {locale}}) {
   const [user, setUser] = useState()
   const [profiles, setProfiles] = useState()
   const messages = profileFormFields[locale]
+  const router = useRouter()
 
   useEffect(() => {
     (async () => {
@@ -37,7 +45,11 @@ export default function AccountPage({params: {locale}}) {
 
       if (session.accessToken) {
         const authedUser = await currentUser(session.accessToken)
-        return setUser(authedUser)
+        if (authedUser) {
+          return setUser(authedUser)
+        } else {
+          router.push(`/${locale}/login`)
+        }
       }
     })();
   }, []);
@@ -51,8 +63,14 @@ export default function AccountPage({params: {locale}}) {
     })();
   }, [user]);
 
-  const submitDraft = () => {
-    return null
+  const changeProfileStatus = (id, newStatus) => async () => {
+    try {
+      const res = await updateProfile(id, {status: newStatus})
+      const profiles = await getUserProfiles(user);
+      return setProfiles(profiles)
+    } catch (error) {
+      console.log(res)
+    }
   }
 
   return (
@@ -79,7 +97,7 @@ export default function AccountPage({params: {locale}}) {
               return (
                   <div key={profile.id} className={`border-2 ${borderColor} text-dark relative `}>
                     <div className={`${bbColor} text-dark px-6 py-2 uppercase font-medium text-sm`}>
-                      <span>{profile.status}</span>
+                      <span>{statusLabels[profile.status]}</span>
                     </div>
                     <div className="p-6">
                       <Link className="text-xl no-underline hover:text-highlight" href={`/${locale}/profiles/${profile.slug}`}>
@@ -109,20 +127,32 @@ export default function AccountPage({params: {locale}}) {
 
                         <div className="flex flex-col gap-1">
                           <div>
-                            <button className="inline-flex gap-1 text-sm btn grow-0" onClick={submitDraft} aria-label="Edit profile">
+                            <Link className="inline-flex gap-1 text-sm btn grow-0" href={`/profiles/${profile.slug}/edit`} aria-label="Edit profile">
                               <PencilIcon className="w-4 h-4" />
                               Edit
-                            </button>
+                            </Link>
                           </div>
                           {profile.status === "draft" && 
                           <div>
-                            <button className="inline-flex gap-1 text-sm btn" onClick={submitDraft} aria-label="Submit for Review">
+                            <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "review")} aria-label="Submit for Review">
                               <PaperAirplaneIcon className="w-4 h-4" />
                               Submit for review 
                             </button>
                           </div>}
-                          {profile.status === "private" && <button onClick={submitDraft} aria-label="Approve and Publish"><EyeIcon className="w-4 h-4" /></button>}
-                          {profile.status === "published" && <button onClick={submitDraft} aria-label="Make profile private"><EyeSlashIcon className="w-4 h-4" /></button>}
+                          {profile.status === "private" && 
+                          <div>
+                            <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "published")} aria-label="Publish Profile">
+                              <EyeIcon className="w-4 h-4" />
+                              Publish Profile
+                            </button>
+                          </div>}
+                          {profile.status === "published" && 
+                          <div>
+                            <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "private")} aria-label="Make Profile Private">
+                              <EyeSlashIcon className="w-4 h-4" />
+                              Make Profile Private 
+                            </button>
+                          </div>}
                         </div>
                       </div>
                     </div>

@@ -3,7 +3,7 @@ import ExploreProfiles from '@/components/ExploreProfiles'
 import { profileFormFields } from '@/utils/profileFormFields'
 
 
-export default async function AllProfilesPage({params: {locale}}) {
+export default async function NewProfilePage({params: {locale}}) {
   const profiles = await getProfiles()
   const tags = await getTags()
 

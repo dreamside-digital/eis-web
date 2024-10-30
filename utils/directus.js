@@ -7,9 +7,10 @@ import {
   readItems,
   readSingleton,
   createItem,
+  updateItem,
   uploadFiles,
   registerUser,
-  registerUserVerify
+  registerUserVerify,
 } from '@directus/sdk'
 
 import { createContact } from "./sendgrid"
@@ -389,6 +390,16 @@ export async function getUserProfiles(user) {
   } catch (error) {
     console.log({error})
     return []
+  }
+}
+
+export async function updateProfile(profileId, data) {
+  try {
+    const result = await directus.request(updateItem('profiles', profileId, data));
+    return result
+  } catch (error) {
+    console.log(error)
+    return error.errors
   }
 }
 

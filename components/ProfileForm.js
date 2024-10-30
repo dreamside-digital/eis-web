@@ -4,32 +4,16 @@ import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
 import MapPointSelector from '@/components/MapPointSelector'
 import { useState, useEffect } from 'react'
-import { createProfile, uploadImage } from '@/utils/directus'
+import { uploadImage, createProfile, updateProfile } from '@/utils/directus'
 import { userSession, currentUser } from '@/utils/auth'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
-const defaultProfile = {
-  status: "draft",
-  profile_type: "individual",
-  email_address: "",
-  public_name: "",
-  short_introduction: "",
-  pronouns: "",
-  current_projects: "",
-  artistic_practice: "",
-  inspirations: "",
-  past_projects: "",
-  tags: [],
-  links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
-  location: "",
-  postal_code: "",
-}
 
-export default function ProfileForm({tags, messages, locale}) {
+export default function ProfileForm({defaultProfile, tags, messages, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [fileUploading, setFileUploading] = useState(false)
-  const [location, setLocation] = useState(false)
+  const [location, setLocation] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [showPostalCodeField, setShowPostalCodeField] = useState(false)
   const [errors, setErrors] = useState()
@@ -44,7 +28,7 @@ export default function ProfileForm({tags, messages, locale}) {
     })();
   }, []);
 
-  const updateProfile = field => input => {
+  const updateProfileData = field => input => {
 
     setProfile({
       ...profile,
@@ -93,8 +77,7 @@ export default function ProfileForm({tags, messages, locale}) {
       profile_picture: profile.profile_picture?.id,
       location: location,
     }
-    console.log({data})
-    const result = await createProfile(data)
+    const result = profile.id ? await updateProfile(profile.id, data) : await createProfile(data)
     if (result.errors) {
       setErrors(result.errors)
       setSubmitting(false)
@@ -143,7 +126,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.email}
               </label>
               <small className="mb-2 block">{messages.email_hint}</small>
-              <input disabled={!!user} onChange={updateProfile("email_address")} value={user ? user.email : profile.email_address} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email_address" type="email" />
+              <input disabled={!!user} onChange={updateProfileData("email_address")} value={user ? user.email : profile.email_address} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email_address" type="email" />
             </div>
 
             <div className="mb-6">
@@ -151,7 +134,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.public_name}
               </label>
               <small className="mb-2 block">{messages.public_name_hint}</small>
-              <input required onChange={updateProfile("public_name")} value={profile.public_name} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
+              <input required onChange={updateProfileData("public_name")} value={profile.public_name} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
             </div>
 
             <div className="mb-6">
@@ -159,7 +142,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.pronouns}
               </label>
               <small className="mb-2 block">{messages.pronouns_hint}</small>
-              <input onChange={updateProfile("pronouns")} value={profile.pronouns} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pronouns" type="text" />
+              <input onChange={updateProfileData("pronouns")} value={profile.pronouns} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pronouns" type="text" />
             </div>
 
             <div className="mb-6">
@@ -167,7 +150,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.current_project}
               </label>
               <small className="mb-2 block">{messages.current_project_hint}</small>
-              <RichTextEditor required onChange={updateProfile("current_projects")} value={profile.current_projects} />
+              <RichTextEditor required onChange={updateProfileData("current_projects")} value={profile.current_projects} />
             </div>
 
             <div className="mb-6">
@@ -175,7 +158,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.artistic_practice}
               </label>
               <small className="mb-2 block">{messages.artistic_practice_hint}</small>
-              <RichTextEditor required onChange={updateProfile("artistic_practice")} value={profile.artistic_practice} />
+              <RichTextEditor required onChange={updateProfileData("artistic_practice")} value={profile.artistic_practice} />
             </div>
 
             <div className="mb-6">
@@ -183,7 +166,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.inspirations}
               </label>
               <small className="mb-2 block">{messages.inspirations_hint}</small>
-              <RichTextEditor onChange={updateProfile("inspirations")} value={profile.inspirations} />
+              <RichTextEditor onChange={updateProfileData("inspirations")} value={profile.inspirations} />
             </div>
 
             <div className="mb-6">
@@ -191,7 +174,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.past_projects}
               </label>
               <small className="mb-2 block">{messages.past_projects_hint}</small>
-              <RichTextEditor onChange={updateProfile("introduction")} value={profile.introduction} />
+              <RichTextEditor onChange={updateProfileData("introduction")} value={profile.introduction} />
             </div>
 
             <div className="mb-6">
@@ -199,7 +182,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.profile_preview}
               </label>
               <small className="mb-2 block">{messages.profile_preview_hint}</small>
-              <input required maxLength={500} onChange={updateProfile("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
+              <input required maxLength={500} onChange={updateProfileData("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
             </div>
 
             <div className="mb-6">
@@ -275,7 +258,7 @@ export default function ProfileForm({tags, messages, locale}) {
                   {messages.postal_code}
                 </label>
                 <small className="mb-2 block">{messages.postal_code_hint}</small>
-                <input onChange={updateProfile("postal_code")} value={profile.postal_code} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
+                <input onChange={updateProfileData("postal_code")} value={profile.postal_code} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
               </div>
             </div>
 

@@ -11,6 +11,7 @@ export default async function ProfilePage({params}) {
   const cleanDescription = DOMPurify.sanitize(profile.artistic_practice, { USE_PROFILES: { html: true } })
   const cleanCurrentProjects = DOMPurify.sanitize(profile.current_projects, { USE_PROFILES: { html: true } })
   const cleanInspirations = DOMPurify.sanitize(profile.inspirations, { USE_PROFILES: { html: true } })
+  const links = profile.links?.filter(l => l.url && l.link_text)
 
   return (
     <>
@@ -48,25 +49,33 @@ export default async function ProfilePage({params}) {
       <div className="container max-w-screen-lg mx-auto px-6 mb-12 lg:mb-20">
         <div className="flex flex-col md:flex-row max-md:divide-y md:divide-x">
           <div className="basis-3/4 md:pr-8">
-            <div className="mb-6">
-              <p className="font-title text-2xl">Current projects</p>
-              <div className="" dangerouslySetInnerHTML={{ __html: cleanCurrentProjects }} />
-            </div>
+            { cleanCurrentProjects && 
+              <div className="mb-6">
+                <p className="font-title text-2xl">Current projects</p>
+                <div className="" dangerouslySetInnerHTML={{ __html: cleanCurrentProjects }} />
+              </div>
+            }
 
-            <div className="mb-6">
-              <p className="font-title text-2xl">Artistic Practice</p>
-              <div className="" dangerouslySetInnerHTML={{ __html: cleanDescription }} />
-            </div>
+            { cleanDescription && 
+              <div className="mb-6">
+                <p className="font-title text-2xl">Artistic Practice</p>
+                <div className="" dangerouslySetInnerHTML={{ __html: cleanDescription }} />
+              </div>
+            }
 
-            <div className="mb-6">
-              <p className="font-title text-2xl">Past Projects</p>
-              <div className="" dangerouslySetInnerHTML={{ __html: cleanIntroduction }} />
-            </div>
+            { cleanIntroduction && 
+              <div className="mb-6">
+                <p className="font-title text-2xl">Past Projects</p>
+                <div className="" dangerouslySetInnerHTML={{ __html: cleanIntroduction }} />
+              </div>
+            }
 
-            <div className="mb-6">
-              <p className="font-title text-2xl">Inspirations</p>
-              <div className="" dangerouslySetInnerHTML={{ __html: cleanInspirations }} />
-            </div>
+            { cleanInspirations &&
+              <div className="mb-6">
+                <p className="font-title text-2xl">Inspirations</p>
+                <div className="" dangerouslySetInnerHTML={{ __html: cleanInspirations }} />
+              </div>
+            }
           </div>
 
           <div className="basis-1/4 md:pl-8">
@@ -79,10 +88,10 @@ export default async function ProfilePage({params}) {
             </div>
             }
 
-            {(profile.links?.length > 0) &&
+            {(links.length > 0) &&
               <div className="">
                 <p className="uppercase text-lg mb-4 font-medium">Links</p>
-                {profile.links?.map(link => {
+                {links.map(link => {
                   return <div key={link.url} className=""><a className="underline hover:text-aubergine" href={link.url}>{link.link_text}</a></div>
                 })}
               </div>
