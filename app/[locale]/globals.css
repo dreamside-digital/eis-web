@@ -39,6 +39,10 @@ body {
   p {
     @apply mb-4;
   }
+
+  .btn {
+    @apply inline-flex items-center bg-dark hover:bg-highlight text-light hover:text-white px-2 py-1;
+  }
 }
 
 
@@ -114,9 +118,13 @@ main section:first-of-type {
 .wysiwyg-content a {
   font-weight: 500;
 }
-np
+
 .wysiwyg-content h2 {
   font-size: 1.25em;
   margin-bottom: 0.5em;
   font-weight: 500;
+}
+
+.tox.tox-tinymce {
+  border-radius: 0;
 }

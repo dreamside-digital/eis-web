@@ -38,10 +38,8 @@ export default function ProfileForm({tags, messages, locale}) {
 
   useEffect(() => {
     (async () => {
-        const token = await userSession()
-        console.log({token})
-        const authedUser = await currentUser()
-        console.log({authedUser})
+        const session = await userSession()
+        const authedUser = await currentUser(session.accessToken)
         return setUser(authedUser)
     })();
   }, []);
@@ -136,7 +134,7 @@ export default function ProfileForm({tags, messages, locale}) {
   return (
     <>
       <section className="bg-white text-dark relative">
-        <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl sm:rounded-lg p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
+        <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.title}</h1>
           <form className="" onSubmit={handleSubmit}>
 
@@ -145,7 +143,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.email}
               </label>
               <small className="mb-2 block">{messages.email_hint}</small>
-              <input disabled={!!user} onChange={updateProfile("email_address")} value={user ? user.email : profile.email_address} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email_address" type="email" />
+              <input disabled={!!user} onChange={updateProfile("email_address")} value={user ? user.email : profile.email_address} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email_address" type="email" />
             </div>
 
             <div className="mb-6">
@@ -153,7 +151,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.public_name}
               </label>
               <small className="mb-2 block">{messages.public_name_hint}</small>
-              <input required onChange={updateProfile("public_name")} value={profile.public_name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
+              <input required onChange={updateProfile("public_name")} value={profile.public_name} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
             </div>
 
             <div className="mb-6">
@@ -161,7 +159,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.pronouns}
               </label>
               <small className="mb-2 block">{messages.pronouns_hint}</small>
-              <input onChange={updateProfile("pronouns")} value={profile.pronouns} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pronouns" type="text" />
+              <input onChange={updateProfile("pronouns")} value={profile.pronouns} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pronouns" type="text" />
             </div>
 
             <div className="mb-6">
@@ -201,7 +199,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 {messages.profile_preview}
               </label>
               <small className="mb-2 block">{messages.profile_preview_hint}</small>
-              <input required maxLength={500} onChange={updateProfile("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
+              <input required maxLength={500} onChange={updateProfile("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
             </div>
 
             <div className="mb-6">
@@ -213,7 +211,7 @@ export default function ProfileForm({tags, messages, locale}) {
                 tags.map(tag => {
                   const selected = profile.tags.findIndex(t => t.tags_id === tag.id)
                   return (
-                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`rounded-full border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-light'}`}>{tag.name}</button>
+                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-light'}`}>{tag.name}</button>
                   )
                 })
               }
@@ -226,16 +224,16 @@ export default function ProfileForm({tags, messages, locale}) {
               </label>
               <small className="mb-2 block">{messages.links_hint}</small>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(0, 'link_text')} value={profile.links[0].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
-                <input onChange={updateLinks(0, 'url')} value={profile.links[0].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
+                <input onChange={updateLinks(0, 'link_text')} value={profile.links[0].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
+                <input onChange={updateLinks(0, 'url')} value={profile.links[0].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(1, 'link_text')} value={profile.links[1].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
-                <input onChange={updateLinks(1, 'url')} value={profile.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
+                <input onChange={updateLinks(1, 'link_text')} value={profile.links[1].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
+                <input onChange={updateLinks(1, 'url')} value={profile.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(2, 'link_text')} value={profile.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
-                <input onChange={updateLinks(2, 'url')} value={profile.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
+                <input onChange={updateLinks(2, 'link_text')} value={profile.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
+                <input onChange={updateLinks(2, 'url')} value={profile.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
               </div>
             </div>
 
@@ -277,13 +275,13 @@ export default function ProfileForm({tags, messages, locale}) {
                   {messages.postal_code}
                 </label>
                 <small className="mb-2 block">{messages.postal_code_hint}</small>
-                <input onChange={updateProfile("postal_code")} value={profile.postal_code} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
+                <input onChange={updateProfile("postal_code")} value={profile.postal_code} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
               </div>
             </div>
 
             <div className="flex items-center justify-between mt-8">
               {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
-              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="submit" value={messages.submit} />}
+              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={messages.submit} />}
             </div>
           </form>
         </div>

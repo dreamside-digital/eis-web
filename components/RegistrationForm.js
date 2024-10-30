@@ -121,35 +121,35 @@ export default function LoginForm({locale}) {
           <label className="block text-gray-700 text-sm font-medium" htmlFor="first_name">
             First Name
           </label>
-          <input required onChange={updateUserData("first_name")} value={userData.first_name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="first_name" type="text" />
+          <input required onChange={updateUserData("first_name")} value={userData.first_name} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="first_name" type="text" />
         </div>
 
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-medium" htmlFor="last_name">
             Last Name
           </label>
-          <input required onChange={updateUserData("last_name")} value={userData.last_name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" type="text" />
+          <input required onChange={updateUserData("last_name")} value={userData.last_name} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" type="text" />
         </div>
      
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-medium" htmlFor="email">
             Email
           </label>
-          <input required onChange={updateUserData("email")} value={userData.email} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" />
+          <input required onChange={updateUserData("email")} value={userData.email} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" />
         </div>
 
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-medium" htmlFor="password">
             Password
           </label>
-          <input required onChange={updateUserData("password")} value={userData.password} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" />
+          <input required onChange={updateUserData("password")} value={userData.password} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" />
         </div>
 
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-medium" htmlFor="confirmed_password">
             Confirm Password
           </label>
-          <input required onChange={updateUserData("confirmedPassword")} value={userData.confirmedPassword} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirmed_password" type="password" />
+          <input required onChange={updateUserData("confirmedPassword")} value={userData.confirmedPassword} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirmed_password" type="password" />
         </div>
 
         <div className="mb-6">
@@ -179,7 +179,7 @@ export default function LoginForm({locale}) {
 
         <div className="mt-8">
           {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
-          {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="submit" />}
+          {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" />}
         </div>
         <Link className="hover:underline pt-2 block text-sm" href={`/${locale}/login`}>Have an account already? Log in.</Link>
       </form>

@@ -4,7 +4,9 @@ import {
   createDirectus, 
   authentication, 
   rest, 
-  login, 
+  login,
+  logout,
+  refresh, 
   withToken, 
   readMe, 
   updateItem 
@@ -31,7 +33,7 @@ export const setCredentials = async (sessionData) => {
   refreshTimeout = setTimeout(async() => {
     refreshTimeout = null;
     await refreshSession()
-  }, sessionData.expires_at - 3000)
+  }, sessionData.expires - 3000)
 }
 
 export const createSession = async (email, password) => {
@@ -50,17 +52,23 @@ export const refreshSession = async () => {
     const cookieStore = cookies();
     const cookie = cookieStore.get(COOKIE_NAME);
     const token = JSON.parse(cookie?.value);
+    console.log({token})
     const session = await directus.request(refresh('json', token?.refresh_token))
     await setCredentials(session)
     return { session }
   } catch (err) {
+    console.log("can't refresh token")
+    console.log(err)
     return { errors: err.errors }
   }
 } 
 
 
 export const deleteSession = async () => {
-  await directus.logout()
+  const cookieStore = cookies();
+  const cookie = cookieStore.get(COOKIE_NAME);
+  const token = JSON.parse(cookie?.value);
+  await directus.request(logout(token?.refresh_token, 'json'))
   if (refreshTimeout) {
     clearTimeout(refreshTimeout);
   }
@@ -72,14 +80,16 @@ export const userSession = async () => {
   try {
     const cookieStore = cookies();
     const cookie = cookieStore.get(COOKIE_NAME);
-    const token = JSON.parse(cookie?.value);
+    let session = JSON.parse(cookie?.value);
+
     const user = {
-      accessToken: token?.access_token,
-      expiresAt: token?.expires_at,
+      accessToken: session?.access_token,
+      expiresAt: session?.expires_at,
     }
 
     return user;
-  } catch {
+  } catch(err) {
+    console.log(err)
     return { error: "Unauthorized" }
   }
 };

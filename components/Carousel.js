@@ -33,8 +33,8 @@ export default function Carousel({profiles, events}) {
         {profiles.map(profile => {
           const tagsText = profile.tags.map(t => t.name).join(", ")
           return (
-            <SwiperSlide key={profile.id} className="rounded-xl max-w-md">
-              <div className="p-6 bg-light text-dark rounded-xl relative">
+            <SwiperSlide key={profile.id} className=" max-w-md">
+              <div className="p-6 bg-light text-dark  relative">
                 <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
                   <h1 className="font-title text-xl md:text-2xl mb-4">
                     {profile.public_name}
@@ -45,7 +45,7 @@ export default function Carousel({profiles, events}) {
                   {
                     profile.profile_picture &&
                     <Image
-                      className="relative w-full h-full aspect-video object-cover rounded-xl mb-4"
+                      className="relative w-full h-full aspect-video object-cover  mb-4"
                       src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
                       alt={profile.profile_picture.description || profile.public_name} 
                       width={500}
@@ -100,8 +100,8 @@ export default function Carousel({profiles, events}) {
             const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
 
             return (
-              <SwiperSlide key={event.id} className="rounded-xl max-w-lg">
-                <div className="p-6 bg-light text-dark rounded-xl relative">
+              <SwiperSlide key={event.id} className=" max-w-lg">
+                <div className="p-6 bg-light text-dark  relative">
                   <Link className="text-xl no-underline hover:text-highlight" href={`/events/${event.slug}`}>
                     <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
                       {event.title}
@@ -111,7 +111,7 @@ export default function Carousel({profiles, events}) {
                     {
                       (event.main_image) &&
                       <Image
-                        className="relative w-full h-full object-cover rounded-xl mb-4"
+                        className="relative w-full h-full object-cover  mb-4"
                         src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.main_image}`}
                         alt={"Event image"} 
                         width={500}

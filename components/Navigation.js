@@ -16,7 +16,8 @@ const navigationLinks = {
     partners: "Partners and collaborators",
     instagram: "Follow us",
     login: "Login",
-    logout: "Logout"
+    logout: "Logout",
+    account: "Account",
   },
   fr: {
     newProfile: "Créer un profil d’artiste",
@@ -26,7 +27,8 @@ const navigationLinks = {
     partners: "Partenaires et collaborateur(-trice)s",
     instagram: "Nous suivre",
     login: "Ouvrir une session",
-    logout: "Fermer la session"
+    logout: "Fermer la session",
+    account: "Compte",
   }
 }
 
@@ -37,11 +39,10 @@ export default function Navigation({ logo, locale }) {
   const router = useRouter()
   const pathname = usePathname();
 
-  console.log({pathname})
-
   useEffect(() => {
     (async () => {
-      const authedUser = await currentUser()
+      const session = await userSession()
+      const authedUser = await currentUser(session.accessToken)
       return setUser(authedUser)
     })();
   }, [pathname]);
@@ -87,6 +88,7 @@ export default function Navigation({ logo, locale }) {
             <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].partners}</Link>
             <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].instagram}</a>
             {!user && <Link href={`/${locale}/login`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].login}</Link>}
+            {user && <Link href={`/${locale}/account`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].account}</Link>}
             {user && <button onClick={handleLogout} className="inline-flex px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].logout}</button>}
           </div>
         </div>

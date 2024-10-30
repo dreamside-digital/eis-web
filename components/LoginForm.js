@@ -57,19 +57,19 @@ export default function LoginForm({locale}) {
           <label className="block text-gray-700 text-sm font-bold" htmlFor="email">
             Email
           </label>
-          <input required onChange={updateUsername} value={username} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" />
+          <input required onChange={updateUsername} value={username} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" />
         </div>
 
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold" htmlFor="password">
             Password
           </label>
-          <input required onChange={updatePassword} value={password} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" />
+          <input required onChange={updatePassword} value={password} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" />
         </div>
 
         <div className="flex items-center justify-between mt-8">
           {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
-          {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="submit" />}
+          {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" />}
           <Link className="hover:underline" href={`/${locale}/register`}>Create your account</Link>
         </div>
       </form>

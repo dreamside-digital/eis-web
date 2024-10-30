@@ -18,13 +18,13 @@ export default async function ProfilePage({params}) {
       <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-2/3 w-full">
       </div>
       <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
-        <div className="p-6 w-full bg-light text-dark rounded-xl">
+        <div className="p-6 w-full bg-light text-dark ">
           <div className="flex flex-col lg:flex-row">
             <div>
                 {
                   profile.profile_picture &&
                   <Image
-                    className="max-w-48 relative w-full h-full object-cover rounded-xl aspect-square mr-6"
+                    className="max-w-48 relative w-full h-full object-cover  aspect-square mr-6"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
                     alt={profile.profile_picture.description || profile.public_name} 
                     width={800}
@@ -103,7 +103,7 @@ export default async function ProfilePage({params}) {
               return (
                 <div key={img.directus_files_id.id}>
                   <Image
-                    className="relative w-full h-full object-cover rounded-xl mb-2"
+                    className="relative w-full h-full object-cover  mb-2"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${img.directus_files_id.id}`}
                     alt={img.directus_files_id.description} 
                     width={800}

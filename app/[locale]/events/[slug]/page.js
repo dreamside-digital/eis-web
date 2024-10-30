@@ -24,13 +24,13 @@ export default async function EventPage({params}) {
       <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-2/3 w-full">
       </div>
       <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
-        <div className="p-6 w-full bg-light text-dark rounded-xl">
+        <div className="p-6 w-full bg-light text-dark ">
           <div className="flex flex-col lg:flex-row">
             <div>
                 {
                   event.main_image &&
                   <Image
-                    className="max-w-80 relative w-full h-full object-cover rounded-xl aspect-square mr-6"
+                    className="max-w-80 relative w-full h-full object-cover  aspect-square mr-6"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.main_image}`}
                     alt={event.main_image.description || event.title} 
                     width={800}

@@ -136,7 +136,7 @@ export default async function Home({ params: { locale } }) {
 
       <section id="subscribe" className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto sm:px-4 sm:pb-12 md:pb-24">
-          <div className="bg-primary sm:rounded-xl p-4 md:p-16 container max-w-screen-xl mx-auto">
+          <div className="bg-primary sm: p-4 md:p-16 container max-w-screen-xl mx-auto">
             <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">
               {translation?.join_section_title}
             </h2>
@@ -161,7 +161,7 @@ export default async function Home({ params: { locale } }) {
             <div className="mb-6">
               <div>
                 <Image
-                  className="relative w-full aspect-square object-cover rounded-xl"
+                  className="relative w-full aspect-square object-cover "
                   src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.origin_section_author_image.id}`}
                   alt={translation?.origin_section_author_name}
                   width={800}

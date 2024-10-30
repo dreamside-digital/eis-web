@@ -66,7 +66,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
                   {
                     profile.profile_picture &&
                     <Image
-                      className="relative w-full h-auto aspect-video object-cover rounded-xl mb-4"
+                      className="relative w-full h-auto aspect-video object-cover  mb-4"
                       src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
                       alt={profile.public_name} 
                       width={500}
@@ -118,7 +118,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
                     {
                       (event.main_image) &&
                       <Image
-                        className="relative w-full h-full object-cover rounded-xl mb-4"
+                        className="relative w-full h-full object-cover  mb-4"
                         src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.main_image}`}
                         alt={"Event image"} 
                         width={500}

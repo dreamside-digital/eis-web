@@ -127,7 +127,7 @@ export default function EventForm({tags, messages, locale}) {
   return (
     <>
       <section className="bg-white text-dark relative">
-        <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl sm:rounded-lg p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
+        <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.page_title}</h1>
           <form className="" onSubmit={handleSubmit}>
 
@@ -136,7 +136,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.title}
               </label>
               <small className="mb-2 block">{messages.title_hint}</small>
-              <input required onChange={updateEvent("title")} value={event.title} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" />
+              <input required onChange={updateEvent("title")} value={event.title} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" />
             </div>
 
             <div className="mb-6">
@@ -144,7 +144,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.event_preview}
               </label>
               <small className="mb-2 block">{messages.event_preview_hint}</small>
-              <input required onChange={updateEvent("event_preview")} value={event.event_preview} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="event_preview" type="text" />
+              <input required onChange={updateEvent("event_preview")} value={event.event_preview} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="event_preview" type="text" />
             </div>
 
             <div className="mb-6">
@@ -160,7 +160,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.starts_at}
               </label>
               <small className="mb-2 block">{messages.starts_at_hint}</small>
-              <input required onChange={updateEvent("starts_at")} value={event.starts_at} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="starts_at" type="datetime-local" />
+              <input required onChange={updateEvent("starts_at")} value={event.starts_at} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="starts_at" type="datetime-local" />
             </div>
 
             <div className="mb-6">
@@ -168,7 +168,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.ends_at}
               </label>
               <small className="mb-2 block">{messages.ends_at_hint}</small>
-              <input required onChange={updateEvent("ends_at")} value={event.ends_at} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ends_at" type="datetime-local" />
+              <input required onChange={updateEvent("ends_at")} value={event.ends_at} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ends_at" type="datetime-local" />
             </div>
 
             <div className="mb-6">
@@ -176,7 +176,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.venue}
               </label>
               <small className="mb-2 block">{messages.venue_hint}</small>
-              <input onChange={updateEvent("venue")} value={event.venue} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="venue" type="text" />
+              <input onChange={updateEvent("venue")} value={event.venue} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="venue" type="text" />
             </div>
 
             <div className="mb-6">
@@ -184,7 +184,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.address}
               </label>
               <small className="mb-2 block">{messages.address_hint}</small>
-              <input required onChange={updateEvent("address")} value={event.address} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" />
+              <input required onChange={updateEvent("address")} value={event.address} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" />
             </div>
 
             <div className="mb-6">
@@ -192,7 +192,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.organizer}
               </label>
               <small className="mb-2 block">{messages.organizer_hint}</small>
-              <input required onChange={updateEvent("organizer")} value={event.organizer} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="organizer" type="text" />
+              <input required onChange={updateEvent("organizer")} value={event.organizer} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="organizer" type="text" />
             </div>
 
             <div className="mb-6">
@@ -200,7 +200,7 @@ export default function EventForm({tags, messages, locale}) {
                 {messages.contact}
               </label>
               <small className="mb-2 block">{messages.contact_hint}</small>
-              <input required onChange={updateEvent("contact")} value={event.contact} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="contact" type="text" />
+              <input required onChange={updateEvent("contact")} value={event.contact} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="contact" type="text" />
             </div>
 
             <div className="mb-6">
@@ -220,7 +220,7 @@ export default function EventForm({tags, messages, locale}) {
                 tags.map(tag => {
                   const selected = event.tags.findIndex(t => t.tags_id === tag.id)
                   return (
-                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`rounded-full border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-light'}`}>{tag.name}</button>
+                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-light'}`}>{tag.name}</button>
                   )
                 })
               }
@@ -233,16 +233,16 @@ export default function EventForm({tags, messages, locale}) {
               </label>
               <small className="mb-2 block">{messages.links_hint}</small>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(0, 'link_text')} value={event.links[0].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
-                <input onChange={updateLinks(0, 'url')} value={event.links[0].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
+                <input onChange={updateLinks(0, 'link_text')} value={event.links[0].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
+                <input onChange={updateLinks(0, 'url')} value={event.links[0].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(1, 'link_text')} value={event.links[1].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
-                <input onChange={updateLinks(1, 'url')} value={event.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
+                <input onChange={updateLinks(1, 'link_text')} value={event.links[1].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
+                <input onChange={updateLinks(1, 'url')} value={event.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(2, 'link_text')} value={event.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
-                <input onChange={updateLinks(2, 'url')} value={event.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
+                <input onChange={updateLinks(2, 'link_text')} value={event.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
+                <input onChange={updateLinks(2, 'url')} value={event.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
               </div>
             </div>
 
@@ -271,7 +271,7 @@ export default function EventForm({tags, messages, locale}) {
 
             <div className="flex items-center justify-between mt-8">
               {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
-              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 rounded-full focus:outline-none focus:shadow-outline" type="submit" value={messages.submit} />}
+              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={messages.submit} />}
             </div>
           </form>
         </div>

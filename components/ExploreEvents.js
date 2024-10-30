@@ -51,7 +51,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
     <div className="flex flex-col gap-6 md:flex-row pt-12">
       <div className="basis-1/4">
         <h1 className="font-title text-4xl mb-6">{messages.explore_events}</h1>
-        <button onClick={toggleDisplayMode} className="bg-dark hover:bg-highlight rounded-full px-3 py-1 text-white mb-6">
+        <button onClick={toggleDisplayMode} className="bg-dark hover:bg-highlight px-3 py-1 text-white mb-6">
           { showAccordion ? (
             <div className="inline-flex items-center gap-1">
               <Squares2X2Icon className="w-4 h-4" />
@@ -75,7 +75,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
       <div className="basis-3/4">
         <div className="flex justify-between">
           <div className="hidden md:flex items-center p-2">
-            <button className={`btn text-sm px-4 py-2 w-12 h-12 rounded-full ${(currentPage <= 0) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={decrementPage} disabled={(currentPage <= 0)}>
+            <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(currentPage <= 0) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={decrementPage} disabled={(currentPage <= 0)}>
               <ChevronLeftIcon />
             </button>
           </div>
@@ -83,16 +83,16 @@ export default function ExploreEvents({events, tags, locale, messages }) {
             <Accordion events={eventsPage} locale={locale} messages={messages} />
           </div>
           <div className="hidden md:flex items-center p-2">
-            <button className={`btn text-sm px-4 py-2 w-12 h-12 rounded-full ${(pageEndIndex >= filteredEvents.length) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={incrementPage} disabled={(pageEndIndex >= filteredEvents.length)}>
+            <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(pageEndIndex >= filteredEvents.length) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={incrementPage} disabled={(pageEndIndex >= filteredEvents.length)}>
               <ChevronRightIcon />
             </button>
           </div>
         </div>
         <div className="flex md:hidden gap-2 mt-2 justify-center">
-          <button className={`btn text-sm px-4 py-2 w-12 h-12 rounded-full ${(currentPage <= 0) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={decrementPage} disabled={(currentPage <= 0)}>
+          <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(currentPage <= 0) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={decrementPage} disabled={(currentPage <= 0)}>
               <ChevronLeftIcon />
             </button>
-            <button className={`btn text-sm px-4 py-2 w-12 h-12 rounded-full ${(pageEndIndex >= filteredEvents.length) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={incrementPage} disabled={(pageEndIndex >= filteredEvents.length)}>
+            <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(pageEndIndex >= filteredEvents.length) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={incrementPage} disabled={(pageEndIndex >= filteredEvents.length)}>
               <ChevronRightIcon />
             </button>
         </div>
@@ -117,7 +117,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
                       {
                         event.event_picture &&
                         <Image
-                          className="relative w-full max-w-48 h-auto aspect-video object-cover rounded-xl mb-4"
+                          className="relative w-full max-w-48 h-auto aspect-video object-cover  mb-4"
                           src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.event_picture}`}
                           alt={event.public_name} 
                           width={500}
