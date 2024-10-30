@@ -76,6 +76,7 @@ export default function ProfileForm({defaultProfile, tags, messages, locale}) {
       links: JSON.stringify(links),
       profile_picture: profile.profile_picture?.id,
       location: location,
+      status: "draft"
     }
     const result = profile.id ? await updateProfile(profile.id, data) : await createProfile(data)
     if (result.errors) {
