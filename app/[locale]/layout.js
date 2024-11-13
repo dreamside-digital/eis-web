@@ -83,20 +83,20 @@ export default async function RootLayout({ children, params: { locale } }) {
           {children}
         </main>
         <footer className="bg-dark">
-          <div className="container max-w-screen-xl mx-auto px-4 py-12 md:py-20 text-light">
+          <div className="container max-w-screen-xl mx-auto px-4 py-12 md:py-20 text-white">
             <div className="lg:grid grid-cols-3 gap-24">
               <div className="mb-8">
                 <div className="text-2xl lg:text-3xl mb-4">{translation?.footer_column_1_title} <span className="font-title italic tracking-wide">{translation?.footer_column_1_title_italics}</span></div>
                 <div>
                   <p>
-                    <a href={translation?.footer_column_1_link} className="underline lg:text-lg hover:text-white">
+                    <a href={translation?.footer_column_1_link} className="underline lg:text-lg hover:text-light">
                       {translation?.footer_column_1_link_text}
                     </a>
                   </p>
                 </div>
                 <div>
                   <p>
-                    <a href={translation?.footer_column_1_link_2_url} className="underline lg:text-lg hover:text-white">
+                    <a href={translation?.footer_column_1_link_2_url} className="underline lg:text-lg hover:text-light">
                       {translation?.footer_column_1_link_2_text}
                     </a>
                   </p>
@@ -106,11 +106,11 @@ export default async function RootLayout({ children, params: { locale } }) {
               <div className="mb-8">
                 <div className="text-2xl lg:text-3xl mb-4">{translation?.footer_column_2_title} <span className="font-title italic tracking-wide">{translation?.footer_column_2_title_italics}</span></div>
                 <div>
-                  <p><a href={translation?.footer_column_2_link} className="underline lg:text-lg hover:text-white">
+                  <p><a href={translation?.footer_column_2_link} className="underline lg:text-lg hover:text-light">
                     {translation?.footer_column_2_link_text}
                   </a></p>
                   <p>
-                  <a href={translation?.instagram_link} target="_blank" className="underline lg:text-lg hover:text-white">{translation?.instagram_link_text}</a>
+                  <a href={translation?.instagram_link} target="_blank" className="underline lg:text-lg hover:text-light">{translation?.instagram_link_text}</a>
                   </p>
                 </div>
               </div>
