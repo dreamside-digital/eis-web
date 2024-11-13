@@ -25,7 +25,7 @@ export default async function EventPage({params}) {
       </div>
       <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
         <div className="p-6 w-full bg-light text-dark ">
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col lg:flex-row lg:gap-4">
             <div>
                 {
                   event.main_image &&

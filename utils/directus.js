@@ -207,27 +207,43 @@ export async function getProfiles(filters) {
 
 export async function getEvents(filters) {
   try {
-    const data = await directus.request(
-      readItems('events', {
-        fields: '*,tags.tags_id.*,additional_images.*',
-        filter: {
-          _and: [
-            {
-              status: {
-                _eq: 'published',
-              },
+    let filterRules = {
+      _and: [
+        {
+          status: {
+            _eq: 'published',
+          },
+        }
+      ]
+    }
+    if (!filters?.tags.includes('all'))  {
+      filterRules = {
+        _and: [
+          {
+            status: {
+              _eq: 'published',
             },
-            {
-              tags: {
-                tags_id: {
-                  id: {
-                    _in: filters?.tags
+          },
+          {
+            tags: {
+              _or: [
+                {
+                  tags_id: {
+                    id: {
+                      _in: filters?.tags
+                    }
                   }
                 }
-              }
+              ]
             }
-          ]
-        }
+          }
+        ]
+      }
+    }
+    const data = await directus.request(
+      readItems('events', {
+        fields: '*,tags.tags_id.*',
+        filter: filterRules
       })
     );
 
@@ -238,7 +254,7 @@ export async function getEvents(filters) {
       const result = data.map(event => {
         return {
           ...event,
-          tags: event.tags.map(tag => ({ ...tag.tags_id })),
+          tags: event.tags?.map(tag => ({ ...tag.tags_id })),
         }
       })
       return result

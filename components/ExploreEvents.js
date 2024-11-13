@@ -6,7 +6,8 @@ import Filters from "@/components/Filters"
 import {useState, useEffect} from 'react'
 import {getEvents} from '@/utils/directus'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
-
+import { DATE_FORMAT } from '@/utils/constants'
+import TagButton from '@/components/TagButton'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -16,14 +17,14 @@ const PAGE_LIMIT = 5
 export default function ExploreEvents({events, tags, locale, messages }) {
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [currentPage, setCurrentPage] = useState(0)
-  const [showAccordion, setShowAccordion] = useState(true)
+  const [showAccordion, setShowAccordion] = useState(false)
   
   const selectedTags = tags.map(t => t.id).concat('all')
   const [currentFilters, setCurrentFilters] = useState({ proximity: true, tags: selectedTags})
 
   useEffect(() => {
     const fetchEvents = async() => {
-      const data = await getEvents()
+      const data = await getEvents(currentFilters)
       setFilteredEvents(data)
     }
 
@@ -48,22 +49,9 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   const eventsPage = filteredEvents.slice(pageStartIndex, pageEndIndex)
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row pt-12">
-      <div className="basis-1/4">
+    <div className="flex-col gap-6 pt-12">
+      <div className="">
         <h1 className="font-title text-4xl mb-6">{messages.explore_events}</h1>
-        <button onClick={toggleDisplayMode} className="bg-dark hover:bg-highlight px-3 py-1 text-white mb-6">
-          { showAccordion ? (
-            <div className="inline-flex items-center gap-1">
-              <Squares2X2Icon className="w-4 h-4" />
-              <span>Grid view</span>
-            </div>
-            ) : (
-            <div className="inline-flex items-center gap-1">
-              <RectangleStackIcon className="w-4 h-4" />
-              <span>Slide view</span>
-            </div>
-          )}
-        </button>
         <Filters 
           tags={tags} 
           currentFilters={currentFilters} 
@@ -72,7 +60,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
         />
       </div>
       { showAccordion &&
-      <div className="basis-3/4">
+      <div className="">
         <div className="flex justify-between">
           <div className="hidden md:flex items-center p-2">
             <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(currentPage <= 0) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={decrementPage} disabled={(currentPage <= 0)}>
@@ -104,39 +92,41 @@ export default function ExploreEvents({events, tags, locale, messages }) {
           <div className="grid grid-cols-3 gap-6">
             { filteredEvents.map(event => {
               const tagsText = event.tags.map(t => t.name).join(", ")
+            const startDate = new Date(event.starts_at)
+            const startDateText = startDate.toLocaleString('en-CA', DATE_FORMAT)
+            const endDate = new Date(event.ends_at)
+            const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
+            const locationText = [event.title, event.address].filter(i=>i).join(", ")
+            const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
               return (
                 <div className="max-w-lg h-full" key={event.id}>
-                  <div className="h-full p-6 bg-light text-dark relative">
-                    <Link className="text-xl no-underline hover:text-highlight" href={`/${locale}/events/${event.slug}`}>
-                      <h1 className="font-title text-xl md:text-2xl mb-4">
-                        {event.public_name}
+                  <Link className="no-underline hover:no-underline" href={`/events/${event.slug}`}>
+                    <div className="p-6 bg-light text-dark relative">
+                      <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
+                        {event.title}
                       </h1>
-                    </Link>
-                    <p className="mb-4">{event.pronouns}</p>
                     <div className="">
                       {
-                        event.event_picture &&
+                        (event.main_image) &&
                         <Image
-                          className="relative w-full max-w-48 h-auto aspect-video object-cover  mb-4"
-                          src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.event_picture}`}
-                          alt={event.public_name} 
+                          className="relative w-full h-full object-cover  mb-4"
+                          src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${event.main_image}`}
+                          alt={"Event image"} 
                           width={500}
                           height={500}
                         />
                       }
-                      <div className="flex-1">
-                        <p className="mb-4">{event.short_introduction}</p>
-                      </div>
-
                       <div className="flex-1 mb-4">
-                        {(event.tags.length > 0) && <p className="uppercase font-medium tracking-wide text-sm">{`${messages.tags}: ${tagsText}`}</p>}
+                        <p className="">{`${startDateText} - ${endDateText}`}</p>
+                        <p className="">{`${locationText || "TBA"}`}</p>
+                        <p className="">{`Organizer: ${event.organizer}`}</p>
                       </div>
-
-                      <Link href={`/${locale}/events/${event.slug}`} className="font-medium underline">
-                        {messages.full_event}
-                      </Link>
+                      <div className="inline-flex gap-1">
+                        {event.tags.map(t => <TagButton key={t.id} tag={t} />)}
+                      </div>
                     </div>
                   </div>
+                  </Link>
                 </div>
               )
             })}

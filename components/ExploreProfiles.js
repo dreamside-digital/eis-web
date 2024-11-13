@@ -6,7 +6,7 @@ import Filters from "@/components/Filters"
 import {useState, useEffect} from 'react'
 import {getProfiles} from '@/utils/directus'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
-
+import TagButton from '@/components/TagButton'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -48,7 +48,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
   const profilesPage = filteredProfiles.slice(pageStartIndex, pageEndIndex)
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row pt-12">
+    <div className="flex-col gap-6 md:flex-row pt-12">
       <div className="basis-1/4">
         <h1 className="font-title text-4xl mb-6">{messages.explore_profiles}</h1>
         <button onClick={toggleDisplayMode} className="bg-dark hover:bg-highlight px-3 py-1 text-white mb-6">
@@ -106,37 +106,35 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
               const tagsText = profile.tags.map(t => t.name).join(", ")
               return (
                 <div className="max-w-lg h-full" key={profile.id}>
-                  <div className="h-full p-6 bg-light text-dark relative">
-                    <Link className="text-xl no-underline hover:text-highlight" href={`/${locale}/profiles/${profile.slug}`}>
+                  <Link className="hover:no-underline" href={`/${locale}/profiles/${profile.slug}`}>
+                    <div className="h-full p-6 bg-light text-dark relative">
                       <h1 className="font-title text-xl md:text-2xl mb-4">
                         {profile.public_name}
                       </h1>
-                    </Link>
-                    <p className="mb-4">{profile.pronouns}</p>
-                    <div className="">
-                      {
-                        profile.profile_picture &&
-                        <Image
-                          className="relative w-full h-auto aspect-video object-cover  mb-4"
-                          src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
-                          alt={profile.public_name} 
-                          width={500}
-                          height={500}
-                        />
-                      }
-                      <div className="flex-1">
-                        <p className="mb-4">{profile.short_introduction}</p>
-                      </div>
+                    
+                      <p className="mb-4">{profile.pronouns}</p>
+                      <div className="">
+                        {
+                          profile.profile_picture &&
+                          <Image
+                            className="relative w-full h-auto aspect-video object-cover  mb-4"
+                            src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
+                            alt={profile.public_name} 
+                            width={500}
+                            height={500}
+                          />
+                        }
+                        <div className="flex-1">
+                          <p className="mb-4">{profile.short_introduction}</p>
+                        </div>
 
-                      <div className="flex-1 mb-4">
-                        {(profile.tags.length > 0) && <p className="uppercase font-medium tracking-wide text-sm">{`${messages.tags}: ${tagsText}`}</p>}
-                      </div>
+                        <div className="inline-flex gap-1">
+                          {profile.tags.map(t => <TagButton tag={t} />)}
+                        </div>
 
-                      <Link href={`/${locale}/profiles/${profile.slug}`} className="font-medium underline">
-                        {messages.full_profile}
-                      </Link>
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               )
             })}

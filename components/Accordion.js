@@ -11,6 +11,7 @@ import {
 } from 'react-accessible-accordion';
 import { useState, useEffect } from "react"
 import { DATE_FORMAT } from '@/utils/constants'
+import TagButton from '@/components/TagButton'
 import DOMPurify from "isomorphic-dompurify";
 
 const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
@@ -54,13 +55,12 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
           const tagsText = profile.tags.map(t => t.name).join(", ")
           return (
             <CustomAccordionItem key={profile.id} uuid={profile.id} currentItemUid={currentItemUid} title={profile.public_name}>
+            <Link className="no-underline hover:no-underline" href={`/${locale}/profiles/${profile.slug}`}>
             <div className="max-w-lg h-full">
               <div className="h-full p-6 bg-light text-dark relative">
-                <Link className="text-xl no-underline hover:text-highlight" href={`/${locale}/profiles/${profile.slug}`}>
-                  <h1 className="font-title text-xl md:text-2xl mb-4">
-                    {profile.public_name}
-                  </h1>
-                </Link>
+                <h1 className="font-title text-xl md:text-2xl mb-4">
+                  {profile.public_name}
+                </h1>
                 <p className="mb-4">{profile.pronouns}</p>
                 <div className="">
                   {
@@ -76,17 +76,13 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
                   <div className="flex-1">
                     <p className="mb-4">{profile.short_introduction}</p>
                   </div>
-
-                  <div className="flex-1 mb-4">
-                    {(profile.tags.length > 0) && <p className="uppercase font-medium tracking-wide text-sm">{`${messages.tags}: ${tagsText}`}</p>}
-                  </div>
-
-                  <Link href={`/${locale}/profiles/${profile.slug}`} className="font-medium underline">
-                    {messages.full_profile}
-                  </Link>
+                </div>
+                <div className="inline-flex gap-1">
+                  {profile.tags.map(t => <TagButton tag={t} />)}
                 </div>
               </div>
             </div>
+            </Link>
             </CustomAccordionItem>
         )})}
       </Accordion>
@@ -108,12 +104,11 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
 
             return (
               <CustomAccordionItem key={event.id} uuid={event.id} currentItemUid={currentItemUid} title={event.title}>
-                <div className="p-6 bg-light text-dark relative">
-                  <Link className="text-xl no-underline hover:text-highlight" href={`/events/${event.slug}`}>
+                <Link className="no-underline hover:no-underline" href={`/events/${event.slug}`}>
+                  <div className="p-6 bg-light text-dark relative">
                     <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
                       {event.title}
                     </h1>
-                  </Link>
                   <div className="">
                     {
                       (event.main_image) &&
@@ -131,14 +126,13 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
                       <p className="">{`Location: ${locationText || "TBA"}`}</p>
                       <p className="">{`Organizer: ${event.organizer}`}</p>
                       <p className="">{`Contact: ${event.contact}`}</p>
-                      <p className="">{`Tags: ${tagsText}`}</p>
                     </div>
-
-                    <div className="">
-                      <Link className="font-medium underline" href={`/events/${event.slug}`}>{`Event page`}</Link>
+                    <div className="inline-flex gap-1">
+                      {event.tags.map(t => <TagButton tag={t} />)}
                     </div>
                   </div>
                 </div>
+                </Link>
               </CustomAccordionItem>
             )
           })}
