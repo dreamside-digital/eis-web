@@ -78,7 +78,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
                   </div>
                 </div>
                 <div className="inline-flex gap-1">
-                  {profile.tags.map(t => <TagButton tag={t} />)}
+                  {profile.tags.map(t => <TagButton tag={t} key={t.id} />)}
                 </div>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
                       <p className="">{`Contact: ${event.contact}`}</p>
                     </div>
                     <div className="inline-flex gap-1">
-                      {event.tags.map(t => <TagButton tag={t} />)}
+                      {event.tags.map(t => <TagButton tag={t} key={t.id} />)}
                     </div>
                   </div>
                 </div>

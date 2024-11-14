@@ -129,7 +129,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
                         </div>
 
                         <div className="inline-flex gap-1">
-                          {profile.tags.map(t => <TagButton tag={t} />)}
+                          {profile.tags.map(t => <TagButton tag={t} key={t.id} />)}
                         </div>
 
                       </div>
