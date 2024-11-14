@@ -5,9 +5,10 @@ import Accordion from "@/components/Accordion"
 import Filters from "@/components/Filters"
 import {useState, useEffect} from 'react'
 import {getEvents} from '@/utils/directus'
-import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
+import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, CalendarDaysIcon } from '@heroicons/react/24/solid'
 import { DATE_FORMAT } from '@/utils/constants'
 import TagButton from '@/components/TagButton'
+import CalendarView from '@/components/CalendarView'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -17,7 +18,7 @@ const PAGE_LIMIT = 5
 export default function ExploreEvents({events, tags, locale, messages }) {
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [currentPage, setCurrentPage] = useState(0)
-  const [showAccordion, setShowAccordion] = useState(false)
+  const [showCalendar, setShowCalendar] = useState(false)
   
   const selectedTags = tags.map(t => t.id).concat('all')
   const [currentFilters, setCurrentFilters] = useState({ proximity: true, tags: selectedTags})
@@ -41,17 +42,30 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   }
 
   const toggleDisplayMode = () => {
-    setShowAccordion(!showAccordion)
+    setShowCalendar(!showCalendar)
   }
 
   const pageStartIndex = currentPage * PAGE_LIMIT
   const pageEndIndex = pageStartIndex + PAGE_LIMIT
   const eventsPage = filteredEvents.slice(pageStartIndex, pageEndIndex)
-
+  console.log({filteredEvents})
   return (
     <div className="flex-col gap-6 pt-12">
       <div className="">
         <h1 className="font-title text-4xl mb-6">{messages.explore_events}</h1>
+        <button onClick={toggleDisplayMode} className="bg-dark hover:bg-highlight px-3 py-1 text-white mb-6">
+          { showCalendar ? (
+            <div className="inline-flex items-center gap-1">
+              <Squares2X2Icon className="w-4 h-4" />
+              <span>Grid view</span>
+            </div>
+            ) : (
+            <div className="inline-flex items-center gap-1">
+              <CalendarDaysIcon className="w-4 h-4" />
+              <span>Calendar view</span>
+            </div>
+          )}
+        </button>
         <Filters 
           tags={tags} 
           currentFilters={currentFilters} 
@@ -59,45 +73,23 @@ export default function ExploreEvents({events, tags, locale, messages }) {
           messages={messages}
         />
       </div>
-      { showAccordion &&
+      { showCalendar &&
       <div className="">
-        <div className="flex justify-between">
-          <div className="hidden md:flex items-center p-2">
-            <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(currentPage <= 0) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={decrementPage} disabled={(currentPage <= 0)}>
-              <ChevronLeftIcon />
-            </button>
-          </div>
-          <div>
-            <Accordion events={eventsPage} locale={locale} messages={messages} />
-          </div>
-          <div className="hidden md:flex items-center p-2">
-            <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(pageEndIndex >= filteredEvents.length) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={incrementPage} disabled={(pageEndIndex >= filteredEvents.length)}>
-              <ChevronRightIcon />
-            </button>
-          </div>
-        </div>
-        <div className="flex md:hidden gap-2 mt-2 justify-center">
-          <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(currentPage <= 0) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={decrementPage} disabled={(currentPage <= 0)}>
-              <ChevronLeftIcon />
-            </button>
-            <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(pageEndIndex >= filteredEvents.length) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={incrementPage} disabled={(pageEndIndex >= filteredEvents.length)}>
-              <ChevronRightIcon />
-            </button>
-        </div>
+        <CalendarView events={filteredEvents} />
       </div>
       }
 
-      { !showAccordion &&
+      { !showCalendar &&
         <div className="basis-3/4">
           <div className="grid grid-cols-3 gap-6">
             { filteredEvents.map(event => {
               const tagsText = event.tags.map(t => t.name).join(", ")
-            const startDate = new Date(event.starts_at)
-            const startDateText = startDate.toLocaleString('en-CA', DATE_FORMAT)
-            const endDate = new Date(event.ends_at)
-            const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
-            const locationText = [event.title, event.address].filter(i=>i).join(", ")
-            const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
+              const startDate = new Date(event.starts_at)
+              const startDateText = startDate.toLocaleString('en-CA', DATE_FORMAT)
+              const endDate = new Date(event.ends_at)
+              const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
+              const locationText = [event.title, event.address].filter(i=>i).join(", ")
+              const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
               return (
                 <div className="max-w-lg h-full" key={event.id}>
                   <Link className="no-underline hover:no-underline" href={`/events/${event.slug}`}>
