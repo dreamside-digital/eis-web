@@ -88,7 +88,7 @@ export default async function ProfilePage({params}) {
             </div>
             }
 
-            {(links.length > 0) &&
+            {(links?.length > 0) &&
               <div className="">
                 <p className="uppercase text-lg mb-4 font-medium">Links</p>
                 {links.map(link => {
