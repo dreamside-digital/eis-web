@@ -4,6 +4,7 @@ import VideoModal from '@/components/VideoModal'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/utils/directus'
 import RegistrationForm from "@/components/RegistrationForm"
+import DOMPurify from "isomorphic-dompurify";
 
 
 export default async function Home({ params: { locale } }) {

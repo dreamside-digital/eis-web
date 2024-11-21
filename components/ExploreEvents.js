@@ -9,6 +9,7 @@ import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, CalendarDaysIcon } f
 import { DATE_FORMAT } from '@/utils/constants'
 import TagButton from '@/components/TagButton'
 import CalendarView from '@/components/CalendarView'
+import DOMPurify from "isomorphic-dompurify";
 
 import Image from 'next/image'
 import Link from 'next/link'
