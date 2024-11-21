@@ -20,8 +20,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   const [currentPage, setCurrentPage] = useState(0)
   const [showCalendar, setShowCalendar] = useState(false)
   
-  const selectedTags = tags.map(t => t.id).concat('all')
-  const [currentFilters, setCurrentFilters] = useState({ proximity: true, tags: selectedTags})
+  const [currentFilters, setCurrentFilters] = useState({ proximity: true, tags: []})
 
   useEffect(() => {
     const fetchEvents = async() => {
@@ -48,7 +47,6 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   const pageStartIndex = currentPage * PAGE_LIMIT
   const pageEndIndex = pageStartIndex + PAGE_LIMIT
   const eventsPage = filteredEvents.slice(pageStartIndex, pageEndIndex)
-  console.log({filteredEvents})
   return (
     <div className="flex-col gap-6 pt-12">
       <div className="">
@@ -81,7 +79,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
 
       { !showCalendar &&
         <div className="basis-3/4">
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             { filteredEvents.map(event => {
               const tagsText = event.tags.map(t => t.name).join(", ")
               const startDate = new Date(event.starts_at)

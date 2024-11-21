@@ -66,6 +66,7 @@ export const viewport = {
 export default async function RootLayout({ children, params: { locale } }) {
   const content = await getLayoutContent()
   const { translations } = content;
+  console.log({translations})
   const translation = translations.find(t => t.languages_code === locale)
   const logoImg = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.logo}`
   const ccaImg = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.CCA_logo}`
@@ -78,7 +79,7 @@ export default async function RootLayout({ children, params: { locale } }) {
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative`}>
         <NextIntlClientProvider messages={translation}>
-        <Navigation logo={logoImg} locale={locale} />
+        <Navigation logo={logoImg} locale={locale} dropdowns={translation.navigation_dropdowns} />
         <main className="grow">
           {children}
         </main>

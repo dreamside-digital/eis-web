@@ -1,39 +1,15 @@
 "use client"
 
-import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
+
 import { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from "next/link";
 import { userSession, currentUser, deleteSession } from '@/utils/auth'
 import { useRouter, usePathname } from 'next/navigation'
+import NavigationDropdown from '@/components/NavigationDropdown'
+import MobileDropdown from '@/components/MobileDropdown'
 
-const navigationLinks = {
-  en: {
-    newProfile: "Create an artist profile",
-    allProfiles: "Discover artists",
-    allEvents: "Discover events",
-    newEvent: "Post an event",
-    partners: "Partners and collaborators",
-    instagram: "Follow us",
-    login: "Login",
-    logout: "Logout",
-    account: "Account",
-  },
-  fr: {
-    newProfile: "Créer un profil d’artiste",
-    allProfiles: "Découvrir les artistes",
-    allEvents: "Découvrir les événements",
-    newEvent: "Créer un événement",
-    partners: "Partenaires et collaborateur(-trice)s",
-    instagram: "Nous suivre",
-    login: "Ouvrir une session",
-    logout: "Fermer la session",
-    account: "Compte",
-  }
-}
-
-
-export default function Navigation({ logo, locale }) {
+export default function Navigation({ logo, locale, dropdowns }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState(false)
   const router = useRouter()
@@ -72,24 +48,16 @@ export default function Navigation({ logo, locale }) {
             priority
           />
         </Link>
-        <div className="flex gap-6 items-center justify-end relative">
-          <div className="flex gap-2">
+        <div className="flex gap-6 items-center justify-end">
+          <div className="gap-4 hidden md:flex">
+            {dropdowns.map(dropdown => {
+              return <NavigationDropdown key={dropdown.dropdown_label} dropdown={dropdown}/>
+            })}
             <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
             <Link href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
           </div>
-          <button className="h-8 w-8 text-dark" onClick={toggleMenu}>
-            { menuOpen ? <XMarkIcon /> :<Bars2Icon /> }
-          </button>
-          <div className={`menu ${menuOpen ? 'shadow flex flex-col divide-y absolute top-16 w-72 bg-white z-10' : 'hidden'}`}>
-            <Link href={`/${locale}/profiles/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].newProfile}</Link>
-            <Link href={`/${locale}/profiles`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].allProfiles}</Link>
-            <Link href={`/${locale}/events`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].allEvents}</Link>
-            <Link href={`/${locale}/events/new`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].newEvent}</Link>
-            <Link href={`/${locale}/partners-and-collaborators`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].partners}</Link>
-            <a href="https://www.instagram.com/editionsinspace/" onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].instagram}</a>
-            {!user && <Link href={`/${locale}/login`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].login}</Link>}
-            {user && <Link href={`/${locale}/account`} onClick={toggleMenu} className="px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].account}</Link>}
-            {user && <button onClick={handleLogout} className="inline-flex px-4 py-2 text-dark text-lg uppercase hover:bg-lavendar">{navigationLinks[locale].logout}</button>}
+          <div className="md:hidden">
+            <MobileDropdown dropdowns={dropdowns} />
           </div>
         </div>
       </div>

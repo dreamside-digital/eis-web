@@ -16,20 +16,63 @@ const PAGE_LIMIT = 5
 export default function ExploreProfiles({profiles, tags, locale, messages }) {
   const [filteredProfiles, setFilteredProfiles] = useState(profiles)
   const [currentPage, setCurrentPage] = useState(0)
-  const [showAccordion, setShowAccordion] = useState(true)
+  const [showAccordion, setShowAccordion] = useState(false)
   
-  const selectedTags = tags.map(t => t.id).concat('all')
-  const [currentFilters, setCurrentFilters] = useState({ proximity: true, tags: selectedTags})
+  const [currentFilters, setCurrentFilters] = useState({tags: []})
+  const [orderByProximity, setOrderByProximity] = useState(false)
+  const [currentLocation, setCurrentLocation] = useState()
+
+  const fetchProfiles = async() => {
+    const data = await getProfiles(currentFilters)
+    setFilteredProfiles(data)
+  }
 
   useEffect(() => {
-    const fetchProfiles = async() => {
-      const data = await getProfiles(currentFilters)
-      setFilteredProfiles(data)
-    }
-
     fetchProfiles()
 
   }, [currentFilters])
+
+  useEffect(() => {
+
+    if (orderByProximity) {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          setCurrentLocation(position.coords)
+        });
+      } else {
+        console.log("geolocation is not available")
+      }
+    } else {
+      fetchProfiles()
+    }
+  }, [orderByProximity])
+
+  const orderProfilesByProximity = (currentLocation) => {
+    const profilesWithDistance = [...filteredProfiles].map(profile => {
+      if (!profile.location) return null
+      const currentLat = currentLocation.latitude * Math.PI / 180;
+      const currentLng = currentLocation.longitude * Math.PI / 180;
+      const profileLat = profile.location.coordinates[1] * Math.PI / 180;
+      const profileLng = profile.location.coordinates[0] * Math.PI / 180;
+      const distance = Math.acos(Math.sin(currentLat)*Math.sin(profileLat) + 
+                                  Math.cos(currentLat)*Math.cos(profileLat) *
+                                  Math.cos(profileLng - currentLng)) * 6371;
+      return { ...profile, distance }
+    }).filter(i => i)
+
+    const orderedProfiles = profilesWithDistance.sort((a,b) => {
+      return a.distance - b.distance
+    })
+
+    return orderedProfiles
+  }
+
+  useEffect(() => {
+    if (orderByProximity && currentLocation) {
+      const orderedProfiles = orderProfilesByProximity(currentLocation)
+      setFilteredProfiles(orderedProfiles)
+    }
+  }, [currentLocation])
 
   const incrementPage = () => {
     setCurrentPage(currentPage + 1)
@@ -68,6 +111,8 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
           tags={tags} 
           currentFilters={currentFilters} 
           setCurrentFilters={setCurrentFilters} 
+          orderByProximity={orderByProximity}
+          setOrderByProximity={setOrderByProximity}
           messages={messages}
         />
       </div>
@@ -101,7 +146,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
 
       { !showAccordion &&
         <div className="basis-3/4">
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             { filteredProfiles.map(profile => {
               const tagsText = profile.tags.map(t => t.name).join(", ")
               return (
@@ -126,6 +171,10 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
                         }
                         <div className="flex-1">
                           <p className="mb-4">{profile.short_introduction}</p>
+                          {
+                            profile.distance &&
+                            <p className="mb-4">{`Distance: ${Math.floor(profile.distance)}km`}</p>
+                          }
                         </div>
 
                         <div className="inline-flex gap-1">

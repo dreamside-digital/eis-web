@@ -12,6 +12,7 @@ export default async function Home({ params: { locale } }) {
   const translation = translations.find(t => t.languages_code === locale)
   const keyFeatures = await getFeatures(translation?.key_features.map(f=>f.features_id))
   const benefits = await getFeatures(translation?.benefits.map(f=>f.features_id))
+  const cleanKeyFeaturesSubtitle = DOMPurify.sanitize(translation?.key_features_section_subtitle, { USE_PROFILES: { html: true } })
 
   const landingBgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.landing_section_background_image.id}`
   const benefitsBgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.benefits_section_background_image.id}`
@@ -72,9 +73,7 @@ export default async function Home({ params: { locale } }) {
 
       <section className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20">
-          <p className="font-title text-center text-3xl md:text-4xl max-w-[16ch] mx-auto mb-12">
-            {translation?.key_features_section_subtitle}
-          </p>
+          <div className="font-title text-center text-3xl md:text-4xl max-w-[16ch] mx-auto mb-12" dangerouslySetInnerHTML={{ __html: cleanKeyFeaturesSubtitle }} />
           <div className="relative max-w-3xl mx-auto">
             <Image
               className="w-full h-auto"

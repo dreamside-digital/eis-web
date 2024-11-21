@@ -104,7 +104,7 @@ export async function getLayoutContent() {
   try {
     const data = await directus.request(
       readSingleton('layout', {
-        fields: '*,translations.*'
+        fields: '*,translations.*,translations.navigation_dropdowns'
       })
     );
 
@@ -156,7 +156,7 @@ export async function getProfiles(filters) {
         }
       ]
     }
-    if (!filters?.tags.includes('all'))  {
+    if (filters?.tags?.length > 0)  {
       filterRules = {
         _and: [
           {
@@ -182,7 +182,7 @@ export async function getProfiles(filters) {
     }
     const data = await directus.request(
       readItems('profiles', {
-        fields: '*,tags.tags_id.*',
+        fields: '*,tags.tags_id.*,location.*',
         filter: filterRules
       })
     );
@@ -216,7 +216,7 @@ export async function getEvents(filters) {
         }
       ]
     }
-    if (!filters?.tags.includes('all'))  {
+    if (filters?.tags?.length > 0)  {
       filterRules = {
         _and: [
           {
