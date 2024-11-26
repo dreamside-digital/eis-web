@@ -36,7 +36,7 @@ export default function Navigation({ logo, locale, dropdowns }) {
   
   return (
     <div className="absolute top-0 left-0 right-0 w-full text-dark z-10">
-      <div className="container max-w-screen-xl mx-auto py-2 px-4 flex justify-between">
+      <div className="container max-w-screen-xl mx-auto py-2 max-xl:px-4 flex justify-between">
         <Link href="/">
           <Image
             id="logo"

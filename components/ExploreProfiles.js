@@ -75,8 +75,8 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
   return (
     <div className="pt-12">
       <h1 className="font-title text-7xl mb-6">{messages.explore_profiles}</h1>
-      <div className="filters bg-white py-6 mb-6 grid grid-cols-3 divide-x">
-        <div className="px-6">
+      <div className="filters bg-white lg:py-6 mb-6 grid max-lg:divide-y lg:grid-cols-3 lg:divide-x">
+        <div className="max-lg:py-6 px-6">
           <ProximityFilter 
             location={location}
             setLocation={setLocation}
@@ -85,7 +85,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
             messages={messages}
           />
         </div>
-        <div className="px-6">
+        <div className="max-lg:py-6 px-6">
           <TagFilter 
             tags={tags} 
             currentFilters={currentFilters} 
@@ -93,7 +93,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
             messages={messages}
           />
         </div>
-        <div className="px-6">
+        <div className="max-lg:py-6 px-6">
           <ViewSwitcher 
             options={[{ value: "grid", label: "Grid"}, { value: "accordion", label: "Slides"}]}
             view={view} 
