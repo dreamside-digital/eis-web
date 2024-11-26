@@ -56,7 +56,7 @@ export const eventFormFields = {
     address: "Street Address*",
     venue: "Venue Name",
     submit: "Submit Event",
-    explore_events: "Découvrir des profils",
+    explore_events: "Découvrir des Événements",
     all: "All",
     full_profile: "Full Profile",
     event_preview: "Event preview",

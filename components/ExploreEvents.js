@@ -4,6 +4,7 @@ import Carousel from "@/components/Carousel"
 import Accordion from "@/components/Accordion"
 import TagFilter from "@/components/TagFilter"
 import ProximityFilter from "@/components/ProximityFilter"
+import ViewSwitcher from "@/components/ViewSwitcher"
 import {useState, useEffect} from 'react'
 import {getEvents} from '@/utils/directus'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, CalendarDaysIcon } from '@heroicons/react/24/solid'
@@ -20,10 +21,11 @@ const PAGE_LIMIT = 5
 export default function ExploreEvents({events, tags, locale, messages }) {
   const [filteredEvents, setFilteredEvents] = useState(events)
   const [currentPage, setCurrentPage] = useState(0)
-  const [showCalendar, setShowCalendar] = useState(false)
+  const [view, setView] = useState("grid")
+  const [currentFilters, setCurrentFilters] = useState({tags: []})
+  const [orderByProximity, setOrderByProximity] = useState(false)
+  const [location, setLocation] = useState()
   
-  const [currentFilters, setCurrentFilters] = useState({ proximity: true, tags: []})
-
   useEffect(() => {
     const fetchEvents = async() => {
       const data = await getEvents(currentFilters)
@@ -51,35 +53,40 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   const eventsPage = filteredEvents.slice(pageStartIndex, pageEndIndex)
   return (
     <div className="flex-col gap-6 pt-12">
-      <div className="">
-        <h1 className="font-title text-4xl mb-6">{messages.explore_events}</h1>
-        <button onClick={toggleDisplayMode} className="bg-dark hover:bg-highlight px-3 py-1 text-white mb-6">
-          { showCalendar ? (
-            <div className="inline-flex items-center gap-1">
-              <Squares2X2Icon className="w-4 h-4" />
-              <span>Grid view</span>
-            </div>
-            ) : (
-            <div className="inline-flex items-center gap-1">
-              <CalendarDaysIcon className="w-4 h-4" />
-              <span>Calendar view</span>
-            </div>
-          )}
-        </button>
-        <Filters 
-          tags={tags} 
-          currentFilters={currentFilters} 
-          setCurrentFilters={setCurrentFilters} 
-          messages={messages}
-        />
+      <h1 className="font-title text-4xl md:text-6xl lg:text-7xl mb-6">{messages.explore_events}</h1>
+      <div className="filters bg-white lg:py-6 mb-6 grid max-lg:divide-y lg:grid-cols-3 lg:divide-x">
+        <div className="max-lg:py-6 px-6">
+          <ProximityFilter 
+            location={location}
+            setLocation={setLocation}
+            orderByProximity={orderByProximity}
+            setOrderByProximity={setOrderByProximity}
+            messages={messages}
+          />
+        </div>
+        <div className="max-lg:py-6 px-6">
+          <TagFilter 
+            tags={tags} 
+            currentFilters={currentFilters} 
+            setCurrentFilters={setCurrentFilters} 
+            messages={messages}
+          />
+        </div>
+        <div className="max-lg:py-6 px-6">
+          <ViewSwitcher 
+            options={[{ value: "grid", label: "Grid"}, { value: "calendar", label: "Calendar"}]}
+            view={view} 
+            setView={setView} 
+          />
+        </div>
       </div>
-      { showCalendar &&
+      { (view === 'calendar') &&
       <div className="">
         <CalendarView events={filteredEvents} />
       </div>
       }
 
-      { !showCalendar &&
+      { (view === "grid") &&
         <div className="basis-3/4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             { filteredEvents.map(event => {

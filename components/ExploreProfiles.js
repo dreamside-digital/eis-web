@@ -19,7 +19,6 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
   const [filteredProfiles, setFilteredProfiles] = useState(profiles)
   const [currentPage, setCurrentPage] = useState(0)
   const [view, setView] = useState("grid")
-  
   const [currentFilters, setCurrentFilters] = useState({tags: []})
   const [orderByProximity, setOrderByProximity] = useState(false)
   const [location, setLocation] = useState()
@@ -76,8 +75,8 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
   return (
     <div className="pt-12">
       <h1 className="font-title text-7xl mb-6">{messages.explore_profiles}</h1>
-      <div className="filters bg-white p-6 mb-6 flex divide-x">
-        <div className="pr-6">
+      <div className="filters bg-white py-6 mb-6 grid grid-cols-3 divide-x">
+        <div className="px-6">
           <ProximityFilter 
             location={location}
             setLocation={setLocation}
@@ -94,7 +93,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
             messages={messages}
           />
         </div>
-        <div className="pl-6">
+        <div className="px-6">
           <ViewSwitcher 
             options={[{ value: "grid", label: "Grid"}, { value: "accordion", label: "Slides"}]}
             view={view} 

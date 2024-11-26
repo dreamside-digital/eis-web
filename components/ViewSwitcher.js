@@ -31,7 +31,7 @@ export default function ViewSwitcher({
   }
 
   return (
-    <div className="pb-6">
+    <div className="">
       <fieldset>
         <legend className="uppercase text-lg mb-2 font-medium">Select View</legend>
         {

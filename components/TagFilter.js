@@ -32,7 +32,7 @@ export default function TagFilter({
   }
 
   return (
-    <div className="pb-6">
+    <div className="">
 
         <p className="uppercase text-lg mb-2 font-medium">Filter by discipline</p>
         <div className="flex flex-wrap gap-1">
