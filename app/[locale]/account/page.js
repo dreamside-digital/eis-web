@@ -22,7 +22,7 @@ const statusColors = {
 const statusColorsBg = {
   'draft': 'bg-slate-100',
   'review': 'bg-lavendar',
-  'private': 'bg-light',
+  'private': 'bg-beige',
   'published': 'bg-medium'
 }
 

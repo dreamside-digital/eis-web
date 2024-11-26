@@ -20,11 +20,11 @@ export default async function EventPage({params}) {
 
   return (
     <>
-    <section className="bg-white text-dark p-6 py-12 pt-20 relative">
+    <section className="text-dark p-6 py-12 pt-20 relative">
       <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-2/3 w-full">
       </div>
       <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
-        <div className="p-6 w-full bg-light text-dark ">
+        <div className="p-6 w-full bg-beige text-dark ">
           <div className="flex flex-col lg:flex-row lg:gap-4">
             <div>
                 {
@@ -51,7 +51,7 @@ export default async function EventPage({params}) {
       </div>
     </section>
 
-    <section className="bg-white text-dark relative">
+    <section className="text-dark relative">
       <div className="container max-w-screen-lg mx-auto px-6 mb-12 lg:mb-20">
         <div className="flex flex-col md:flex-row max-md:divide-y md:divide-x">
           <div className="basis-3/4 md:pr-8">

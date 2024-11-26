@@ -4,12 +4,10 @@ import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 import TagButton from '@/components/TagButton'
 
-export default function Filters({ 
+export default function TagFilter({ 
   tags, 
   currentFilters, 
   setCurrentFilters, 
-  orderByProximity, 
-  setOrderByProximity, 
   messages 
 }) {
 
@@ -35,14 +33,8 @@ export default function Filters({
 
   return (
     <div className="pb-6">
-      <fieldset className="mb-4">
-        <legend className="uppercase text-lg mb-2 font-medium">Location</legend>
-        <div>
-          <input className="mr-2" type="checkbox" id={'proximity'} name={'proximity'} checked={orderByProximity} onChange={handleProximityInput} />
-          <label htmlFor={`proximity`}>Order by proximity to me</label>
-        </div>
-      </fieldset>
-        <p className="uppercase text-lg mb-2 font-medium">{messages.tags}</p>
+
+        <p className="uppercase text-lg mb-2 font-medium">Filter by discipline</p>
         <div className="flex flex-wrap gap-1">
           {tags.map(tag => {
             const isSelected = currentFilters.tags.indexOf(tag.id) >= 0

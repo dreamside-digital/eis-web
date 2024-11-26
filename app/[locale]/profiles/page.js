@@ -19,7 +19,7 @@ export default async function NewProfilePage({params: {locale}}) {
   const messages = profileFormFields[locale]
 
   return (
-    <section className="bg-white text-dark p-6 py-12">
+    <section className="bg-light text-dark p-6 py-12">
       <div className="container max-w-screen-xl mx-auto">
         <ExploreProfiles profiles={profiles} tags={tagTranslations} locale={locale} messages={messages} />
       </div>

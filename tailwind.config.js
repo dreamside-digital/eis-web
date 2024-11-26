@@ -20,10 +20,10 @@ module.exports = {
         primary: '#E2E5F8', // lavendar
         secondary: "#C7B3A8", // beige
         dark: '#223659', // navy
-        light: '#E8DED3', // bone
+        light: '#f6f2ed', // off-white
         medium: '#B8D0CA', // mint
         highlight: '#584963', // aubergine
-        beige: "#E8DED3",
+        beige: "#E8DED3", // bone
         navy: '#22365B',
         lavendar: '#E2E5F8',
         aubergine: '#584963',

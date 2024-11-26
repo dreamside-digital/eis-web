@@ -80,7 +80,7 @@ export default async function RootLayout({ children, params: { locale } }) {
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative`}>
         <NextIntlClientProvider messages={translation}>
         <Navigation logo={logoImg} locale={locale} dropdowns={translation.navigation_dropdowns} />
-        <main className="grow">
+        <main className="grow bg-light">
           {children}
         </main>
         <footer className="bg-dark">

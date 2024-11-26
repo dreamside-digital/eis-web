@@ -2,7 +2,8 @@
 
 import Carousel from "@/components/Carousel"
 import Accordion from "@/components/Accordion"
-import Filters from "@/components/Filters"
+import TagFilter from "@/components/TagFilter"
+import ProximityFilter from "@/components/ProximityFilter"
 import {useState, useEffect} from 'react'
 import {getEvents} from '@/utils/directus'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, CalendarDaysIcon } from '@heroicons/react/24/solid'
@@ -92,7 +93,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
               return (
                 <div className="max-w-lg h-full" key={event.id}>
                   <Link className="no-underline hover:no-underline" href={`/events/${event.slug}`}>
-                    <div className="p-6 bg-light text-dark relative">
+                    <div className="p-6 bg-beige text-dark relative">
                       <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
                         {event.title}
                       </h1>

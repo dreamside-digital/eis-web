@@ -2,7 +2,9 @@
 
 import Carousel from "@/components/Carousel"
 import Accordion from "@/components/Accordion"
-import Filters from "@/components/Filters"
+import TagFilter from "@/components/TagFilter"
+import ProximityFilter from "@/components/ProximityFilter"
+import ViewSwitcher from "@/components/ViewSwitcher"
 import {useState, useEffect} from 'react'
 import {getProfiles} from '@/utils/directus'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
@@ -16,11 +18,11 @@ const PAGE_LIMIT = 5
 export default function ExploreProfiles({profiles, tags, locale, messages }) {
   const [filteredProfiles, setFilteredProfiles] = useState(profiles)
   const [currentPage, setCurrentPage] = useState(0)
-  const [showAccordion, setShowAccordion] = useState(false)
+  const [view, setView] = useState("grid")
   
   const [currentFilters, setCurrentFilters] = useState({tags: []})
   const [orderByProximity, setOrderByProximity] = useState(false)
-  const [currentLocation, setCurrentLocation] = useState()
+  const [location, setLocation] = useState()
 
   const fetchProfiles = async() => {
     const data = await getProfiles(currentFilters)
@@ -31,21 +33,6 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
     fetchProfiles()
 
   }, [currentFilters])
-
-  useEffect(() => {
-
-    if (orderByProximity) {
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          setCurrentLocation(position.coords)
-        });
-      } else {
-        console.log("geolocation is not available")
-      }
-    } else {
-      fetchProfiles()
-    }
-  }, [orderByProximity])
 
   const orderProfilesByProximity = (currentLocation) => {
     const profilesWithDistance = [...filteredProfiles].map(profile => {
@@ -68,11 +55,11 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
   }
 
   useEffect(() => {
-    if (orderByProximity && currentLocation) {
-      const orderedProfiles = orderProfilesByProximity(currentLocation)
+    if (orderByProximity && location) {
+      const orderedProfiles = orderProfilesByProximity(location)
       setFilteredProfiles(orderedProfiles)
     }
-  }, [currentLocation])
+  }, [location])
 
   const incrementPage = () => {
     setCurrentPage(currentPage + 1)
@@ -82,41 +69,40 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
     setCurrentPage(currentPage - 1)
   }
 
-  const toggleDisplayMode = () => {
-    setShowAccordion(!showAccordion)
-  }
-
   const pageStartIndex = currentPage * PAGE_LIMIT
   const pageEndIndex = pageStartIndex + PAGE_LIMIT
   const profilesPage = filteredProfiles.slice(pageStartIndex, pageEndIndex)
 
   return (
-    <div className="flex-col gap-6 md:flex-row pt-12">
-      <div className="basis-1/4">
-        <h1 className="font-title text-4xl mb-6">{messages.explore_profiles}</h1>
-        <button onClick={toggleDisplayMode} className="bg-dark hover:bg-highlight px-3 py-1 text-white mb-6">
-          { showAccordion ? (
-            <div className="inline-flex items-center gap-1">
-              <Squares2X2Icon className="w-4 h-4" />
-              <span>Grid view</span>
-            </div>
-            ) : (
-            <div className="inline-flex items-center gap-1">
-              <RectangleStackIcon className="w-4 h-4" />
-              <span>Slide view</span>
-            </div>
-          )}
-        </button>
-        <Filters 
-          tags={tags} 
-          currentFilters={currentFilters} 
-          setCurrentFilters={setCurrentFilters} 
-          orderByProximity={orderByProximity}
-          setOrderByProximity={setOrderByProximity}
-          messages={messages}
-        />
+    <div className="pt-12">
+      <h1 className="font-title text-7xl mb-6">{messages.explore_profiles}</h1>
+      <div className="filters bg-white p-6 mb-6 flex divide-x">
+        <div className="pr-6">
+          <ProximityFilter 
+            location={location}
+            setLocation={setLocation}
+            orderByProximity={orderByProximity}
+            setOrderByProximity={setOrderByProximity}
+            messages={messages}
+          />
+        </div>
+        <div className="px-6">
+          <TagFilter 
+            tags={tags} 
+            currentFilters={currentFilters} 
+            setCurrentFilters={setCurrentFilters} 
+            messages={messages}
+          />
+        </div>
+        <div className="pl-6">
+          <ViewSwitcher 
+            options={[{ value: "grid", label: "Grid"}, { value: "accordion", label: "Slides"}]}
+            view={view} 
+            setView={setView} 
+          />
+        </div>
       </div>
-      { showAccordion &&
+      { (view === "accordion") &&
       <div className="basis-3/4">
         <div className="flex justify-between">
           <div className="hidden md:flex items-center p-2">
@@ -144,7 +130,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
       </div>
       }
 
-      { !showAccordion &&
+      { (view === "grid") &&
         <div className="basis-3/4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             { filteredProfiles.map(profile => {
@@ -152,7 +138,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
               return (
                 <div className="max-w-lg h-full" key={profile.id}>
                   <Link className="hover:no-underline" href={`/${locale}/profiles/${profile.slug}`}>
-                    <div className="h-full p-6 bg-light text-dark relative">
+                    <div className="h-full p-6 bg-beige text-dark relative">
                       <h1 className="font-title text-xl md:text-2xl mb-4">
                         {profile.public_name}
                       </h1>

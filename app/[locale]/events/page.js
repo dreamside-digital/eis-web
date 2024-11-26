@@ -19,7 +19,7 @@ export default async function AllEventsPage({params: {locale}}) {
   const messages = eventFormFields[locale]
 
   return (
-    <section className="bg-white text-dark p-6 py-12">
+    <section className="bg-light text-dark p-6 py-12">
       <div className="container max-w-screen-xl mx-auto">
         <ExploreEvents events={events} tags={tagTranslations} locale={locale} messages={messages} />
       </div>

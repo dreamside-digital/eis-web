@@ -34,7 +34,7 @@ export default function Carousel({profiles, events}) {
           const tagsText = profile.tags.map(t => t.name).join(", ")
           return (
             <SwiperSlide key={profile.id} className=" max-w-md">
-              <div className="p-6 bg-light text-dark  relative">
+              <div className="p-6 bg-beige text-dark  relative">
                 <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
                   <h1 className="font-title text-xl md:text-2xl mb-4">
                     {profile.public_name}
@@ -101,7 +101,7 @@ export default function Carousel({profiles, events}) {
 
             return (
               <SwiperSlide key={event.id} className=" max-w-lg">
-                <div className="p-6 bg-light text-dark  relative">
+                <div className="p-6 bg-beige text-dark  relative">
                   <Link className="text-xl no-underline hover:text-highlight" href={`/events/${event.slug}`}>
                     <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
                       {event.title}

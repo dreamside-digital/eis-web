@@ -18,7 +18,7 @@ const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
   const selected = currentItemUid.includes(uuid)
 
   return(
-    <AccordionItem uuid={uuid} className={`tab flex flex-col sm:flex-row ${selected ? "tab-selected flex-grow overflow-hidden sm:border-l border-white" : "bg-light"}`} dangerouslySetExpanded={selected}>
+    <AccordionItem uuid={uuid} className={`tab flex flex-col sm:flex-row ${selected ? "tab-selected flex-grow overflow-hidden sm:border-l border-white" : "bg-beige"}`} dangerouslySetExpanded={selected}>
       <AccordionItemHeading className={`bg-latte tab-heading flex sm:flex-grow relative px-5 py-3 sm:p-8 border-0 border-b sm:border-t-0 sm:border-l border-white ${selected ? "hidden" : ""}`}>
         <AccordionItemButton className={`tab-title sm:p-4 flex flex-grow rotate-tab-title ${selected ? "sm:hidden" : "block"}`}>
           <div className="text-xl flex items-center">
@@ -57,7 +57,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
             <CustomAccordionItem key={profile.id} uuid={profile.id} currentItemUid={currentItemUid} title={profile.public_name}>
             <Link className="no-underline hover:no-underline" href={`/${locale}/profiles/${profile.slug}`}>
             <div className="max-w-lg h-full">
-              <div className="h-full p-6 bg-light text-dark relative">
+              <div className="h-full p-6 bg-beige text-dark relative">
                 <h1 className="font-title text-xl md:text-2xl mb-4">
                   {profile.public_name}
                 </h1>
@@ -105,7 +105,7 @@ export default function ProfileDrawers({profiles, events, locale, messages}) {
             return (
               <CustomAccordionItem key={event.id} uuid={event.id} currentItemUid={currentItemUid} title={event.title}>
                 <Link className="no-underline hover:no-underline" href={`/events/${event.slug}`}>
-                  <div className="p-6 bg-light text-dark relative">
+                  <div className="p-6 bg-beige text-dark relative">
                     <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
                       {event.title}
                     </h1>

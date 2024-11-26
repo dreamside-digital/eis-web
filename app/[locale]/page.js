@@ -28,7 +28,7 @@ export default async function Home({ params: { locale } }) {
 
   return (
     <>
-      <section style={landingBgStyle} className={`pt-28 bg-light md:h-[80vh] bg-no-repeat bg-cover bg-left md:bg-right-bottom md:bg-contain`}>
+      <section style={landingBgStyle} className={`pt-28 bg-beige md:h-[80vh] bg-no-repeat bg-cover bg-left md:bg-right-bottom md:bg-contain`}>
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
             <h2 className="font-title text-center text-3xl md:text-5xl text-dark">
@@ -152,7 +152,7 @@ export default async function Home({ params: { locale } }) {
         </div>
       </section>
 
-      <section className="bg-light text-highlight">
+      <section className="bg-beige text-highlight">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20">
           <h2 className="font-title text-3xl lg:text-4xl mb-6 md:mb-10">
             {translation?.origin_section_title}

@@ -195,7 +195,7 @@ export default function ProfileForm({defaultProfile, tags, messages, locale}) {
                 tags.map(tag => {
                   const selected = profile.tags.findIndex(t => t.tags_id === tag.id)
                   return (
-                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-light'}`}>{tag.name}</button>
+                    <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-beige'}`}>{tag.name}</button>
                   )
                 })
               }
