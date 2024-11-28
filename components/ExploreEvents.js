@@ -6,7 +6,7 @@ import TagFilter from "@/components/TagFilter"
 import ProximityFilter from "@/components/ProximityFilter"
 import ViewSwitcher from "@/components/ViewSwitcher"
 import {useState, useEffect} from 'react'
-import {getEvents} from '@/utils/directus'
+import {getEvents} from '@/lib/data-access'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, CalendarDaysIcon } from '@heroicons/react/24/solid'
 import { DATE_FORMAT } from '@/utils/constants'
 import TagButton from '@/components/TagButton'

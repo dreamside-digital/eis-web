@@ -1,4 +1,4 @@
-import { getProfile } from '@/utils/directus'
+import { getProfile } from '@/lib/data-access'
 import Image from 'next/image'
 import DOMPurify from "isomorphic-dompurify";
 

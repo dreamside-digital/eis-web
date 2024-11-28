@@ -4,8 +4,7 @@ import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
 import MapPointSelector from '@/components/MapPointSelector'
 import { useState, useEffect } from 'react'
-import { createEvent, uploadImage } from '@/utils/directus'
-import { userSession, currentUser } from '@/utils/data-access'
+import { createEvent, uploadImage, userSession, getAuthUser } from '@/lib/data-access'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
@@ -31,17 +30,6 @@ export default function EventForm({tags, messages, locale}) {
   const [errors, setErrors] = useState()
   const [user, setUser] = useState()
   const router = useRouter()
-
-  useEffect(() => {
-    (async () => {
-      const session = await userSession();
-
-      if (session.accessToken) {
-        const authedUser = await currentUser(session.accessToken)
-        return setUser(authedUser)
-      }
-    })();
-  }, []);
 
   const updateEvent = field => input => {
 
@@ -123,10 +111,12 @@ export default function EventForm({tags, messages, locale}) {
     }
   }
 
+  console.log("event page user", user)
+
  
   return (
     <>
-      <section className="bg-white text-dark relative">
+      <section className="text-dark relative">
         <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.page_title}</h1>
           <form className="" onSubmit={handleSubmit}>

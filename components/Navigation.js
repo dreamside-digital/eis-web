@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from "next/link";
-import { userSession, currentUser, deleteSession } from '@/utils/auth'
+import { userSession, currentUser, deleteSession } from '@/lib/data-access'
 import { useRouter, usePathname } from 'next/navigation'
 import NavigationDropdown from '@/components/NavigationDropdown'
 import MobileDropdown from '@/components/MobileDropdown'
@@ -15,13 +15,13 @@ export default function Navigation({ logo, locale, dropdowns }) {
   const router = useRouter()
   const pathname = usePathname();
 
-  useEffect(() => {
-    (async () => {
-      const session = await userSession()
-      const authedUser = await currentUser(session.accessToken)
-      return setUser(authedUser)
-    })();
-  }, [pathname]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const session = await userSession()
+  //     const authedUser = await currentUser(session.accessToken)
+  //     return setUser(authedUser)
+  //   })();
+  // }, [pathname]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)

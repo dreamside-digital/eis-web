@@ -1,9 +1,3 @@
-"use client"
-
-import { userSession, currentUser } from '@/utils/auth'
-import { getUserProfiles, updateProfile } from '@/utils/directus'
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { profileFormFields } from '@/utils/profileFormFields'
@@ -11,16 +5,18 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import { PencilIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 import { EyeSlashIcon } from '@heroicons/react/24/solid'
+import { COOKIE_NAME } from "@/utils/constants";
+import { getAuthUser, userSession, getUserProfiles, updateProfile } from "@/lib/data-access";
 
 const statusColors = {
-  'draft': 'border-slate-100',
+  'draft': 'border-slate-200',
   'review': 'border-lavendar',
-  'private': 'border-light',
+  'private': 'border-beige',
   'published': 'border-medium'
 }
 
 const statusColorsBg = {
-  'draft': 'bg-slate-100',
+  'draft': 'bg-slate-200',
   'review': 'bg-lavendar',
   'private': 'bg-beige',
   'published': 'bg-medium'
@@ -33,35 +29,11 @@ const statusLabels = {
   'published': 'Published'
 }
 
-export default function AccountPage({params: {locale}}) {
-  const [user, setUser] = useState()
-  const [profiles, setProfiles] = useState()
+export default async function AccountPage({params: {locale}}) {
   const messages = profileFormFields[locale]
-  const router = useRouter()
-
-  useEffect(() => {
-    (async () => {
-      const session = await userSession();
-
-      if (session.accessToken) {
-        const authedUser = await currentUser(session.accessToken)
-        if (authedUser) {
-          return setUser(authedUser)
-        } else {
-          router.push(`/${locale}/login`)
-        }
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      if (user) {
-        const profiles = await getUserProfiles(user);
-        return setProfiles(profiles)
-      }
-    })();
-  }, [user]);
+  const session = await userSession()
+  const user = await getAuthUser(session)
+  const profiles = await getUserProfiles(user)
 
   const changeProfileStatus = (id, newStatus) => async () => {
     try {
@@ -75,7 +47,7 @@ export default function AccountPage({params: {locale}}) {
 
   return (
     <>
-      <section className="bg-white text-dark p-6 py-12 pt-20 relative">
+      <section className="text-dark p-6 py-12 pt-20 relative">
         <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-2/3 w-full">
         </div>
         <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
@@ -86,7 +58,7 @@ export default function AccountPage({params: {locale}}) {
           </div>
         </div>
       </section>
-      <section className="bg-white text-dark relative p-6">
+      <section className="text-dark relative p-6">
         <div className="container max-w-screen-lg mx-auto mb-12 lg:mb-20">
           <h2 className="uppercase text-2xl mb-4 md:mb-6 font-medium">Artist profiles</h2>
           <div className="grid grid-cols-3 gap-6">
@@ -95,7 +67,7 @@ export default function AccountPage({params: {locale}}) {
               const borderColor = statusColors[profile.status]
               const bbColor = statusColorsBg[profile.status]
               return (
-                  <div key={profile.id} className={`border-2 ${borderColor} text-dark relative `}>
+                  <div key={profile.id} className={`border-2 ${borderColor} bg-white text-dark relative `}>
                     <div className={`${bbColor} text-dark px-6 py-2 uppercase font-medium text-sm`}>
                       <span>{statusLabels[profile.status]}</span>
                     </div>

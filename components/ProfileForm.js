@@ -4,8 +4,7 @@ import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
 import MapPointSelector from '@/components/MapPointSelector'
 import { useState, useEffect } from 'react'
-import { uploadImage, createProfile, updateProfile } from '@/utils/directus'
-import { userSession, currentUser } from '@/utils/auth'
+import { uploadImage, createProfile, updateProfile, userSession, currentUser } from '@/lib/data-access'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
@@ -20,13 +19,13 @@ export default function ProfileForm({defaultProfile, tags, messages, locale}) {
   const [user, setUser] = useState()
   const router = useRouter()
 
-  useEffect(() => {
-    (async () => {
-        const session = await userSession()
-        const authedUser = await currentUser(session.accessToken)
-        return setUser(authedUser)
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //       const session = await userSession()
+  //       const authedUser = await currentUser(session.accessToken)
+  //       return setUser(authedUser)
+  //   })();
+  // }, []);
 
   const updateProfileData = field => input => {
 
@@ -117,7 +116,7 @@ export default function ProfileForm({defaultProfile, tags, messages, locale}) {
  
   return (
     <>
-      <section className="bg-white text-dark relative">
+      <section className="text-dark relative">
         <div className="container bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.title}</h1>
           <form className="" onSubmit={handleSubmit}>

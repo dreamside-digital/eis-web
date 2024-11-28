@@ -1,10 +1,11 @@
-import { getProfiles, getTags } from '@/utils/directus'
+import { getProfiles, getTags } from '@/lib/data-access'
 import ExploreProfiles from '@/components/ExploreProfiles'
 import { profileFormFields } from '@/utils/profileFormFields'
 
 
 export default async function NewProfilePage({params: {locale}}) {
   const profiles = await getProfiles()
+  console.log({profiles})
   const tags = await getTags()
 
   const tagTranslations = tags.map(t => {

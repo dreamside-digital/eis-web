@@ -6,7 +6,7 @@ import TagFilter from "@/components/TagFilter"
 import ProximityFilter from "@/components/ProximityFilter"
 import ViewSwitcher from "@/components/ViewSwitcher"
 import {useState, useEffect} from 'react'
-import {getProfiles} from '@/utils/directus'
+import {getProfiles} from '@/lib/data-access'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
 import TagButton from '@/components/TagButton'
 

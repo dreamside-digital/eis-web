@@ -1,4 +1,4 @@
-import { getProfile, getTags, createEvent } from '@/utils/directus'
+import { getProfile, getTags, createEvent } from '@/lib/data-access'
 import Image from 'next/image'
 import EventForm from '@/components/EventForm'
 import { eventFormFields } from '@/utils/eventFormFields'

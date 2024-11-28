@@ -1,4 +1,4 @@
-import { getEvent } from '@/utils/directus'
+import { getEvent } from '@/lib/data-access'
 import Image from 'next/image'
 import DOMPurify from "isomorphic-dompurify";
 

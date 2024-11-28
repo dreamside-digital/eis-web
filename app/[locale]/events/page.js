@@ -1,4 +1,4 @@
-import { getEvents, getTags } from '@/utils/directus'
+import { getEvents, getTags } from '@/lib/data-access'
 import ExploreEvents from "@/components/ExploreEvents"
 import { eventFormFields } from '@/utils/eventFormFields'
 

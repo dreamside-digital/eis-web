@@ -76,8 +76,6 @@ export default function LoginForm({locale}) {
     try {
       validateForm()
 
-      console.log({errors})
-
       if (errors.length > 0) return
 
       const result = await createUserAccount(userData)
