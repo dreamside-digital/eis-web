@@ -1,5 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import Link from "next/link";
 import {
   ArrowPathIcon,
   ChartPieIcon,
@@ -9,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 
-export default function MobileDropdown({dropdowns}) {
+export default function MobileDropdown({pathname, locale, dropdowns, user}) {
   return (
     <Popover className="">
       {({ open }) => (
@@ -22,7 +23,7 @@ export default function MobileDropdown({dropdowns}) {
           transition
           className="absolute w-screen left-0 right-0 z-10 mt-2 flex px-4 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
         >
-          <div className="flex-auto overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5">
+          <div className="flex-auto overflow-hidden bg-white shadow-lg ring-1 ring-gray-900/5 pb-2">
             <div className="">
                 {dropdowns.map(dropdown => {
                   return (
@@ -41,7 +42,30 @@ export default function MobileDropdown({dropdowns}) {
                     </div>
                   )
                 })}
+                { user ? ( 
+                  <div>
+                    <p className="font-semibold uppercase mb-0 p-4 pb-2">{"Account"}</p>
+                    <div className="group relative flex gap-x-6 p-2 pl-6 hover:bg-primary">
+                      <a href={'/account'} className="">
+                        {'My Account'}
+                        <span className="absolute inset-0" />
+                      </a>
+                    </div>
+                    <div className="group relative flex gap-x-6 p-2 pl-6 hover:bg-primary">
+                      <a href={'/logout'} className="">
+                        {'Log out'}
+                        <span className="absolute inset-0" />
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <Link className="uppercase" href={'/login'}>Log in</Link>
+                )}
+              <div className="font-semibold uppercase mb-0 p-4 pb-2">
+                <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
+                <Link href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
               </div>
+            </div>
           </div>
         </PopoverPanel>
         </>

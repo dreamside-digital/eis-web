@@ -1,6 +1,5 @@
 "use client"
 
-
 import { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from "next/link";
@@ -15,24 +14,14 @@ export default function Navigation({ logo, locale, dropdowns }) {
   const router = useRouter()
   const pathname = usePathname();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const session = await userSession()
-  //     const authedUser = await currentUser(session.accessToken)
-  //     return setUser(authedUser)
-  //   })();
-  // }, [pathname]);
+  useEffect(() => {
+    (async () => {
+      const session = await userSession()
+      const authedUser = await currentUser(session)
+      return setUser(authedUser)
+    })();
+  }, [pathname]);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
-  }
-
-  const handleLogout = async() => {
-    await deleteSession()
-    toggleMenu()
-    setUser(false)
-    router.push('/')
-  }
   
   return (
     <div className="absolute top-0 left-0 right-0 w-full text-dark z-10">
@@ -53,11 +42,22 @@ export default function Navigation({ logo, locale, dropdowns }) {
             {dropdowns.map(dropdown => {
               return <NavigationDropdown key={dropdown.dropdown_label} dropdown={dropdown}/>
             })}
+            { user ? ( 
+              <NavigationDropdown dropdown={{
+                dropdown_label: "Account",
+                dropdown_items: [
+                  {dropdown_item_text: "My Account", dropdown_item_link: "/account"},
+                  {dropdown_item_text: "Log out", dropdown_item_link: "/logout"}
+                ]
+              }}/>
+            ) : (
+              <Link className="uppercase" href={'/login'}>Log in</Link>
+            )}
             <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
             <Link href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
           </div>
           <div className="md:hidden">
-            <MobileDropdown dropdowns={dropdowns} />
+            <MobileDropdown pathname={pathname} dropdowns={dropdowns} user={user} locale={locale} />
           </div>
         </div>
       </div>

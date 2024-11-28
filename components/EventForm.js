@@ -4,7 +4,7 @@ import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
 import MapPointSelector from '@/components/MapPointSelector'
 import { useState, useEffect } from 'react'
-import { createEvent, uploadImage, userSession, getAuthUser } from '@/lib/data-access'
+import { createEvent, uploadImage, userSession, currentUser } from '@/lib/data-access'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
@@ -23,12 +23,11 @@ const defaultEvent = {
   links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
 }
 
-export default function EventForm({tags, messages, locale}) {
+export default function EventForm({user, tags, messages, locale}) {
   const [event, setEvent] = useState(defaultEvent)
   const [fileUploading, setFileUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
-  const [user, setUser] = useState()
   const router = useRouter()
 
   const updateEvent = field => input => {
@@ -79,13 +78,12 @@ export default function EventForm({tags, messages, locale}) {
       links: JSON.stringify(links),
       main_image: event.main_image?.id,
     }
-    console.log({data})
     const result = await createEvent(data)
     if (result.errors) {
       setErrors(result.errors)
       setSubmitting(false)
     } else {
-      const eventLink = `/${locale}/events/${result.slug}`
+      const eventLink = `/events/${result.slug}`
       router.push(eventLink)
     }
     setSubmitting(false)
@@ -110,8 +108,6 @@ export default function EventForm({tags, messages, locale}) {
       })
     }
   }
-
-  console.log("event page user", user)
 
  
   return (

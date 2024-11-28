@@ -32,7 +32,7 @@ export default function LoginForm({locale}) {
 
     const result = await login(username, password)
     console.log("login result", result)
-    if (result.errors) {
+    if (result?.errors) {
       console.log(result.errors)
       setSubmitting(false)
       setErrors(result.errors)

@@ -1,13 +1,16 @@
-
 import { profileFormFields } from '@/utils/profileFormFields'
-import { getAuthUser, userSession, getUserProfiles, updateProfile } from "@/lib/data-access";
+import { currentUser, userSession, getUserProfiles, updateProfile } from "@/lib/data-access";
 import ProfileCard from '@/components/ProfileCard'
+import { redirect } from 'next/navigation';
 
 
 export default async function AccountPage({params: {locale}}) {
   const messages = profileFormFields[locale]
   const session = await userSession()
-  const user = await getAuthUser(session)
+  const user = await currentUser(session)
+  if (!user) {
+    redirect('/login')
+  }
   const profiles = await getUserProfiles(session, user)
 
   return (
@@ -26,7 +29,7 @@ export default async function AccountPage({params: {locale}}) {
       <section className="text-dark relative p-6">
         <div className="container max-w-screen-lg mx-auto mb-12 lg:mb-20">
           <h2 className="uppercase text-2xl mb-4 md:mb-6 font-medium">Artist profiles</h2>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid lg:grid-cols-3 gap-6">
             {profiles?.map(profile => {
               return <ProfileCard key={profile.id} profile={profile} />
             })}

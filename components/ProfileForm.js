@@ -9,23 +9,14 @@ import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 
 
-export default function ProfileForm({defaultProfile, tags, messages, locale}) {
+export default function ProfileForm({user, defaultProfile, tags, messages, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [fileUploading, setFileUploading] = useState(false)
   const [location, setLocation] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [showPostalCodeField, setShowPostalCodeField] = useState(false)
   const [errors, setErrors] = useState()
-  const [user, setUser] = useState()
   const router = useRouter()
-
-  // useEffect(() => {
-  //   (async () => {
-  //       const session = await userSession()
-  //       const authedUser = await currentUser(session.accessToken)
-  //       return setUser(authedUser)
-  //   })();
-  // }, []);
 
   const updateProfileData = field => input => {
 
@@ -248,19 +239,19 @@ export default function ProfileForm({defaultProfile, tags, messages, locale}) {
                 {messages.location}
               </label>
               <small className="mb-2 block">{messages.location_hint}</small>
-              <MapPointSelector setLocation={setLocation} selectedLocation={location} />
+              <div className="mb-6">
+                <button hidden={showPostalCodeField} className="text-sm underline" onClick={revealPostalCodeField}>I do not feel comfortable disclosing my location on a map</button>
+                <div hidden={!showPostalCodeField}>
+                  <label className="block text-gray-700 text-sm font-bold" htmlFor="postal_code">
+                    {messages.postal_code}
+                  </label>
+                  <small className="mb-2 block">{messages.postal_code_hint}</small>
+                  <input onChange={updateProfileData("postal_code")} value={profile.postal_code} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
+                </div>
+              </div>
+              {!showPostalCodeField && <MapPointSelector setLocation={setLocation} selectedLocation={location} />}
             </div>
 
-            <div className="mb-6">
-              <button hidden={showPostalCodeField} className="text-sm underline" onClick={revealPostalCodeField}>I do not feel comfortable disclosing my location on a map</button>
-              <div hidden={!showPostalCodeField}>
-                <label className="block text-gray-700 text-sm font-bold" htmlFor="postal_code">
-                  {messages.postal_code}
-                </label>
-                <small className="mb-2 block">{messages.postal_code_hint}</small>
-                <input onChange={updateProfileData("postal_code")} value={profile.postal_code} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
-              </div>
-            </div>
 
             <div className="flex items-center justify-between mt-8">
               {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
