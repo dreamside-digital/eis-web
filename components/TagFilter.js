@@ -6,13 +6,13 @@ import TagButton from '@/components/TagButton'
 
 export default function TagFilter({ 
   tags, 
-  currentFilters, 
-  setCurrentFilters, 
+  selectedTags, 
+  setSelectedTags, 
   messages 
 }) {
 
   const handleTagInput = id => event => {
-    let selected = [...currentFilters.tags]
+    let selected = [...selectedTags]
     const clickedIndex = selected.indexOf(id)
 
     if (clickedIndex === -1) {
@@ -21,15 +21,9 @@ export default function TagFilter({
       selected.splice(clickedIndex, 1)
     }
 
-    return setCurrentFilters({
-      ...currentFilters,
-      tags: selected
-    })
+    return setSelectedTags(selected)
   }
 
-  const handleProximityInput = e => {
-    return setOrderByProximity(e.target.checked)
-  }
 
   return (
     <div className="">
@@ -37,7 +31,7 @@ export default function TagFilter({
         <p className="uppercase text-lg mb-2 font-medium">Filter by discipline</p>
         <div className="flex flex-wrap gap-1">
           {tags.map(tag => {
-            const isSelected = currentFilters.tags.indexOf(tag.id) >= 0
+            const isSelected = selectedTags.indexOf(tag.id) >= 0
             return (
               <div key={tag.slug}>
                 <TagButton tag={tag} onClick={handleTagInput(tag.id)} isSelected={isSelected} />

@@ -5,18 +5,17 @@ import { useState, useEffect } from 'react'
 import TagButton from '@/components/TagButton'
 
 export default function ProximityFilter({ 
-  orderByProximity, 
-  setOrderByProximity, 
   location,
   setLocation,
-  messages 
+  messages,
+  maxDistance,
+  setMaxDistance
 }) {
 
   const [locationError, setLocationError] = useState()
   const [useCurrentLocation, setUseCurrentLocation] = useState(false)
   const [useAddress, setUseAddress] = useState(false)
   const [address, setAddress] = useState("")
-  const [maxDistance, setMaxDistance] = useState(0)
   const [loadingLocation, setLoadingLocation] = useState(false)
 
   const getCurrentLocation = () => {
@@ -53,24 +52,11 @@ export default function ProximityFilter({
     return data
   }
 
-  const handleTagInput = id => event => {
-    let selected = [...currentFilters.tags]
-    const clickedIndex = selected.indexOf(id)
-
-    if (clickedIndex === -1) {
-      selected = selected.concat(id)
-    } else {
-      selected.splice(clickedIndex, 1)
-    }
-
+  const handleDistanceInput = e => {
     return setCurrentFilters({
       ...currentFilters,
-      tags: selected
+      limitByDistance: e.target.checked
     })
-  }
-
-  const handleProximityInput = e => {
-    return setOrderByProximity(e.target.checked)
   }
 
   const handleCurrentLocationInput = e => {
@@ -109,8 +95,8 @@ export default function ProximityFilter({
   }
 
   const handleMaxDistance = e => {
-    const distance = e.target.value
-    setMaxDistance(distance)
+    const distance = parseInt(e.target.value)
+    return setMaxDistance(distance)
   }
 
   const resetLocationForms = () => {
@@ -161,18 +147,12 @@ export default function ProximityFilter({
 
       {address &&
         <>
-          <div>
-            <input className="mr-2" type="checkbox" id={'orderByProximity'} name={'orderByProximity'} checked={orderByProximity} onChange={handleProximityInput} />
-            <label htmlFor={`orderByProximity`}>Order by proximity</label>
+          <div className="flex gap-3 items-center nowrap">
+            <label htmlFor={`distance`} className="font-medium">Limit by Distance</label>
           </div>
-
-          <div className="flex flex-col mb-4">
-            <label htmlFor={`distance`}>
-              <span>Limit by Distance</span>
-              {(maxDistance > 0) && <span>{`: ${maxDistance}km`}</span>}
-            </label>
+          <div className="flex gap-2 items-center nowrap">
             <input 
-              className="border border-1" 
+              className="border border-1 flex-1" 
               type="range" 
               id={'distance'} 
               name={'distance'} 
@@ -182,6 +162,7 @@ export default function ProximityFilter({
               value={maxDistance}
               onChange={handleMaxDistance}
             />
+            <p className="uppercase w-16 mb-0">{`${maxDistance}km`}</p>
           </div>
         </>
       }

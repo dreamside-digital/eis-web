@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
-import { login } from "@/lib/data-access";
+import { createSession } from "@/lib/data-access";
 
 
 export default function LoginForm({locale}) {
@@ -30,16 +30,14 @@ export default function LoginForm({locale}) {
     e.preventDefault()
     setSubmitting(true)
 
-    const result = await login(username, password)
-    console.log("login result", result)
+    const result = await createSession(username, password)
     if (result?.errors) {
       console.log(result.errors)
       setSubmitting(false)
       setErrors(result.errors)
     } else {
-      console.log("logged in!")
+      router.push(`/account`)
       setSubmitting(false)
-      router.push(`/${locale}/account`)
     }
   }
  

@@ -17,48 +17,79 @@ const PAGE_LIMIT = 5
 
 export default function ExploreProfiles({profiles, tags, locale, messages }) {
   const [filteredProfiles, setFilteredProfiles] = useState(profiles)
+  const [nearbyProfiles, setNearbyProfiles] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [view, setView] = useState("grid")
-  const [currentFilters, setCurrentFilters] = useState({tags: []})
-  const [orderByProximity, setOrderByProximity] = useState(false)
-  const [location, setLocation] = useState()
+  const [selectedTags, setSelectedTags] = useState([])
+  const [maxDistance, setMaxDistance] = useState(0)
+  const [location, setLocation] = useState(null)
 
-  const fetchProfiles = async() => {
-    const data = await getProfiles(currentFilters)
-    setFilteredProfiles(data)
-  }
-
-  useEffect(() => {
+  const resetLocation = () => {
+    setLocation(null)
+    setNearbyProfiles([])
+    setMaxDistance(0)
     fetchProfiles()
+  }
 
-  }, [currentFilters])
+  const applyFilters = async() => {
+    const filtered = await getProfiles(selectedTags)
 
-  const orderProfilesByProximity = (currentLocation) => {
-    const profilesWithDistance = [...filteredProfiles].map(profile => {
-      if (!profile.location) return null
-      const currentLat = currentLocation.latitude * Math.PI / 180;
-      const currentLng = currentLocation.longitude * Math.PI / 180;
-      const profileLat = profile.location.coordinates[1] * Math.PI / 180;
-      const profileLng = profile.location.coordinates[0] * Math.PI / 180;
-      const distance = Math.acos(Math.sin(currentLat)*Math.sin(profileLat) + 
-                                  Math.cos(currentLat)*Math.cos(profileLat) *
-                                  Math.cos(profileLng - currentLng)) * 6371;
-      return { ...profile, distance }
-    }).filter(i => i)
-
-    const orderedProfiles = profilesWithDistance.sort((a,b) => {
-      return a.distance - b.distance
-    })
-
-    return orderedProfiles
+    setFilteredProfiles(filtered)
   }
 
   useEffect(() => {
-    if (orderByProximity && location) {
-      const orderedProfiles = orderProfilesByProximity(location)
-      setFilteredProfiles(orderedProfiles)
-    }
+    applyFilters()
+  }, [selectedTags])
+
+  useEffect(() => {
+    orderProfilesByProximity()
   }, [location])
+
+  useEffect(() => {
+    if (location && maxDistance > 0) {
+      filterByMaxDistance()
+    }
+  }, [maxDistance, location])
+
+
+  const orderProfilesByProximity = () => {
+    if (location) {
+      const profilesWithDistance = calculateDistanceFromLocation()
+
+      const orderedProfiles = profilesWithDistance.sort((a,b) => {
+        return a.distance - b.distance
+      })
+      setNearbyProfiles(orderedProfiles)
+    }
+  }
+
+  const calculateDistanceFromLocation = () => {
+    if (location) {
+      const profilesWithDistance = [...filteredProfiles].map(profile => {
+        if (!profile.location) return null
+        const currentLat = location.latitude * Math.PI / 180;
+        const currentLng = location.longitude * Math.PI / 180;
+        const profileLat = profile.location.coordinates[1] * Math.PI / 180;
+        const profileLng = profile.location.coordinates[0] * Math.PI / 180;
+        const distance = Math.acos(Math.sin(currentLat)*Math.sin(profileLat) + 
+                                    Math.cos(currentLat)*Math.cos(profileLat) *
+                                    Math.cos(profileLng - currentLng)) * 6371;
+        return { ...profile, distance }
+      }).filter(i => i)
+
+      return profilesWithDistance
+    }
+
+    return filteredProfiles
+  }
+
+  const filterByMaxDistance = () => {
+    const profilesWithDistance = calculateDistanceFromLocation()
+    const nearby = profilesWithDistance.filter(p => {
+      return p.distance <= maxDistance
+    })
+    setNearbyProfiles(nearby)
+  }
 
   const incrementPage = () => {
     setCurrentPage(currentPage + 1)
@@ -68,9 +99,10 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
     setCurrentPage(currentPage - 1)
   }
 
+  const profilesToDisplay = location ? nearbyProfiles : filteredProfiles
   const pageStartIndex = currentPage * PAGE_LIMIT
   const pageEndIndex = pageStartIndex + PAGE_LIMIT
-  const profilesPage = filteredProfiles.slice(pageStartIndex, pageEndIndex)
+  const profilesPage = profilesToDisplay.slice(pageStartIndex, pageEndIndex)
 
   return (
     <div className="pt-12">
@@ -80,16 +112,16 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
           <ProximityFilter 
             location={location}
             setLocation={setLocation}
-            orderByProximity={orderByProximity}
-            setOrderByProximity={setOrderByProximity}
+            maxDistance={maxDistance}
+            setMaxDistance={setMaxDistance}
             messages={messages}
           />
         </div>
         <div className="max-lg:py-6 px-6">
           <TagFilter 
             tags={tags} 
-            currentFilters={currentFilters} 
-            setCurrentFilters={setCurrentFilters} 
+            selectedTags={selectedTags} 
+            setSelectedTags={setSelectedTags} 
             messages={messages}
           />
         </div>
@@ -132,7 +164,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
       { (view === "grid") &&
         <div className="basis-3/4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            { filteredProfiles.map(profile => {
+            { profilesToDisplay.map(profile => {
               const tagsText = profile.tags.map(t => t.name).join(", ")
               return (
                 <div className="max-w-lg h-full" key={profile.id}>
