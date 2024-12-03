@@ -1,8 +1,9 @@
 "use client"
 
-import { MapPinIcon } from '@heroicons/react/24/outline'
+import { MapPinIcon, MapIcon } from '@heroicons/react/24/outline'
 import { useState, useEffect } from 'react'
 import TagButton from '@/components/TagButton'
+import Loader from '@/components/Loader'
 
 export default function ProximityFilter({ 
   location,
@@ -26,8 +27,9 @@ export default function ProximityFilter({
         const {features} = await reverseGeocodeLocation(position.coords)
         if (features?.length > 0) {
           const topResult = features[0]
-          const fullAddress = topResult.properties.full_address
-          setAddress(fullAddress)
+          console.log({topResult})
+          const approxAddress = topResult.properties.context.postcode.name
+          setAddress(approxAddress)
         }
         setLoadingLocation(false)
       });
@@ -110,62 +112,65 @@ export default function ProximityFilter({
   return (
     <div className="">
       <p className="uppercase text-lg mb-2 font-medium">Search by location</p>
-      {loadingLocation &&
-        <p>Getting your location...</p>
-      }
-
-      {address &&
-        <div className="mb-4 flex gap-2">
-          <MapPinIcon className="w-6 h-6" />
-          <div>
-            <p className="mb-0">{address}</p>
-            <button onClick={resetLocationForms} className="underline text-sm">Clear location</button>
-          </div>
-        </div>
-      }
-
-      { !address && 
-        <>
-          <div>
-            <input className="mr-2" type="radio" id={'useLocation'} name={'useLocation'} checked={useCurrentLocation} onChange={handleCurrentLocationInput} />
-            <label htmlFor={`useLocation`}>Use my location</label>
-          </div>
-          <div>
-            <input className="mr-2" type="radio" id={'useAddress'} name={'useAddress'} checked={useAddress} onChange={handleUseAddressInput} />
-            <label htmlFor={`useAddress`}>Use an address</label>
-          </div>
-          { useAddress &&
-            <div className="flex flex-col mb-4">
-              <form onSubmit={handleAddressForm}>
-                <input className="border border-1" type="text" id={'address'} name={'address'} placeholder="" />
-                <input className="btn" type="submit" value="Go" />
-              </form>
+      {loadingLocation ?
+        (<Loader className="w-6 h-6" text="Getting your location..." />) : (
+          <>
+        { !address && 
+          <>
+            <div>
+              <input className="mr-2" type="radio" id={'useLocation'} name={'useLocation'} checked={useCurrentLocation} onChange={handleCurrentLocationInput} />
+              <label htmlFor={`useLocation`}>Use my location</label>
             </div>
-          }
+            <div>
+              <input className="mr-2" type="radio" id={'useAddress'} name={'useAddress'} checked={useAddress} onChange={handleUseAddressInput} />
+              <label htmlFor={`useAddress`}>Use an address</label>
+            </div>
+            { useAddress &&
+              <div className="flex flex-col mb-4">
+                <form onSubmit={handleAddressForm}>
+                  <input className="border border-1" type="text" id={'address'} name={'address'} placeholder="" />
+                  <input className="btn" type="submit" value="Go" />
+                </form>
+              </div>
+            }
+          </>
+        }
+
+        {address &&
+          <>
+            <div className="mb-2 flex gap-2">
+              <MapPinIcon className="w-6 h-6" />
+              <div>
+                <p className="mb-0"><span className="font-medium">Your Location: </span>{address}</p>
+              </div>
+            </div>
+            <div className="mb-4 flex gap-2">
+              <MapIcon className="w-6 h-6" />
+              <div>
+                <div className="flex gap-2 items-center nowrap">
+                  <label htmlFor={`distance`} className="font-medium">Max Distance</label>
+                  <input 
+                    className="border border-1 flex-1" 
+                    type="range" 
+                    id={'distance'} 
+                    name={'distance'} 
+                    min="0" 
+                    max="100" 
+                    step="5"
+                    value={maxDistance}
+                    onChange={handleMaxDistance}
+                  />
+                  <p className="uppercase w-16 mb-0">{`${maxDistance}km`}</p>
+                </div>
+              </div>
+            </div>
+            <button onClick={resetLocationForms} className="underline text-sm">Reset</button>
+          </>
+        }
         </>
+        )
       }
 
-      {address &&
-        <>
-          <div className="flex gap-3 items-center nowrap">
-            <label htmlFor={`distance`} className="font-medium">Limit by Distance</label>
-          </div>
-          <div className="flex gap-2 items-center nowrap">
-            <input 
-              className="border border-1 flex-1" 
-              type="range" 
-              id={'distance'} 
-              name={'distance'} 
-              min="0" 
-              max="100" 
-              step="5"
-              value={maxDistance}
-              onChange={handleMaxDistance}
-            />
-            <p className="uppercase w-16 mb-0">{`${maxDistance}km`}</p>
-          </div>
-        </>
-      }
 
     </div>
   )

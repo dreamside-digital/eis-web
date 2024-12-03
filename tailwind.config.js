@@ -31,6 +31,9 @@ module.exports = {
         pink: '#F094B2',
         latte: '#C7B3A8'
       },
+      animation: {
+        'spin-slow': 'spin 2s linear infinite',
+      }
     },
   },
   plugins: [],
