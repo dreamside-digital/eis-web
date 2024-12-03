@@ -2,11 +2,13 @@
 
 import Image from 'next/image'
 import RichTextEditor from '@/components/RichTextEditor'
-import MapPointSelector from '@/components/MapPointSelector'
+import MapWithMarker from '@/components/MapWithMarker'
+import LocationSelector from '@/components/LocationSelector'
 import { useState, useEffect } from 'react'
 import { createEvent, uploadImage, userSession, currentUser } from '@/lib/data-access'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
+import { geocodeAddress } from '@/utils/mapbox'
 
 const defaultEvent = {
   status: "draft",
@@ -28,10 +30,28 @@ export default function EventForm({user, tags, messages, locale}) {
   const [fileUploading, setFileUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
+  const [location, setLocation] = useState(null)
   const router = useRouter()
 
-  const updateEvent = field => input => {
+  useEffect(() => {
+    const getLocation = async(address) => {
+      console.log({address})
+      const coords = await geocodeAddress(address)
+      console.log({coords})
+      setLocation(coords)
+    }
 
+    if (event.address.length > 0) {
+      getLocation(event.address)
+    }
+
+  }, [event.address])
+
+  const handleLocationSelect = (feature) => {
+    setLocation(feature.geometry)
+  }
+
+  const updateEvent = field => input => {
     setEvent({
       ...event,
       [field]: typeof(input) === "string" ? input : input.target?.value
@@ -77,6 +97,8 @@ export default function EventForm({user, tags, messages, locale}) {
       user_created: user?.id,
       links: JSON.stringify(links),
       main_image: event.main_image?.id,
+      location: location,
+      status: "draft"
     }
     const result = await createEvent(data)
     if (result.errors) {
@@ -170,8 +192,14 @@ export default function EventForm({user, tags, messages, locale}) {
                 {messages.address}
               </label>
               <small className="mb-2 block">{messages.address_hint}</small>
-              <input required onChange={updateEvent("address")} value={event.address} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="address" type="text" />
+              <LocationSelecgtor handleSelect={handleLocationSelect} />
             </div>
+
+            {location && 
+              <div className="mb-6">
+                <MapWithMarker markerLocation={location} />
+              </div>
+            }
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="organizer">

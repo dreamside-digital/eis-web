@@ -4,6 +4,8 @@ import { MapPinIcon, MapIcon } from '@heroicons/react/24/outline'
 import { useState, useEffect } from 'react'
 import TagButton from '@/components/TagButton'
 import Loader from '@/components/Loader'
+import LocationSelector from '@/components/LocationSelector'
+import { geocodeAddress, reverseGeocodeLocation } from '@/utils/mapbox'
 
 export default function ProximityFilter({ 
   location,
@@ -40,20 +42,6 @@ export default function ProximityFilter({
     }
   }
 
-  const geocodeAddress = async(searchTerm) => {
-    const mapboxUrl = `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURI(searchTerm)}&country=ca&access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`
-    const result = await fetch(mapboxUrl)
-    const data = await result.json()
-    return data
-  }
-
-  const reverseGeocodeLocation = async(coords) => {
-    const mapboxUrl = `https://api.mapbox.com/search/geocode/v6/reverse?longitude=${coords.longitude}&latitude=${coords.latitude}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`
-    const result = await fetch(mapboxUrl)
-    const data = await result.json()
-    return data
-  }
-
   const handleDistanceInput = e => {
     return setCurrentFilters({
       ...currentFilters,
@@ -76,24 +64,9 @@ export default function ProximityFilter({
     }
   }
 
-  const handleAddressForm = async(e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const searchTerm = formData.get('address')
-    const { features } = await geocodeAddress(searchTerm)
-
-    if (features?.length > 0) {
-      const topResult = features[0]
-      const location = {
-        latitude: topResult.geometry.coordinates[1],
-        longitude: topResult.geometry.coordinates[0]
-      }
-      setAddress(topResult.properties.context.postcode.name)
-      setLocation(location)
-    } else {
-      setLocationError("Unable to find location, please try again")
-    }
-    
+  const handleLocationSelect = location => {
+    setAddress(location.properties.context.postcode.name)
+    setLocation(location.properties.coordinates)
   }
 
   const handleMaxDistance = e => {
@@ -126,11 +99,8 @@ export default function ProximityFilter({
               <label htmlFor={`useAddress`}>Use an address</label>
             </div>
             { useAddress &&
-              <div className="flex flex-col mb-4 mt-2">
-                <form onSubmit={handleAddressForm} className="h-8 w-full flex">
-                  <input className="border border-1 h-full border-dark flex-1 outline-none px-1 focus:bg-light active:bg-light" type="text" id={'address'} name={'address'} placeholder="Full address or postal code" />
-                  <input className="btn h-full" type="submit" value="Go" />
-                </form>
+              <div className="flex flex-col mb-4">
+                <LocationSelector handleSelect={handleLocationSelect} />
               </div>
             }
           </>
