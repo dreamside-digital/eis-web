@@ -161,11 +161,11 @@ export default async function Home({ params: { locale } }) {
             <div className="mb-6">
               <div>
                 <Image
-                  className="relative w-full aspect-square object-cover "
+                  className="relative w-full aspect-square object-cover max-w-[500px]"
                   src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.origin_section_author_image.id}`}
                   alt={translation?.origin_section_author_name}
-                  width={800}
-                  height={800}
+                  width={500}
+                  height={500}
                 />
               </div>
             </div>
