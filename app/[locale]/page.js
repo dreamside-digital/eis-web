@@ -28,15 +28,15 @@ export default async function Home({ params: { locale } }) {
 
   return (
     <>
-      <section style={landingBgStyle} className={`pt-28 bg-beige md:h-[80vh] bg-no-repeat bg-cover bg-left md:bg-right-bottom md:bg-contain`}>
+      <section style={landingBgStyle} className={`pt-28 bg-beige md:h-[80vh] bg-no-repeat bg-cover bg-left md:bg-[left_8vw_bottom] md:bg-contain`}>
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20 flex flex-col md:flex-row gap-8 lg:gap-12 h-full items-center">
           <div className="flex-1">
             <h2 className="font-title text-center text-3xl md:text-5xl text-dark">
               <div>{translation?.landing_section_title_line_1}</div>
               <div>{translation?.landing_section_title_line_2}</div></h2>
           </div>
-          <div className="flex-1">
-            <div className="flex justify-center relative md:translate-y-12">
+          <div className="flex-1 flex justify-center xl:justify-end">
+            <div className="relative md:translate-y-12">
               <Image
                 className="md:h-[75vh] w-auto object-fit"
                 src="/images/phone-mockup-2.png"

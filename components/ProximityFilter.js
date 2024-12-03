@@ -88,7 +88,7 @@ export default function ProximityFilter({
         latitude: topResult.geometry.coordinates[1],
         longitude: topResult.geometry.coordinates[0]
       }
-      setAddress(topResult.properties.full_address)
+      setAddress(topResult.properties.context.postcode.name)
       setLocation(location)
     } else {
       setLocationError("Unable to find location, please try again")
@@ -126,10 +126,10 @@ export default function ProximityFilter({
               <label htmlFor={`useAddress`}>Use an address</label>
             </div>
             { useAddress &&
-              <div className="flex flex-col mb-4">
-                <form onSubmit={handleAddressForm}>
-                  <input className="border border-1" type="text" id={'address'} name={'address'} placeholder="" />
-                  <input className="btn" type="submit" value="Go" />
+              <div className="flex flex-col mb-4 mt-2">
+                <form onSubmit={handleAddressForm} className="h-8 w-full flex">
+                  <input className="border border-1 h-full border-dark flex-1 outline-none px-1 focus:bg-light active:bg-light" type="text" id={'address'} name={'address'} placeholder="Full address or postal code" />
+                  <input className="btn h-full" type="submit" value="Go" />
                 </form>
               </div>
             }

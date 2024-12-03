@@ -8,7 +8,7 @@ const DATE_FORMAT = { weekday: 'short', month: 'short', day: 'numeric', hour: 'n
 export default async function EventPage({params}) {
   const { slug } = params
   const event = await getEvent(slug)
-  const tagsText = event.tags.map(t => t.name).join(", ")
+  const tagsText = event?.tags?.map(t => t.name).join(", ")
   const startDate = new Date(event.starts_at)
   const startDateText = startDate.toLocaleString('en-CA', DATE_FORMAT)
   const endDate = new Date(event.ends_at)
