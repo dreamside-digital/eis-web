@@ -4,8 +4,6 @@ import { profileFormFields } from '@/utils/profileFormFields'
 
 
 export default async function ProfilesPage({params: {locale}}) {
-  const profiles = await getProfiles()
-  console.log({profiles})
   const tags = await getTags()
 
   const tagTranslations = tags.map(t => {
@@ -22,7 +20,7 @@ export default async function ProfilesPage({params: {locale}}) {
   return (
     <section className="bg-light text-dark p-6 py-12">
       <div className="container max-w-screen-xl mx-auto">
-        <ExploreProfiles profiles={profiles} tags={tagTranslations} locale={locale} messages={messages} />
+        <ExploreProfiles tags={tagTranslations} locale={locale} messages={messages} />
       </div>
     </section>
   )

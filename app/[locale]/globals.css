@@ -129,3 +129,11 @@ main section:first-of-type {
 .tox.tox-tinymce {
   border-radius: 0;
 }
+
+.rbc-btn-group, .rbc-month-view, .rbc-time-view, .rbc-agenda-view {
+  background-color: white;
+}
+
+.rbc-toolbar-label {
+  font-weight: 500;
+}

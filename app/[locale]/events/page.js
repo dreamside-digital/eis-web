@@ -3,7 +3,6 @@ import ExploreEvents from "@/components/ExploreEvents"
 import { eventFormFields } from '@/utils/eventFormFields'
 
 export default async function AllEventsPage({params: {locale}}) {
-  const events = await getEvents()
   const tags = await getTags()
 
   const tagTranslations = tags.map(t => {
@@ -21,7 +20,7 @@ export default async function AllEventsPage({params: {locale}}) {
   return (
     <section className="bg-light text-dark p-6 py-12">
       <div className="container max-w-screen-xl mx-auto">
-        <ExploreEvents events={events} tags={tagTranslations} locale={locale} messages={messages} />
+        <ExploreEvents tags={tagTranslations} locale={locale} messages={messages} />
       </div>
     </section>
   )

@@ -9,20 +9,22 @@ import {useState, useEffect} from 'react'
 import {getProfiles} from '@/lib/data-access'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
 import TagButton from '@/components/TagButton'
+import Loader from '@/components/Loader'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 const PAGE_LIMIT = 5
 
-export default function ExploreProfiles({profiles, tags, locale, messages }) {
-  const [filteredProfiles, setFilteredProfiles] = useState(profiles)
+export default function ExploreProfiles({tags, locale, messages }) {
+  const [filteredProfiles, setFilteredProfiles] = useState([])
   const [nearbyProfiles, setNearbyProfiles] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [view, setView] = useState("grid")
   const [selectedTags, setSelectedTags] = useState([])
   const [maxDistance, setMaxDistance] = useState(0)
   const [location, setLocation] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const resetLocation = () => {
     setLocation(null)
@@ -32,9 +34,11 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
   }
 
   const applyFilters = async() => {
+    setLoading(true)
     const filtered = await getProfiles(selectedTags)
 
     setFilteredProfiles(filtered)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -133,7 +137,15 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
           />
         </div>
       </div>
-      { (view === "accordion") &&
+
+      {
+        loading && 
+        <div className="h-96 flex items-center justify-center">
+          <Loader className="w-12 h-12" />
+        </div>
+      }
+
+      { (!loading && view === "accordion") &&
       <div className="basis-3/4">
         <div className="flex justify-between">
           <div className="hidden md:flex items-center p-2">
@@ -161,7 +173,7 @@ export default function ExploreProfiles({profiles, tags, locale, messages }) {
       </div>
       }
 
-      { (view === "grid") &&
+      { (!loading && view === "grid") &&
         <div className="basis-3/4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             { profilesToDisplay.map(profile => {

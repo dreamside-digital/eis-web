@@ -12,14 +12,15 @@ import { DATE_FORMAT } from '@/utils/constants'
 import TagButton from '@/components/TagButton'
 import CalendarView from '@/components/CalendarView'
 import DOMPurify from "isomorphic-dompurify";
+import Loader from '@/components/Loader'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 const PAGE_LIMIT = 5
 
-export default function ExploreEvents({events, tags, locale, messages }) {
-  const [filteredEvents, setFilteredEvents] = useState(events)
+export default function ExploreEvents({tags, locale, messages }) {
+  const [filteredEvents, setFilteredEvents] = useState([])
   const [nearbyEvents, setNearbyEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [view, setView] = useState("grid")
@@ -27,6 +28,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   const [orderByProximity, setOrderByProximity] = useState(false)
   const [maxDistance, setMaxDistance] = useState(0)
   const [location, setLocation] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const resetLocation = () => {
     setLocation(null)
@@ -36,9 +38,11 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   }
   
   const applyFilters = async() => {
+    setLoading(true)
     const filtered = await getEvents(selectedTags)
 
     setFilteredEvents(filtered)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -61,7 +65,7 @@ export default function ExploreEvents({events, tags, locale, messages }) {
   const pageStartIndex = currentPage * PAGE_LIMIT
   const pageEndIndex = pageStartIndex + PAGE_LIMIT
   const eventsPage = eventsToDisplay.slice(pageStartIndex, pageEndIndex)
-  
+
   return (
     <div className="flex-col gap-6 pt-12">
       <h1 className="font-title text-4xl md:text-6xl lg:text-7xl mb-6">{messages.explore_events}</h1>
@@ -91,16 +95,24 @@ export default function ExploreEvents({events, tags, locale, messages }) {
           />
         </div>
       </div>
-      { (view === 'calendar') &&
+
+      {
+        loading && 
+        <div className="h-96 flex items-center justify-center">
+          <Loader className="w-12 h-12" />
+        </div>
+      }
+
+      { (!loading && view === 'calendar') &&
       <div className="">
-        <CalendarView events={filteredEvents} />
+        <CalendarView events={eventsToDisplay} />
       </div>
       }
 
-      { (view === "grid") &&
+      { (!loading && view === "grid") &&
         <div className="basis-3/4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            { filteredEvents.map(event => {
+            { eventsToDisplay.map(event => {
               const tagsText = event.tags.map(t => t.name).join(", ")
               const startDate = new Date(event.starts_at)
               const startDateText = startDate.toLocaleString('en-CA', DATE_FORMAT)
