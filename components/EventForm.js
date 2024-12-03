@@ -192,7 +192,7 @@ export default function EventForm({user, tags, messages, locale}) {
                 {messages.address}
               </label>
               <small className="mb-2 block">{messages.address_hint}</small>
-              <LocationSelecgtor handleSelect={handleLocationSelect} />
+              <LocationSelector handleSelect={handleLocationSelect} />
             </div>
 
             {location && 

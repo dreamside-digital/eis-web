@@ -113,14 +113,6 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
           <form className="" onSubmit={handleSubmit}>
 
             <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold" htmlFor="email_address">
-                {messages.email}
-              </label>
-              <small className="mb-2 block">{messages.email_hint}</small>
-              <input disabled={!!user} onChange={updateProfileData("email_address")} value={user ? user.email : profile.email_address} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email_address" type="email" />
-            </div>
-
-            <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="public_name">
                 {messages.public_name}
               </label>
