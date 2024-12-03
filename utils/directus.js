@@ -102,6 +102,35 @@ export async function getCreditsContent() {
   }
 }
 
+export async function getContactContent() {
+  try {
+    const data = await admin.request(
+      readSingleton('contact_page', {
+        fields: '*,translations.*'
+      })
+    );
+    return data  
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
+export async function getWorkshopContent() {
+  try {
+    const data = await admin.request(
+      readSingleton('workshop_page', {
+        fields: '*,translations.*,translations.image_1.*,translations.image_2.*,translations.image_3.*,translations.image_4.*,translations.image_5.*'
+      })
+    );
+
+    return data
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
 export async function createUserAccount(userData)  {
   try {
     const { status, errors } = await admin.request(registerUser(
