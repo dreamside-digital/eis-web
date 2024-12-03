@@ -20,21 +20,30 @@ const PAGE_LIMIT = 5
 
 export default function ExploreEvents({events, tags, locale, messages }) {
   const [filteredEvents, setFilteredEvents] = useState(events)
+  const [nearbyEvents, setNearbyEvents] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [view, setView] = useState("grid")
-  const [currentFilters, setCurrentFilters] = useState({tags: []})
+  const [selectedTags, setSelectedTags] = useState([])
   const [orderByProximity, setOrderByProximity] = useState(false)
-  const [location, setLocation] = useState()
+  const [maxDistance, setMaxDistance] = useState(0)
+  const [location, setLocation] = useState(null)
+
+  const resetLocation = () => {
+    setLocation(null)
+    setNearbyEvents([])
+    setMaxDistance(0)
+    fetchProfiles()
+  }
   
+  const applyFilters = async() => {
+    const filtered = await getEvents(selectedTags)
+
+    setFilteredEvents(filtered)
+  }
+
   useEffect(() => {
-    const fetchEvents = async() => {
-      const data = await getEvents(currentFilters)
-      setFilteredEvents(data)
-    }
-
-    fetchEvents()
-
-  }, [currentFilters])
+    applyFilters()
+  }, [selectedTags])
 
   const incrementPage = () => {
     setCurrentPage(currentPage + 1)
@@ -48,9 +57,11 @@ export default function ExploreEvents({events, tags, locale, messages }) {
     setShowCalendar(!showCalendar)
   }
 
+  const eventsToDisplay = location ? nearbyEvents : filteredEvents
   const pageStartIndex = currentPage * PAGE_LIMIT
   const pageEndIndex = pageStartIndex + PAGE_LIMIT
-  const eventsPage = filteredEvents.slice(pageStartIndex, pageEndIndex)
+  const eventsPage = eventsToDisplay.slice(pageStartIndex, pageEndIndex)
+  
   return (
     <div className="flex-col gap-6 pt-12">
       <h1 className="font-title text-4xl md:text-6xl lg:text-7xl mb-6">{messages.explore_events}</h1>
@@ -59,16 +70,16 @@ export default function ExploreEvents({events, tags, locale, messages }) {
           <ProximityFilter 
             location={location}
             setLocation={setLocation}
-            orderByProximity={orderByProximity}
-            setOrderByProximity={setOrderByProximity}
+            maxDistance={maxDistance}
+            setMaxDistance={setMaxDistance}
             messages={messages}
           />
         </div>
         <div className="max-lg:py-6 px-6">
           <TagFilter 
             tags={tags} 
-            currentFilters={currentFilters} 
-            setCurrentFilters={setCurrentFilters} 
+            selectedTags={selectedTags} 
+            setSelectedTags={setSelectedTags} 
             messages={messages}
           />
         </div>
