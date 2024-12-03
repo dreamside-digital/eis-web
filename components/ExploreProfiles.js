@@ -50,6 +50,10 @@ export default function ExploreProfiles({tags, locale, messages }) {
   }, [location])
 
   useEffect(() => {
+    if (location && maxDistance === 0) {
+      const profilesWithDistance = calculateDistanceFromLocation()
+      setNearbyProfiles(profilesWithDistance)
+    }
     if (location && maxDistance > 0) {
       filterByMaxDistance()
     }

@@ -49,16 +49,66 @@ export default function ExploreEvents({tags, locale, messages }) {
     applyFilters()
   }, [selectedTags])
 
+  useEffect(() => {
+    orderProfilesByProximity()
+  }, [location])
+
+  useEffect(() => {
+    if (location && maxDistance === 0) {
+      const eventsWithDistance = calculateDistanceFromLocation()
+      setNearbyEvents(eventsWithDistance)
+    }
+    if (location && maxDistance > 0) {
+      filterByMaxDistance()
+    }
+  }, [maxDistance, location])
+
+
+  const orderProfilesByProximity = () => {
+    if (location) {
+      const eventsWithDistance = calculateDistanceFromLocation()
+
+      const orderedProfiles = eventsWithDistance.sort((a,b) => {
+        return a.distance - b.distance
+      })
+      setNearbyEvents(orderedProfiles)
+    }
+  }
+
+  const calculateDistanceFromLocation = () => {
+    if (location) {
+      const eventsWithDistance = [...filteredEvents].map(profile => {
+        if (!profile.location) return null
+        const currentLat = location.latitude * Math.PI / 180;
+        const currentLng = location.longitude * Math.PI / 180;
+        const profileLat = profile.location.coordinates[1] * Math.PI / 180;
+        const profileLng = profile.location.coordinates[0] * Math.PI / 180;
+        const distance = Math.acos(Math.sin(currentLat)*Math.sin(profileLat) + 
+                                    Math.cos(currentLat)*Math.cos(profileLat) *
+                                    Math.cos(profileLng - currentLng)) * 6371;
+        return { ...profile, distance }
+      }).filter(i => i)
+
+      return eventsWithDistance
+    }
+
+    return filteredEvents
+  }
+
+  const filterByMaxDistance = () => {
+    const eventsWithDistance = calculateDistanceFromLocation()
+    const nearby = eventsWithDistance.filter(p => {
+      return p.distance <= maxDistance
+    })
+    setNearbyEvents(nearby)
+  }
+
   const incrementPage = () => {
     setCurrentPage(currentPage + 1)
   }
 
   const decrementPage = () => {
     setCurrentPage(currentPage - 1)
-  }
-
-  const toggleDisplayMode = () => {
-    setShowCalendar(!showCalendar)
   }
 
   const eventsToDisplay = location ? nearbyEvents : filteredEvents
@@ -141,6 +191,10 @@ export default function ExploreEvents({tags, locale, messages }) {
                       <div className="flex-1 mb-4">
                         <p className="">{`${startDateText} - ${endDateText}`}</p>
                         <p className="">{`${locationText || "TBA"}`}</p>
+                        {
+                          event.distance &&
+                          <p className="mb-4">{`Distance: ${Math.floor(event.distance)}km`}</p>
+                        }
                         <p className="">{`Organizer: ${event.organizer}`}</p>
                       </div>
                       <div className="inline-flex gap-1">

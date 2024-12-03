@@ -130,7 +130,7 @@ export default function ProximityFilter({
                     value={maxDistance}
                     onChange={handleMaxDistance}
                   />
-                  <p className="uppercase w-16 mb-0">{`${maxDistance}km`}</p>
+                  {(maxDistance > 0) && <p className="uppercase w-16 mb-0">{`${maxDistance}km`}</p>}
                 </div>
               </div>
             </div>
