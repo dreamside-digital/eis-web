@@ -184,7 +184,7 @@ export default async function Home({ params: { locale } }) {
 
       <section style={benefitsBgStyle} className="bg-white bg-no-repeat bg-cover md:bg-center">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20 text-dark">
-            <h2 className="font-title text-center text-3xl lg:text-4xl max-w-sm mx-auto mb-12 md:mb-36">
+            <h2 className="font-title text-center text-3xl lg:text-4xl max-w-sm mx-auto mb-12 md:mb-20">
               {translation?.benefits_section_title}
             </h2>
             <ul className="flex flex-col md:flex-row gap-12 lg:gap-20">

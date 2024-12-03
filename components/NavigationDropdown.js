@@ -12,7 +12,7 @@ export default function NavigationDropdown({dropdown}) {
   return (
     <Popover className="relative">
       <PopoverButton className="inline-flex items-center gap-x-1 outline-none hover:text-highlight">
-        <span className="uppercase">{dropdown.dropdown_label}</span>
+        <span className="uppercase font-medium">{dropdown.dropdown_label}</span>
         <ChevronDownIcon aria-hidden="true" className="size-5" />
       </PopoverButton>
 

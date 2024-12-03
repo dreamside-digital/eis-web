@@ -123,7 +123,7 @@ export default async function RootLayout({ children, params: { locale } }) {
                     height={60}
                     width={280}
                     alt="Canadian Council for the Arts"
-                    className="w-full h-auto"
+                    className="w-full h-auto max-w-xs"
                   />
                 </div>
               </div>

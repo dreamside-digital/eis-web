@@ -51,10 +51,10 @@ export default function Navigation({ logo, locale, dropdowns }) {
                 ]
               }}/>
             ) : (
-              <Link className="uppercase" href={'/login'}>Log in</Link>
+              <Link className="uppercase font-medium" href={'/login'}>Log in</Link>
             )}
-            <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
-            <Link href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
+            <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : 'font-medium'}>EN</Link>
+            <Link href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : 'font-medium'}>FR</Link>
           </div>
           <div className="md:hidden">
             <MobileDropdown pathname={pathname} dropdowns={dropdowns} user={user} locale={locale} />
