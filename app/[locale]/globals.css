@@ -19,6 +19,7 @@
 html, body {
   overflow-x:hidden;
   font-size: 14px;
+  cursor: url('/cursor.svg'), url('/cursor.png'), auto;
 } 
 
 body {

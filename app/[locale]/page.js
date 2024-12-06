@@ -95,7 +95,7 @@ export default async function Home({ params: { locale } }) {
                 keyFeatures.map(feature => {
                   const imgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${feature.image}`
                   const translatedFeature = feature.translations.find(t => t.languages_code === locale)
-                  const url = translatedFeature.link
+                  const url = translatedFeature?.link
 
                   return (
                     <li key={feature.id} className="flex-1 flex flex-col items-center mb-16">
@@ -152,7 +152,7 @@ export default async function Home({ params: { locale } }) {
         </div>
       </section>
 
-      <section className="bg-beige text-highlight">
+      <section className="bg-beige text-dark">
         <div className="container max-w-screen-xl mx-auto px-4 py-12 lg:py-20">
           <h2 className="font-title text-3xl lg:text-4xl mb-6 md:mb-10">
             {translation?.origin_section_title}

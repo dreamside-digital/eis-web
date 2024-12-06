@@ -14,6 +14,8 @@ export default function Navigation({ logo, locale, dropdowns }) {
   const router = useRouter()
   const pathname = usePathname();
 
+  console.log({logo})
+
   useEffect(() => {
     (async () => {
       const session = await userSession()

@@ -22,13 +22,13 @@ module.exports = {
         dark: '#223659', // navy
         light: '#f6f2ed', // off-white
         medium: '#B8D0CA', // mint
-        highlight: '#584963', // aubergine
+        highlight: '#f08372', // pink
         beige: "#E8DED3", // bone
         navy: '#22365B',
         lavendar: '#E2E5F8',
         aubergine: '#584963',
         orange: '#EE5D0F',
-        pink: '#F094B2',
+        pink: '#f08372',
         latte: '#C7B3A8'
       },
       animation: {

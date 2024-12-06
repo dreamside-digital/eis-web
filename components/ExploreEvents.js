@@ -174,7 +174,7 @@ export default function ExploreEvents({tags, locale, messages }) {
                 <div className="max-w-lg h-full" key={event.id}>
                   <Link className="no-underline hover:no-underline" href={`/events/${event.slug}`}>
                     <div className="p-6 bg-beige text-dark relative">
-                      <h1 className="font-title text-xl md:text-2xl mb-4 text-center">
+                      <h1 className="font-title text-xl md:text-2xl mb-4">
                         {event.title}
                       </h1>
                     <div className="">
