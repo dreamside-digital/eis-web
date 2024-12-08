@@ -109,7 +109,7 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
     <>
       <section className="text-dark p-6 py-12 pt-20 relative">
         <div className="bg-[url(/backdrops/Painting_2.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-[50vh] w-full" />    
-        <div className="container relative bg-primary sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
+        <div className="container relative bg-beige sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
           <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.title}</h1>
           <form className="" onSubmit={handleSubmit}>
 

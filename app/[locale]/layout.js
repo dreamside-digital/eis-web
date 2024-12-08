@@ -78,7 +78,7 @@ export default async function RootLayout({ children, params: { locale } }) {
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative bg-light`}>
         <NextIntlClientProvider messages={translation}>
-        <Navigation logo={logoImg} locale={locale} dropdowns={translation.navigation_dropdowns} />
+        <Navigation logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
         <main className="grow">
           {children}
         </main>

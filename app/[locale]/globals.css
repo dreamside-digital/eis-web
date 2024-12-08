@@ -140,3 +140,7 @@ main section:first-of-type {
 .rbc-toolbar-label {
   font-weight: 500;
 }
+
+input[type='radio'], input[type='range'] {
+    accent-color: #f08372;
+}

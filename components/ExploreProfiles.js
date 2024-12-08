@@ -145,7 +145,7 @@ export default function ExploreProfiles({tags, locale, messages }) {
       {
         loading && 
         <div className="h-96 flex items-center justify-center">
-          <Loader className="w-12 h-12" />
+          <Loader className="w-16 h-16" />
         </div>
       }
 

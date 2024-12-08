@@ -149,7 +149,7 @@ export default function ExploreEvents({tags, locale, messages }) {
       {
         loading && 
         <div className="h-96 flex items-center justify-center">
-          <Loader className="w-12 h-12" />
+          <Loader className="w-16 h-16" />
         </div>
       }
 
@@ -189,13 +189,13 @@ export default function ExploreEvents({tags, locale, messages }) {
                         />
                       }
                       <div className="flex-1 mb-4">
-                        <p className="">{`${startDateText} - ${endDateText}`}</p>
+                        <p className="font-medium">{`${startDateText} - ${endDateText}`}</p>
                         <p className="">{`${locationText || "TBA"}`}</p>
                         {
                           event.distance &&
                           <p className="mb-4">{`Distance: ${Math.floor(event.distance)}km`}</p>
                         }
-                        <p className="">{`Organizer: ${event.organizer}`}</p>
+                        <p className="">{`Organized by: ${event.organizer}`}</p>
                       </div>
                       <div className="inline-flex gap-1">
                         {event.tags.map(t => <TagButton key={t.id} tag={t} />)}

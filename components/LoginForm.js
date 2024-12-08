@@ -69,7 +69,7 @@ export default function LoginForm({locale}) {
 
         <div className="flex items-center justify-between mt-8">
           {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
-          {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" />}
+          {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value="Log in" />}
           <Link className="hover:underline" href={`/${locale}/register`}>Create your account</Link>
         </div>
       </form>

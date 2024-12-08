@@ -19,7 +19,7 @@ export default async function AllEventsPage({params: {locale}}) {
 
   return (
     <section className="bg-light text-dark p-6 py-12">
-      <div className="container max-w-screen-xl mx-auto">
+      <div className="container max-w-screen-lg mx-auto">
         <ExploreEvents tags={tagTranslations} locale={locale} messages={messages} />
       </div>
     </section>

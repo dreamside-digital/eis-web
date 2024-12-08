@@ -59,7 +59,7 @@ export default function MobileDropdown({pathname, locale, dropdowns, user}) {
                     </div>
                   </div>
                 ) : (
-                  <Link className="uppercase" href={'/login'}>Log in</Link>
+                  <Link className="font-semibold uppercase mb-0 p-4 pb-2" href={'/login'}>Log in</Link>
                 )}
               <div className="font-semibold uppercase mb-0 p-4 pb-2">
                 <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</Link>

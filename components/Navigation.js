@@ -8,13 +8,11 @@ import { useRouter, usePathname } from 'next/navigation'
 import NavigationDropdown from '@/components/NavigationDropdown'
 import MobileDropdown from '@/components/MobileDropdown'
 
-export default function Navigation({ logo, locale, dropdowns }) {
+export default function Navigation({ logo, locale, dropdowns=[] }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState(false)
   const router = useRouter()
   const pathname = usePathname();
-
-  console.log({logo})
 
   useEffect(() => {
     (async () => {
@@ -31,7 +29,7 @@ export default function Navigation({ logo, locale, dropdowns }) {
         <Link href="/">
           <Image
             id="logo"
-            className="max-h-16 md:max-h-[92px] w-auto object-fit pt-2"
+            className="max-h-20 md:max-h-[92px] w-auto object-fit pt-2"
             src={logo}
             alt="Editions in Space logo"
             width={360}
