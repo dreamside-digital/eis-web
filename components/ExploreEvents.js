@@ -51,7 +51,7 @@ export default function ExploreEvents({tags, locale, messages }) {
 
   useEffect(() => {
     orderProfilesByProximity()
-  }, [location])
+  }, [location, filteredEvents])
 
   useEffect(() => {
     if (location && maxDistance === 0) {
@@ -61,17 +61,17 @@ export default function ExploreEvents({tags, locale, messages }) {
     if (location && maxDistance > 0) {
       filterByMaxDistance()
     }
-  }, [maxDistance, location])
+  }, [maxDistance, location, filteredEvents])
 
 
   const orderProfilesByProximity = () => {
     if (location) {
       const eventsWithDistance = calculateDistanceFromLocation()
 
-      const orderedProfiles = eventsWithDistance.sort((a,b) => {
+      const orderedEvents = eventsWithDistance.sort((a,b) => {
         return a.distance - b.distance
       })
-      setNearbyEvents(orderedProfiles)
+      setNearbyEvents(orderedEvents)
     }
   }
 

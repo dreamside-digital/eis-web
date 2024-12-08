@@ -19,7 +19,9 @@
 html, body {
   overflow-x:hidden;
   font-size: 14px;
-  cursor: url('/cursor.svg'), url('/cursor.png'), auto;
+/*  cursor: url('/cursor.svg'), url('/cursor.png'), auto;*/
+  cursor: url('/cursor.svg') 6 6, auto;
+/*  cursor: -webkit-image-set(url('/cursor@2x.svg') 2x) 4 4, auto;*/
 } 
 
 body {

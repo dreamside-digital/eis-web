@@ -47,7 +47,7 @@ export default function ExploreProfiles({tags, locale, messages }) {
 
   useEffect(() => {
     orderProfilesByProximity()
-  }, [location])
+  }, [location, filteredProfiles])
 
   useEffect(() => {
     if (location && maxDistance === 0) {
@@ -57,7 +57,7 @@ export default function ExploreProfiles({tags, locale, messages }) {
     if (location && maxDistance > 0) {
       filterByMaxDistance()
     }
-  }, [maxDistance, location])
+  }, [maxDistance, location, filteredProfiles])
 
 
   const orderProfilesByProximity = () => {
