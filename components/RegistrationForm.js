@@ -152,13 +152,6 @@ export default function LoginForm({locale}) {
           </div>
 
           <div className="col-span-2">
-            <label className="block text-gray-700 text-sm font-medium flex items-center" htmlFor="subscribe">
-              <input required onChange={updateSubscribe} checked={userData.subscribe} className="mr-2 h-4 w-4" id="subscribe" type="checkbox" />
-              Subscribe to our mailing list
-            </label>
-          </div>
-
-          <div className="col-span-2">
             <fieldset>
             <legend className="block text-gray-700 text-sm font-medium flex items-center mb-1" htmlFor="language">
               Preferred Language
@@ -175,6 +168,14 @@ export default function LoginForm({locale}) {
               </div>
             </fieldset>
           </div>
+
+          <div className="max-sm:col-span-2">
+            <label className="block text-gray-700 text-sm font-medium flex items-center" htmlFor="subscribe">
+              <input required onChange={updateSubscribe} checked={userData.subscribe} className="mr-2 h-4 w-4" id="subscribe" type="checkbox" />
+              Subscribe to our mailing list
+            </label>
+          </div>
+
         </div>
 
         <div className="mt-6">

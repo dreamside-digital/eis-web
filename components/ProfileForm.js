@@ -18,6 +18,8 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
   const [errors, setErrors] = useState()
   const router = useRouter()
 
+  console.log({profile})
+
   const updateProfileData = field => input => {
 
     setProfile({

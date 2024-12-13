@@ -1,4 +1,4 @@
-import { getProfile, getTags } from '@/utils/directus'
+import { getProfile, getTags } from '@/lib/data-access'
 import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
 import { profileFormFields } from '@/utils/profileFormFields'

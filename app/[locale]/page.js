@@ -136,8 +136,8 @@ export default async function Home({ params: { locale } }) {
 
       <section id="subscribe" className="bg-white text-dark">
         <div className="container max-w-screen-xl mx-auto sm:px-4 sm:pb-12 md:pb-24">
-          <div className="bg-primary sm: p-4 md:p-16 container max-w-screen-xl mx-auto">
-            <h2 className="uppercase text-3xl mb-4 md:mb-8 mt-8 font-medium">
+          <div className="bg-primary p-4 py-12 md:p-16 container max-w-screen-xl mx-auto">
+            <h2 className="uppercase text-3xl mb-4 md:mb-8 font-medium">
               {translation?.join_section_title}
             </h2>
             <div className="md:flex gap-12 lg:gap-20">

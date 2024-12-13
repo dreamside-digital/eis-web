@@ -7,9 +7,9 @@ import { PencilIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 import { EyeSlashIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
-import { getUserProfiles, updateProfile } from "@/lib/data-access";
+import { getProfile, updateProfile } from "@/lib/data-access";
 import TagButton from '@/components/TagButton'
-
+import Loader from '@/components/Loader'
 
 const statusColors = {
   'draft': 'border-slate-200',
@@ -33,14 +33,20 @@ const statusLabels = {
 }
 
 
-export default function ProfileCard({ profile }) {
+export default function ProfileCard(props) {
+  const [profile, setProfile] = useState(props.profile)
+  const [loading, setLoading] = useState(false)
 
   const changeProfileStatus = (id, newStatus) => async () => {
     try {
-      const res = await updateProfile(id, {status: newStatus})
-      console.log({res})
+      setLoading(true)
+      const updated = await updateProfile(id, {status: newStatus})
+      const newProfile = await getProfile(updated.slug)
+      setProfile(newProfile)
+      setLoading(false)
     } catch (error) {
       console.log(res)
+      // alert user that profile was not updated
     }
   }
 
@@ -77,35 +83,42 @@ export default function ProfileCard({ profile }) {
               {profile.tags.map(t => <TagButton key={t.id} tag={t} />)}
             </div>
 
-            <div className="flex flex-col gap-1">
-              <div>
-                <Link className="inline-flex gap-1 text-sm btn grow-0" href={`/profiles/${profile.slug}/edit`} aria-label="Edit profile">
-                  <PencilIcon className="w-4 h-4" />
-                  Edit
-                </Link>
-              </div>
-              {profile.status === "draft" && 
-              <div>
-                <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "review")} aria-label="Submit for Review">
-                  <PaperAirplaneIcon className="w-4 h-4" />
-                  Submit for review 
-                </button>
-              </div>}
-              {profile.status === "private" && 
-              <div>
-                <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "published")} aria-label="Publish Profile">
-                  <EyeIcon className="w-4 h-4" />
-                  Publish Profile
-                </button>
-              </div>}
-              {profile.status === "published" && 
-              <div>
-                <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "private")} aria-label="Make Profile Private">
-                  <EyeSlashIcon className="w-4 h-4" />
-                  Make Profile Private 
-                </button>
-              </div>}
-            </div>
+            {
+              loading ? (
+                <Loader className="w-6 h-6" />
+              ) : (
+                <div className="flex flex-col gap-1">
+                  <div>
+                    <Link className="inline-flex gap-1 text-sm btn grow-0" href={`/profiles/${profile.slug}/edit`} aria-label="Edit profile">
+                      <PencilIcon className="w-4 h-4" />
+                      Edit
+                    </Link>
+                  </div>
+                  {profile.status === "draft" && 
+                  <div>
+                    <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "review")} aria-label="Submit for Review">
+                      <PaperAirplaneIcon className="w-4 h-4" />
+                      Submit for review 
+                    </button>
+                  </div>}
+                  {profile.status === "private" && 
+                  <div>
+                    <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "published")} aria-label="Publish Profile">
+                      <EyeIcon className="w-4 h-4" />
+                      Publish Profile
+                    </button>
+                  </div>}
+                  {profile.status === "published" && 
+                  <div>
+                    <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "private")} aria-label="Make Profile Private">
+                      <EyeSlashIcon className="w-4 h-4" />
+                      Make Profile Private 
+                    </button>
+                  </div>}
+                </div>
+              )
+            }
+
           </div>
         </div>
       </div>

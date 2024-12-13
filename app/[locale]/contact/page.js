@@ -15,7 +15,7 @@ export default async function ContactPage({params: {locale}}) {
       </div>      
       <div className="container relative bg-beige max-w-md sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-16 mx-auto my-8 lg:my-12">
         <h1 className="uppercase text-3xl mb-4 md:mb-12 font-medium">{translation.page_title}</h1>
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12">
           <div className="page-content wysiwyg-content" dangerouslySetInnerHTML={{ __html: col1Content }} />
           <div className="page-content wysiwyg-content" dangerouslySetInnerHTML={{ __html: col2Content }} />
         </div>
