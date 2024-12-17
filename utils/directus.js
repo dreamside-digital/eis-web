@@ -131,6 +131,21 @@ export async function getWorkshopContent() {
   }
 }
 
+export async function getVisionContent() {
+  try {
+    const data = await admin.request(
+      readSingleton('vision_page', {
+        fields: '*,translations.*,translations.image_1.*,translations.image_2.*,translations.image_3.*,translations.image_4.*,translations.image_5.*'
+      })
+    );
+
+    return data
+  } catch (error) {
+    console.log({error})
+    return []
+  }
+}
+
 export async function createUserAccount(userData)  {
   try {
     const { status, errors } = await admin.request(registerUser(

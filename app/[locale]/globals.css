@@ -141,6 +141,6 @@ main section:first-of-type {
   font-weight: 500;
 }
 
-input[type='radio'], input[type='range'] {
+input[type='radio'], input[type='range'], input[type='checkbox'] {
     accent-color: #f08372;
 }

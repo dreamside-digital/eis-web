@@ -151,7 +151,7 @@ export default function LoginForm({locale}) {
             <input required onChange={updateUserData("confirmedPassword")} value={userData.confirmedPassword} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="confirmed_password" type="password" />
           </div>
 
-          <div className="col-span-2">
+          <div className="max-sm:col-span-2">
             <fieldset>
             <legend className="block text-gray-700 text-sm font-medium flex items-center mb-1" htmlFor="language">
               Preferred Language
