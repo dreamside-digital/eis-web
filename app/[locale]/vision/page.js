@@ -9,6 +9,7 @@ export default async function WorkshopPage({params: {locale}}) {
   const para2 = DOMPurify.sanitize(translation.paragraph_2, { USE_PROFILES: { html: true } })
   const para3 = DOMPurify.sanitize(translation.paragraph_3, { USE_PROFILES: { html: true } })
   const para4 = DOMPurify.sanitize(translation.paragraph_4, { USE_PROFILES: { html: true } })
+  const para5 = DOMPurify.sanitize(translation.paragraph_5, { USE_PROFILES: { html: true } })
   const  { image_1, image_2, image_3, image_4, image_5 } = translation
 
   return (
@@ -41,10 +42,11 @@ export default async function WorkshopPage({params: {locale}}) {
               width={image_3.width}
               height={image_3.height}
               alt={image_3.description}
+              className="w-[200px] h-[200px]"
             />}
           {image_4 && 
             <Image
-              className="mt-12 md:mt-48 lg:mt-60"
+              className="mt-12 md:mt-48 lg:mt-60 w-[200px] h-[200px]"
               src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_4.id}`}
               width={image_4.width}
               height={image_4.height}
@@ -58,7 +60,9 @@ export default async function WorkshopPage({params: {locale}}) {
             width={image_5.width}
             height={image_5.height}
             alt={image_5.description}
+            className="w-[200px] h-[200px]"
           />}
+        <div className="page-content wysiwyg-content max-w-prose max-md:my-6 my-12 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para5 }} />
       </div>
     </section>
   )
