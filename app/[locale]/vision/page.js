@@ -26,10 +26,10 @@ export default async function WorkshopPage({params: {locale}}) {
               height={image_1.height}
               alt={image_1.description}
             />}
-          <div className="page-content wysiwyg-content max-w-prose max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para2 }} />
+          <div className="col-span-2 page-content wysiwyg-content max-w-prose max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para2 }} />
           {image_2 && 
             <Image
-              className="max-w-screen-lg w-full"
+              className="col-span-2 w-full"
               src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_2.id}`}
               width={image_2.width}
               height={image_2.height}

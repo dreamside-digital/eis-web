@@ -129,6 +129,11 @@ main section:first-of-type {
   font-weight: 500;
 }
 
+.wysiwyg-content table {
+  border-spacing: 1rem;
+  border-collapse: separate;
+}
+
 .tox.tox-tinymce {
   border-radius: 0;
 }
