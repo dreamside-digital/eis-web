@@ -124,8 +124,8 @@ main section:first-of-type {
 }
 
 .wysiwyg-content h2 {
+  font-size: 1.25em;
   font-family: var(--font-title);
-  font-size: 2em;
   margin-bottom: 0.5em;
   font-weight: 700;
   line-height: normal;
