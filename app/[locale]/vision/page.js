@@ -16,53 +16,65 @@ export default async function WorkshopPage({params: {locale}}) {
     <section className="bg-light text-dark p-6 py-12">
       <div className="container max-w-screen-xl mx-auto py-12">
         <h1 className="font-title text-4xl md:text-6xl lg:text-7xl mb-6 md:mb-12">{translation.page_title}</h1>
-        <div className="md:grid grid-cols-2 gap-x-24 gap-y-12">
-          <div className="page-content wysiwyg-content max-w-prose col-span-2 max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para1 }} />
+        <div className="md:grid grid-cols-6 gap-x-24 gap-y-12">
+          <div className="page-content wysiwyg-content max-w-prose col-span-6 max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para1 }} />
           {image_1 && 
             <Image
-              className="col-span-2 w-full"
+              className="col-span-6 w-full"
               src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_1.id}`}
               width={image_1.width}
               height={image_1.height}
               alt={image_1.description}
             />}
-          <div className="col-span-2 page-content wysiwyg-content max-w-prose max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para2 }} />
+          <div className="col-span-6 page-content wysiwyg-content max-w-prose max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para2 }} />
           {image_2 && 
             <Image
-              className="col-span-2 w-full"
+              className="col-span-6 w-full"
               src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_2.id}`}
               width={image_2.width}
               height={image_2.height}
               alt={image_2.description}
             />}
-          <div className="page-content wysiwyg-content max-w-prose col-span-2 max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para3 }} />
+          <div className="page-content wysiwyg-content max-w-prose col-span-6 max-md:my-6">
+            <h2>{translation.section_2_title}</h2>
+          </div>
           {image_3 && 
-            <Image
-              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_3.id}`}
-              width={image_3.width}
-              height={image_3.height}
-              alt={image_3.description}
-              className="w-[200px] h-[200px]"
-            />}
+            <div className="col-span-2 flex justify-center">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_3.id}`}
+                width={image_3.width}
+                height={image_3.height}
+                alt={image_3.description}
+                className="w-[200px] h-[200px]"
+              />
+            </div>
+          }
+          <div className="page-content wysiwyg-content max-w-prose col-span-4 max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para3 }} />
+          <div className="page-content wysiwyg-content max-w-prose col-span-4 max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para4 }} />
           {image_4 && 
-            <Image
-              className="mt-12 md:mt-48 lg:mt-60 w-[200px] h-[200px]"
-              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_4.id}`}
-              width={image_4.width}
-              height={image_4.height}
-              alt={image_4.description}
-            />}
-        </div>
-        <div className="page-content wysiwyg-content max-w-prose max-md:my-6 my-12 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para4 }} />
+            <div className="col-span-2 flex justify-center">
+              <Image
+                className="w-[200px] h-[200px]"
+                src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_4.id}`}
+                width={image_4.width}
+                height={image_4.height}
+                alt={image_4.description}
+              />
+            </div>
+          }
         {image_5 && 
+        <div className="col-span-2 flex justify-center">
           <Image
             src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_5.id}`}
             width={image_5.width}
             height={image_5.height}
             alt={image_5.description}
             className="w-[200px] h-[200px]"
-          />}
-        <div className="page-content wysiwyg-content max-w-prose max-md:my-6 my-12 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para5 }} />
+          />
+          </div>
+        }
+        <div className="page-content wysiwyg-content max-w-prose col-span-4 max-md:my-6 my-12 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para5 }} />
+        </div>
       </div>
     </section>
   )

@@ -124,6 +124,14 @@ main section:first-of-type {
 }
 
 .wysiwyg-content h2 {
+  font-family: var(--font-title);
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.wysiwyg-content h3 {
   font-size: 1.25em;
   margin-bottom: 0.5em;
   font-weight: 500;
