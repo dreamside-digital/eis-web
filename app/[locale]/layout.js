@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Head from 'next/head'
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
+import PlausibleProvider from 'next-plausible'
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 const monarque = localFont({
@@ -78,6 +79,7 @@ export default async function RootLayout({ children, params: { locale } }) {
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative bg-light`}>
         <NextIntlClientProvider messages={translation}>
+        <PlausibleProvider domain="editionsinspace.com">
         <Navigation logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
         <main className="grow">
           {children}
@@ -135,6 +137,7 @@ export default async function RootLayout({ children, params: { locale } }) {
             
           </div>
         </footer>
+        </PlausibleProvider>
         </NextIntlClientProvider>
       </body>
     </html>
