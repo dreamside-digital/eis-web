@@ -1,7 +1,6 @@
 import { getProfile, getTags, createEvent, userSession, currentUser } from '@/lib/data-access'
 import Image from 'next/image'
 import EventForm from '@/components/EventForm'
-import { eventFormFields } from '@/utils/eventFormFields'
 import { redirect } from 'next/navigation';
 
 export default async function NewEventPage({params: {locale}}) {
@@ -21,9 +20,8 @@ export default async function NewEventPage({params: {locale}}) {
       name: translation?.name || t.name
     }
   })
-  const messages = eventFormFields[locale]
 
   return (
-    <EventForm tags={tagTranslations} createEvent={createEvent} messages={messages} locale={locale} />
+    <EventForm tags={tagTranslations} createEvent={createEvent} />
   )
 }

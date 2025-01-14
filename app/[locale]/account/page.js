@@ -1,4 +1,3 @@
-import { profileFormFields } from '@/utils/profileFormFields'
 import { currentUser, userSession, getUserProfiles, updateProfile } from "@/lib/data-access";
 import ProfileCard from '@/components/ProfileCard'
 import { redirect } from 'next/navigation';
@@ -6,7 +5,6 @@ import {getTranslations} from 'next-intl/server';
 
 
 export default async function AccountPage({params: {locale}}) {
-  const messages = profileFormFields[locale]
   const session = await userSession()
   const user = await currentUser(session)
   if (!user) {

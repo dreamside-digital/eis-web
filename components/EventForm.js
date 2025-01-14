@@ -27,7 +27,7 @@ const defaultEvent = {
   links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
 }
 
-export default function EventForm({user, tags, locale}) {
+export default function EventForm({user, tags}) {
   const [event, setEvent] = useState(defaultEvent)
   const [fileUploading, setFileUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)

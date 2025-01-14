@@ -1,6 +1,5 @@
 import { getEvents, getTags } from '@/lib/data-access'
 import ExploreEvents from "@/components/ExploreEvents"
-import { eventFormFields } from '@/utils/eventFormFields'
 
 export default async function AllEventsPage({params: {locale}}) {
   const tags = await getTags()

@@ -10,7 +10,7 @@ import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
 
 
-export default function ProfileForm({user, defaultProfile, tags, locale}) {
+export default function ProfileForm({user, defaultProfile, tags}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [fileUploading, setFileUploading] = useState(false)
   const [location, setLocation] = useState(null)
@@ -75,7 +75,7 @@ export default function ProfileForm({user, defaultProfile, tags, locale}) {
       setErrors(result.errors)
       setSubmitting(false)
     } else {
-      const profileLink = `/${locale}/profiles/${result.slug}`
+      const profileLink = `/profiles/${result.slug}`
       router.push(profileLink)
     }
     setSubmitting(false)

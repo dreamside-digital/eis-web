@@ -1,6 +1,5 @@
 import { getProfiles, getTags } from '@/lib/data-access'
 import ExploreProfiles from '@/components/ExploreProfiles'
-import { profileFormFields } from '@/utils/profileFormFields'
 
 
 export default async function ProfilesPage({params: {locale}}) {
@@ -15,12 +14,11 @@ export default async function ProfilesPage({params: {locale}}) {
       name: translation?.name || t.name
     }
   })
-  const messages = profileFormFields[locale]
 
   return (
     <section className="bg-light text-dark p-6 py-12">
       <div className="container max-w-screen-lg mx-auto">
-        <ExploreProfiles tags={tagTranslations} locale={locale} messages={messages} />
+        <ExploreProfiles tags={tagTranslations} />
       </div>
     </section>
   )
