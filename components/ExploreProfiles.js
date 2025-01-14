@@ -10,13 +10,14 @@ import {getProfiles} from '@/lib/data-access'
 import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
 import TagButton from '@/components/TagButton'
 import Loader from '@/components/Loader'
+import {useTranslations} from 'next-intl';
 
 import Image from 'next/image'
 import Link from 'next/link'
 
 const PAGE_LIMIT = 5
 
-export default function ExploreProfiles({tags, locale, messages }) {
+export default function ExploreProfiles({tags}) {
   const [filteredProfiles, setFilteredProfiles] = useState([])
   const [nearbyProfiles, setNearbyProfiles] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
@@ -25,6 +26,11 @@ export default function ExploreProfiles({tags, locale, messages }) {
   const [maxDistance, setMaxDistance] = useState(0)
   const [location, setLocation] = useState(null)
   const [loading, setLoading] = useState(false)
+  const t = useTranslations('shared_messages')
+  const viewOptions = [
+    { value: "grid", label: t('grid')}, 
+    { value: "calendar", label: t('slides')}
+  ]
 
   const resetLocation = () => {
     setLocation(null)
@@ -114,7 +120,7 @@ export default function ExploreProfiles({tags, locale, messages }) {
 
   return (
     <div className="pt-12">
-      <h1 className="font-title text-7xl mb-6">{messages.explore_profiles}</h1>
+      <h1 className="font-title text-7xl mb-6">{t('discover_artists')}</h1>
       <div className="filters bg-white lg:py-6 mb-6 grid max-lg:divide-y lg:grid-cols-3 lg:divide-x">
         <div className="max-lg:py-6 px-6">
           <ProximityFilter 
@@ -122,7 +128,6 @@ export default function ExploreProfiles({tags, locale, messages }) {
             setLocation={setLocation}
             maxDistance={maxDistance}
             setMaxDistance={setMaxDistance}
-            messages={messages}
           />
         </div>
         <div className="max-lg:py-6 px-6">
@@ -130,12 +135,11 @@ export default function ExploreProfiles({tags, locale, messages }) {
             tags={tags} 
             selectedTags={selectedTags} 
             setSelectedTags={setSelectedTags} 
-            messages={messages}
           />
         </div>
         <div className="max-lg:py-6 px-6">
           <ViewSwitcher 
-            options={[{ value: "grid", label: "Grid"}, { value: "accordion", label: "Slides"}]}
+            options={viewOptions}
             view={view} 
             setView={setView} 
           />
@@ -158,7 +162,7 @@ export default function ExploreProfiles({tags, locale, messages }) {
             </button>
           </div>
           <div>
-            <Accordion profiles={profilesPage} locale={locale} messages={messages} />
+            <Accordion profiles={profilesPage} />
           </div>
           <div className="hidden md:flex items-center p-2">
             <button className={`btn text-sm px-4 py-2 w-12 h-12 ${(pageEndIndex >= filteredProfiles.length) ? 'bg-slate-200 text-slate-400' : 'bg-dark text-white hover:bg-highlight'}`} onClick={incrementPage} disabled={(pageEndIndex >= filteredProfiles.length)}>
@@ -184,7 +188,7 @@ export default function ExploreProfiles({tags, locale, messages }) {
               const tagsText = profile.tags.map(t => t.name).join(", ")
               return (
                 <div className="max-w-lg h-full" key={profile.id}>
-                  <Link className="hover:no-underline" href={`/${locale}/profiles/${profile.slug}`}>
+                  <Link className="hover:no-underline" href={`/profiles/${profile.slug}`}>
                     <div className="h-full p-6 bg-beige text-dark relative">
                       <h1 className="font-title text-xl md:text-2xl mb-4">
                         {profile.public_name}

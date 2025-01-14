@@ -166,6 +166,18 @@ export async function getPageTranslations() {
       })
     );
 
+    const eventForm = await admin.request(
+      readSingleton('event_form', {
+        fields: '*,translations.*'
+      })
+    );
+
+    const sharedMessages = await admin.request(
+      readSingleton('shared_messages', {
+        fields: '*,translations.*'
+      })
+    );
+
     const tags = await admin.request(
       readItems('tags', {
         fields: '*,translations.*'
@@ -175,8 +187,10 @@ export async function getPageTranslations() {
     return {
       'registration_form': registrationForm,
       'profile_form': profileForm,
+      'event_form': eventForm,
       'account_page': accountPage,
-      'tags': tags
+      'tags': tags,
+      'shared_messages': sharedMessages
     }
 
   } catch (error) {

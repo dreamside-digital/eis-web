@@ -210,6 +210,7 @@ export default function ProfileForm({user, defaultProfile, tags, locale}) {
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profile_picture">
                 {t('profile_picture')}
               </label>
+              {t.has('profile_picture_hint') && <small className="mb-2 block">{t('profile_picture_hint')}</small>}
               <input onChange={handleFileChange} type="file" className="" id="profile_picture" />
               {
                 fileUploading && 

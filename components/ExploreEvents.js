@@ -13,6 +13,7 @@ import TagButton from '@/components/TagButton'
 import CalendarView from '@/components/CalendarView'
 import DOMPurify from "isomorphic-dompurify";
 import Loader from '@/components/Loader'
+import {useTranslations} from 'next-intl';
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -29,6 +30,11 @@ export default function ExploreEvents({tags, locale, messages }) {
   const [maxDistance, setMaxDistance] = useState(0)
   const [location, setLocation] = useState(null)
   const [loading, setLoading] = useState(false)
+  const t = useTranslations('shared_messages')
+  const viewOptions = [
+    { value: "grid", label: t('grid')}, 
+    { value: "calendar", label: t('calendar')}
+  ]
 
   const resetLocation = () => {
     setLocation(null)
@@ -118,7 +124,7 @@ export default function ExploreEvents({tags, locale, messages }) {
 
   return (
     <div className="flex-col gap-6 pt-12">
-      <h1 className="font-title text-4xl md:text-6xl lg:text-7xl mb-6">{messages.explore_events}</h1>
+      <h1 className="font-title text-4xl md:text-6xl lg:text-7xl mb-6">{t('discover_events')}</h1>
       <div className="filters bg-white lg:py-6 mb-6 grid max-lg:divide-y lg:grid-cols-3 lg:divide-x">
         <div className="max-lg:py-6 px-6">
           <ProximityFilter 
@@ -126,7 +132,6 @@ export default function ExploreEvents({tags, locale, messages }) {
             setLocation={setLocation}
             maxDistance={maxDistance}
             setMaxDistance={setMaxDistance}
-            messages={messages}
           />
         </div>
         <div className="max-lg:py-6 px-6">
@@ -139,7 +144,7 @@ export default function ExploreEvents({tags, locale, messages }) {
         </div>
         <div className="max-lg:py-6 px-6">
           <ViewSwitcher 
-            options={[{ value: "grid", label: "Grid"}, { value: "calendar", label: "Calendar"}]}
+            options={viewOptions}
             view={view} 
             setView={setView} 
           />
@@ -193,12 +198,12 @@ export default function ExploreEvents({tags, locale, messages }) {
                         <p className="">{`${locationText || "TBA"}`}</p>
                         {
                           event.distance &&
-                          <p className="mb-4">{`Distance: ${Math.floor(event.distance)}km`}</p>
+                          <p className="mb-4">{t('distance', {kms: Math.floor(event.distance)})}</p>
                         }
-                        <p className="">{`Organized by: ${event.organizer}`}</p>
+                        <p className="">{t('organized_by', {organizer: event.organizer})}</p>
                       </div>
                       <div className="inline-flex gap-1">
-                        {event.tags.map(t => <TagButton key={t.id} tag={t} />)}
+                        {event.tags.map(tag => <TagButton key={tag.id} tag={tag} />)}
                       </div>
                     </div>
                   </div>
