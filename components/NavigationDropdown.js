@@ -1,5 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import Link from "next/link";
 import {
   ArrowPathIcon,
   ChartPieIcon,
@@ -28,10 +29,10 @@ export default function NavigationDropdown({dropdown}) {
                   <item.icon aria-hidden="true" className="size-6 text-gray-600 group-hover:text-indigo-600" />
                 </div>*/}
                 <div>
-                  <a href={item.dropdown_item_link} className="">
+                  <Link href={item.dropdown_item_link} className="">
                     {item.dropdown_item_text}
                     <span className="absolute inset-0" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}

@@ -7,12 +7,14 @@ import { userSession, currentUser, deleteSession } from '@/lib/data-access'
 import { useRouter, usePathname } from 'next/navigation'
 import NavigationDropdown from '@/components/NavigationDropdown'
 import MobileDropdown from '@/components/MobileDropdown'
+import {useTranslations} from 'next-intl';
 
 export default function Navigation({ logo, locale, dropdowns=[] }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [user, setUser] = useState(false)
   const router = useRouter()
   const pathname = usePathname();
+  const t = useTranslations("shared_messages")
 
   useEffect(() => {
     (async () => {
@@ -44,14 +46,14 @@ export default function Navigation({ logo, locale, dropdowns=[] }) {
             })}
             { user ? ( 
               <NavigationDropdown dropdown={{
-                dropdown_label: "Account",
+                dropdown_label: t('account'),
                 dropdown_items: [
-                  {dropdown_item_text: "My Account", dropdown_item_link: "/account"},
-                  {dropdown_item_text: "Log out", dropdown_item_link: "/logout"}
+                  {dropdown_item_text: t('my_account'), dropdown_item_link: "/account"},
+                  {dropdown_item_text: t('logout'), dropdown_item_link: "/logout"}
                 ]
               }}/>
             ) : (
-              <Link className="uppercase font-medium" href={'/login'}>Log in</Link>
+              <Link className="uppercase font-medium" href={'/login'}>{t('login')}</Link>
             )}
             <Link href={pathname.replace(locale, 'en')} locale="en" className={locale === 'en' ? 'hidden' : 'font-medium'}>EN</Link>
             <Link href={pathname.replace(locale, 'fr')} locale="fr" className={locale === 'fr' ? 'hidden' : 'font-medium'}>FR</Link>

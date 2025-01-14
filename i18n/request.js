@@ -26,4 +26,4 @@ export default getRequestConfig(async ({locale}) => {
       'shared_messages': data?.shared_messages?.translations?.find(t => t.languages_code === locale),
     }
   };
-});gi
+});
