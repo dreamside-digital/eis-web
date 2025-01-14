@@ -11,7 +11,7 @@ export default async function ProfilePage({params}) {
   const cleanDescription = DOMPurify.sanitize(profile.artistic_practice, { USE_PROFILES: { html: true } })
   const cleanCurrentProjects = DOMPurify.sanitize(profile.current_projects, { USE_PROFILES: { html: true } })
   const cleanInspirations = DOMPurify.sanitize(profile.inspirations, { USE_PROFILES: { html: true } })
-  const links = profile.links?.filter(l => l.url && l.link_text)
+  const links = profile?.links?.filter(l => l.url && l.link_text)
 
   return (
     <>
