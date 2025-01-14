@@ -241,7 +241,7 @@ export default function ProfileForm({user, defaultProfile, tags}) {
                   <label className="block text-gray-700 text-sm font-bold" htmlFor="postal_code">
                     {t('postal_code')}
                   </label>
-                  <small className="mb-2 block">{t('postal_code_hint')}</small>
+                  {t.has('postal_code_hint') && <small className="mb-2 block">{t('postal_code_hint')}</small>}
                   <input onChange={updateProfileData("postal_code")} value={profile.postal_code} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
                 </div>
               </div>
