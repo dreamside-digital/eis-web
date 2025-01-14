@@ -251,16 +251,16 @@ export default function EventForm({user, tags}) {
               </label>
               {t.has('links_hint') && <small className="mb-2 block">{t('links_hint')}</small>}
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(0, 'link_text')} value={event.links[0].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
-                <input onChange={updateLinks(0, 'url')} value={event.links[0].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
+                <input onChange={updateLinks(0, 'link_text')} value={profile.links[0] ? profile.links[0].link_text : ""} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
+                <input onChange={updateLinks(0, 'url')} value={profile.links[0] ? profile.links[0].url : ""} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(1, 'link_text')} value={event.links[1].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
-                <input onChange={updateLinks(1, 'url')} value={event.links[1].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
+                <input onChange={updateLinks(1, 'link_text')} value={profile.links[1] ? profile.links[1].link_text : ""} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
+                <input onChange={updateLinks(1, 'url')} value={profile.links[1] ? profile.links[1].url : ""} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(2, 'link_text')} value={event.links[2].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
-                <input onChange={updateLinks(2, 'url')} value={event.links[2].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
+                <input onChange={updateLinks(2, 'link_text')} value={profile.links[2] ? profile.links[2].link_text : ""} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
+                <input onChange={updateLinks(2, 'url')} value={profile.links[2] ? profile.links[2].url : ""} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
               </div>
             </div>
 
