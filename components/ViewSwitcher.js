@@ -3,12 +3,14 @@
 import { Squares2X2Icon, RectangleStackIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 import TagButton from '@/components/TagButton'
+import {useTranslations} from 'next-intl';
 
 export default function ViewSwitcher({
   options=[], 
   view,
   setView
 }) {
+  const t = useTranslations('shared_messages')
 
   const handleTagInput = id => event => {
     let selected = [...currentFilters.tags]
@@ -33,7 +35,7 @@ export default function ViewSwitcher({
   return (
     <div className="">
       <fieldset>
-        <legend className="uppercase text-lg mb-2 font-medium">Select View</legend>
+        <legend className="uppercase text-lg mb-2 font-medium">{t('select_view')}</legend>
         {
           options.map(option => {
             return (

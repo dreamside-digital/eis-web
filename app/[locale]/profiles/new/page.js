@@ -1,7 +1,6 @@
 import { getTags, userSession, currentUser } from '@/lib/data-access'
 import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
-import { profileFormFields } from '@/utils/profileFormFields'
 import { redirect } from 'next/navigation';
 
 const defaultProfile = {
@@ -37,9 +36,8 @@ export default async function NewProfilePage({params: {locale}}) {
       name: translation?.name || t.name
     }
   })
-  const messages = profileFormFields[locale]
 
   return (
-    <ProfileForm user={user} defaultProfile={defaultProfile} tags={tagTranslations} messages={messages} locale={locale} />
+    <ProfileForm user={user} defaultProfile={defaultProfile} tags={tagTranslations} />
   )
 }

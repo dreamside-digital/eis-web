@@ -3,6 +3,7 @@
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 import TagButton from '@/components/TagButton'
+import {useTranslations} from 'next-intl';
 
 export default function TagFilter({ 
   tags, 
@@ -10,6 +11,7 @@ export default function TagFilter({
   setSelectedTags, 
   messages 
 }) {
+  const t = useTranslations('shared_messages')
 
   const handleTagInput = id => event => {
     let selected = [...selectedTags]
@@ -28,7 +30,7 @@ export default function TagFilter({
   return (
     <div className="">
 
-        <p className="uppercase text-lg mb-2 font-medium">Filter by discipline</p>
+        <p className="uppercase text-lg mb-2 font-medium">{t('filter_by_discipline')}</p>
         <div className="flex flex-wrap gap-1">
           {tags.map(tag => {
             const isSelected = selectedTags.indexOf(tag.id) >= 0

@@ -1,17 +1,17 @@
-import { profileFormFields } from '@/utils/profileFormFields'
 import { currentUser, userSession, getUserProfiles, updateProfile } from "@/lib/data-access";
 import ProfileCard from '@/components/ProfileCard'
 import { redirect } from 'next/navigation';
+import {getTranslations} from 'next-intl/server';
 
 
 export default async function AccountPage({params: {locale}}) {
-  const messages = profileFormFields[locale]
   const session = await userSession()
   const user = await currentUser(session)
   if (!user) {
     redirect('/login')
   }
   const profiles = await getUserProfiles(session, user)
+  const t = await getTranslations('account_page');
 
   return (
     <>
@@ -20,7 +20,7 @@ export default async function AccountPage({params: {locale}}) {
         </div>
         <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
           <div className="p-6 w-full bg-beige text-dark ">
-            <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">Account</h1>
+            <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">{t('page_title')}</h1>
             { user && <p>{`${user.first_name} ${user.last_name}`}</p>}
             { user && <p>{user.email}</p>}
           </div>
@@ -28,7 +28,7 @@ export default async function AccountPage({params: {locale}}) {
       </section>
       <section className="text-dark relative p-6">
         <div className="container max-w-screen-lg mx-auto mb-12 lg:mb-20">
-          <h2 className="uppercase text-2xl mb-4 md:mb-6 font-medium">Artist profiles</h2>
+          <h2 className="uppercase text-2xl mb-4 md:mb-6 font-medium">{t('artist_profiles')}</h2>
           <div className="grid lg:grid-cols-3 gap-6">
             {profiles?.map(profile => {
               return <ProfileCard key={profile.id} profile={profile} />

@@ -68,6 +68,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   const content = await getLayoutContent()
   const { translations } = content;
   const translation = translations.find(t => t.languages_code === locale)
+  const messages = await getMessages();
   const logoImg = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.logo}`
   const ccaImg = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.CCA_logo}`
   const footerCol1Parts = translation?.footer_column_1_title.split(" ")
@@ -78,7 +79,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   return (
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative bg-light`}>
-        <NextIntlClientProvider messages={translation}>
+        <NextIntlClientProvider messages={messages}>
         <PlausibleProvider domain="editionsinspace.com">
         <Navigation logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
         <main className="grow">

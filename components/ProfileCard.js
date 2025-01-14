@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react'
 import { getProfile, updateProfile } from "@/lib/data-access";
 import TagButton from '@/components/TagButton'
 import Loader from '@/components/Loader'
+import {useTranslations} from 'next-intl';
 
 const statusColors = {
   'draft': 'border-slate-200',
@@ -26,16 +27,17 @@ const statusColorsBg = {
 }
 
 const statusLabels = {
-  'draft': 'Draft',
-  'review': 'In Review',
-  'private': 'Private',
-  'published': 'Published'
+  'draft': 'draft',
+  'review': 'in_review',
+  'private': 'private',
+  'published': 'published'
 }
 
 
 export default function ProfileCard(props) {
   const [profile, setProfile] = useState(props.profile)
   const [loading, setLoading] = useState(false)
+  const t = useTranslations('account_page');
 
   const changeProfileStatus = (id, newStatus) => async () => {
     try {
@@ -55,7 +57,7 @@ export default function ProfileCard(props) {
   return (
       <div key={profile.id} className={`border-2 ${borderColor} bg-white text-dark relative `}>
         <div className={`${bbColor} text-dark px-6 py-2 uppercase font-medium text-sm`}>
-          <span>{statusLabels[profile.status]}</span>
+          <span>{t(statusLabels[profile.status])}</span>
         </div>
         <div className="p-6">
           <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
@@ -91,28 +93,28 @@ export default function ProfileCard(props) {
                   <div>
                     <Link className="inline-flex gap-1 text-sm btn grow-0" href={`/profiles/${profile.slug}/edit`} aria-label="Edit profile">
                       <PencilIcon className="w-4 h-4" />
-                      Edit
+                      {t("edit")}
                     </Link>
                   </div>
                   {profile.status === "draft" && 
                   <div>
                     <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "review")} aria-label="Submit for Review">
                       <PaperAirplaneIcon className="w-4 h-4" />
-                      Submit for review 
+                      {t("submit_for_review")}
                     </button>
                   </div>}
                   {profile.status === "private" && 
                   <div>
                     <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "published")} aria-label="Publish Profile">
                       <EyeIcon className="w-4 h-4" />
-                      Publish Profile
+                      {t("publish_profile")}
                     </button>
                   </div>}
                   {profile.status === "published" && 
                   <div>
                     <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "private")} aria-label="Make Profile Private">
                       <EyeSlashIcon className="w-4 h-4" />
-                      Make Profile Private 
+                      {t("make_profile_private")}
                     </button>
                   </div>}
                 </div>

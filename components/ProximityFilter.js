@@ -6,11 +6,11 @@ import TagButton from '@/components/TagButton'
 import Loader from '@/components/Loader'
 import LocationSelector from '@/components/LocationSelector'
 import { geocodeAddress, reverseGeocodeLocation } from '@/utils/mapbox'
+import {useTranslations} from 'next-intl';
 
 export default function ProximityFilter({ 
   location,
   setLocation,
-  messages,
   maxDistance,
   setMaxDistance
 }) {
@@ -20,6 +20,7 @@ export default function ProximityFilter({
   const [useAddress, setUseAddress] = useState(false)
   const [address, setAddress] = useState("")
   const [loadingLocation, setLoadingLocation] = useState(false)
+  const t = useTranslations('shared_messages')
 
   const getCurrentLocation = () => {
     setLoadingLocation(true)
@@ -84,19 +85,19 @@ export default function ProximityFilter({
 
   return (
     <div className="">
-      <p className="uppercase text-lg mb-2 font-medium">Search by location</p>
+      <p className="uppercase text-lg mb-2 font-medium">{t('search_by_location')}</p>
       {loadingLocation ?
-        (<Loader className="w-6 h-6" text="Getting your location..." />) : (
+        (<Loader className="w-6 h-6" text={t('getting_location')} />) : (
           <>
         { !address && 
           <>
             <div>
               <input className="mr-2" type="radio" id={'useLocation'} name={'useLocation'} checked={useCurrentLocation} onChange={handleCurrentLocationInput} />
-              <label htmlFor={`useLocation`}>Use my location</label>
+              <label htmlFor={`useLocation`}>{t('use_location')}</label>
             </div>
             <div>
               <input className="mr-2" type="radio" id={'useAddress'} name={'useAddress'} checked={useAddress} onChange={handleUseAddressInput} />
-              <label htmlFor={`useAddress`}>Use an address</label>
+              <label htmlFor={`useAddress`}>{t('use_address')}</label>
             </div>
             { useAddress &&
               <div className="flex flex-col mb-4">
@@ -111,14 +112,14 @@ export default function ProximityFilter({
             <div className="mb-2 flex gap-2">
               <MapPinIcon className="w-6 h-6" />
               <div>
-                <p className="mb-0"><span className="font-medium">Your Location: </span>{address}</p>
+                <p className="mb-0"><span className="font-medium">{`${t('your_location')}: `}</span>{address}</p>
               </div>
             </div>
             <div className="mb-4 flex gap-2">
               <MapIcon className="w-6 h-6" />
               <div>
                 <div className="flex gap-2 items-center nowrap">
-                  <label htmlFor={`distance`} className="font-medium">Max Distance</label>
+                  <label htmlFor={`distance`} className="font-medium">{t('max_distance')}</label>
                   <input 
                     className="border border-1 flex-1" 
                     type="range" 
@@ -134,7 +135,7 @@ export default function ProximityFilter({
                 </div>
               </div>
             </div>
-            <button onClick={resetLocationForms} className="underline text-sm">Reset</button>
+            <button onClick={resetLocationForms} className="underline text-sm">{t('reset')}</button>
           </>
         }
         </>

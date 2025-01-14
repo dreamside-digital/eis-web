@@ -146,6 +146,59 @@ export async function getVisionContent() {
   }
 }
 
+export async function getPageTranslations() {
+  try {
+    const registrationForm = await admin.request(
+      readSingleton('registration_form', {
+        fields: '*,translations.*'
+      })
+    );
+
+    const accountPage = await admin.request(
+      readSingleton('account_page', {
+        fields: '*,translations.*'
+      })
+    );
+
+    const profileForm = await admin.request(
+      readSingleton('profile_form', {
+        fields: '*,translations.*'
+      })
+    );
+
+    const eventForm = await admin.request(
+      readSingleton('event_form', {
+        fields: '*,translations.*'
+      })
+    );
+
+    const sharedMessages = await admin.request(
+      readSingleton('shared_messages', {
+        fields: '*,translations.*'
+      })
+    );
+
+    const tags = await admin.request(
+      readItems('tags', {
+        fields: '*,translations.*'
+      })
+    );
+
+    return {
+      'registration_form': registrationForm,
+      'profile_form': profileForm,
+      'event_form': eventForm,
+      'account_page': accountPage,
+      'tags': tags,
+      'shared_messages': sharedMessages
+    }
+
+  } catch (error) {
+    console.log({error})
+    return {}
+  }
+}
+
 export async function createUserAccount(userData)  {
   try {
     const { status, errors } = await admin.request(registerUser(

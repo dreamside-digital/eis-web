@@ -1,7 +1,6 @@
 import { getProfile, getTags } from '@/lib/data-access'
 import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
-import { profileFormFields } from '@/utils/profileFormFields'
 
 export default async function EditProfilePage({params: {locale,slug}}) {
   const profile = await getProfile(slug)
@@ -15,9 +14,8 @@ export default async function EditProfilePage({params: {locale,slug}}) {
       name: translation?.name || t.name
     }
   })
-  const messages = profileFormFields[locale]
 
   return (
-    <ProfileForm defaultProfile={profile} tags={tagTranslations} messages={messages} locale={locale} />
+    <ProfileForm defaultProfile={profile} tags={tagTranslations} />
   )
 }

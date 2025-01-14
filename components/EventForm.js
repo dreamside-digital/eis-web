@@ -9,6 +9,8 @@ import { createEvent, uploadImage, userSession, currentUser } from '@/lib/data-a
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { geocodeAddress } from '@/utils/mapbox'
+import {useTranslations} from 'next-intl';
+
 
 const defaultEvent = {
   status: "draft",
@@ -25,13 +27,14 @@ const defaultEvent = {
   links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
 }
 
-export default function EventForm({user, tags, messages, locale}) {
+export default function EventForm({user, tags}) {
   const [event, setEvent] = useState(defaultEvent)
   const [fileUploading, setFileUploading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
   const [location, setLocation] = useState(null)
   const router = useRouter()
+  const t = useTranslations('event_form');
 
   useEffect(() => {
     const getLocation = async(address) => {
@@ -137,62 +140,62 @@ export default function EventForm({user, tags, messages, locale}) {
       <section className="text-dark p-6 py-12 pt-20 relative">
         <div className="bg-[url(/backdrops/Painting_3.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-[50vh] w-full" />    
         <div className="container relative bg-beige sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
-          <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.page_title}</h1>
+          <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{t('page_title')}</h1>
           <form className="" onSubmit={handleSubmit}>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="title">
-                {messages.title}
+                {t('title')}
               </label>
-              <small className="mb-2 block">{messages.title_hint}</small>
+              {t.has('title_hint') &&  <small className="mb-2 block">{t('title_hint')}</small>}
               <input required onChange={updateEvent("title")} value={event.title} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="event_preview">
-                {messages.event_preview}
+                {t('event_preview')}
               </label>
-              <small className="mb-2 block">{messages.event_preview_hint}</small>
+              {t.has('event_preview') && <small className="mb-2 block">{t('event_preview_hint')}</small>}
               <input required onChange={updateEvent("event_preview")} value={event.event_preview} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="event_preview" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="description">
-                {messages.description}
+                {t('description')}
               </label>
-              <small className="mb-2 block">{messages.description_hint}</small>
+              {t.has('description_hint') && <small className="mb-2 block">{t('description_hint')}</small>}
               <RichTextEditor onChange={updateEvent("description")} value={event.description} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="starts_at">
-                {messages.starts_at}
+                {t('starts_at')}
               </label>
-              <small className="mb-2 block">{messages.starts_at_hint}</small>
+              {t.has('starts_at_hint') && <small className="mb-2 block">{t('starts_at_hint')}</small>}
               <input required onChange={updateEvent("starts_at")} value={event.starts_at} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="starts_at" type="datetime-local" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="ends_at">
-                {messages.ends_at}
+                {t('ends_at')}
               </label>
-              <small className="mb-2 block">{messages.ends_at_hint}</small>
+              {t.has('ends_at_hint') && <small className="mb-2 block">{t('ends_at_hint')}</small>}
               <input required onChange={updateEvent("ends_at")} value={event.ends_at} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ends_at" type="datetime-local" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="venue">
-                {messages.venue}
+                {t('venue')}
               </label>
-              <small className="mb-2 block">{messages.venue_hint}</small>
+              {t.has('venue_hint') && <small className="mb-2 block">{t('venue_hint')}</small>}
               <input onChange={updateEvent("venue")} value={event.venue} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="venue" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="address">
-                {messages.address}
+                {t('address')}
               </label>
-              <small className="mb-2 block">{messages.address_hint}</small>
+              {t.has('address_hint') && <small className="mb-2 block">{t('address_hint')}</small>}
               <LocationSelector handleSelect={handleLocationSelect} />
             </div>
 
@@ -204,31 +207,31 @@ export default function EventForm({user, tags, messages, locale}) {
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="organizer">
-                {messages.organizer}
+                {t('organizer')}
               </label>
-              <small className="mb-2 block">{messages.organizer_hint}</small>
+              {t.has('organizer_hint') && <small className="mb-2 block">{t('organizer_hint')}</small>}
               <input required onChange={updateEvent("organizer")} value={event.organizer} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="organizer" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="contact">
-                {messages.contact}
+                {t('contact')}
               </label>
-              <small className="mb-2 block">{messages.contact_hint}</small>
+              {t.has('contact_hint') && <small className="mb-2 block">{t('contact_hint')}</small>}
               <input required onChange={updateEvent("contact")} value={event.contact} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="contact" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="instructions">
-                {messages.instructions}
+                {t('instructions')}
               </label>
-              <small className="mb-2 block">{messages.instructions_hint}</small>
+              {t.has('instructions_hint') && <small className="mb-2 block">{t('instructions_hint')}</small>}
               <RichTextEditor  onChange={updateEvent("instructions")} value={event.instructions} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tags">
-                {messages.tags}
+                {t('tags')}
               </label>
               <div className="flex flex-wrap gap-2">
               {
@@ -244,27 +247,28 @@ export default function EventForm({user, tags, messages, locale}) {
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                {messages.links}
+                {t('links')}
               </label>
-              <small className="mb-2 block">{messages.links_hint}</small>
+              {t.has('links_hint') && <small className="mb-2 block">{t('links_hint')}</small>}
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(0, 'link_text')} value={event.links[0].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
-                <input onChange={updateLinks(0, 'url')} value={event.links[0].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
+                <input onChange={updateLinks(0, 'link_text')} value={event.links[0].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
+                <input onChange={updateLinks(0, 'url')} value={event.links[0].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(1, 'link_text')} value={event.links[1].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
-                <input onChange={updateLinks(1, 'url')} value={event.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
+                <input onChange={updateLinks(1, 'link_text')} value={event.links[1].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
+                <input onChange={updateLinks(1, 'url')} value={event.links[1].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(2, 'link_text')} value={event.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
-                <input onChange={updateLinks(2, 'url')} value={event.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
+                <input onChange={updateLinks(2, 'link_text')} value={event.links[2].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
+                <input onChange={updateLinks(2, 'url')} value={event.links[2].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
               </div>
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="main_image">
-                {messages.main_image}
+                {t('main_image')}
               </label>
+              {t.has('main_image_hint') && <small className="mb-2 block">{t('main_image_hint')}</small>}
               <input onChange={handleFileChange} type="file" className="" id="main_image" />
               {
                 fileUploading && 
@@ -286,7 +290,7 @@ export default function EventForm({user, tags, messages, locale}) {
 
             <div className="flex items-center justify-between mt-8">
               {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
-              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={messages.submit} />}
+              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={t('submit')} />}
             </div>
           </form>
         </div>
