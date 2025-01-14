@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { geocodeAddress } from '@/utils/mapbox'
 
+
 const defaultEvent = {
   status: "draft",
   title: "",

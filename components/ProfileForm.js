@@ -7,9 +7,10 @@ import { useState, useEffect } from 'react'
 import { uploadImage, createProfile, updateProfile, userSession, currentUser } from '@/lib/data-access'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
+import {useTranslations} from 'next-intl';
 
 
-export default function ProfileForm({user, defaultProfile, tags, messages, locale}) {
+export default function ProfileForm({user, defaultProfile, tags, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [fileUploading, setFileUploading] = useState(false)
   const [location, setLocation] = useState(null)
@@ -17,8 +18,7 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
   const [showPostalCodeField, setShowPostalCodeField] = useState(false)
   const [errors, setErrors] = useState()
   const router = useRouter()
-
-  console.log({profile})
+  const t = useTranslations('profile_form');
 
   const updateProfileData = field => input => {
 
@@ -112,68 +112,68 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
       <section className="text-dark p-6 py-12 pt-20 relative">
         <div className="bg-[url(/backdrops/Painting_2.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-[50vh] w-full" />    
         <div className="container relative bg-beige sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl p-8 lg:p-16 mx-auto my-0 md:my-8 lg:my-12">
-          <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{messages.title}</h1>
+          <h1 className="uppercase text-3xl mb-4 md:mb-8 font-medium">{t('page_title')}</h1>
           <form className="" onSubmit={handleSubmit}>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="public_name">
-                {messages.public_name}
+                {t('public_name')}
               </label>
-              <small className="mb-2 block">{messages.public_name_hint}</small>
+              <small className="mb-2 block">{t('public_name_hint')}</small>
               <input required onChange={updateProfileData("public_name")} value={profile.public_name} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="public_name" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="pronouns">
-                {messages.pronouns}
+                {t('pronouns')}
               </label>
-              <small className="mb-2 block">{messages.pronouns_hint}</small>
+              <small className="mb-2 block">{t('pronouns_hint')}</small>
               <input onChange={updateProfileData("pronouns")} value={profile.pronouns} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pronouns" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="current_projects">
-                {messages.current_project}
+                {t('current_project')}
               </label>
-              <small className="mb-2 block">{messages.current_project_hint}</small>
+              <small className="mb-2 block">{t('current_project_hint')}</small>
               <RichTextEditor required onChange={updateProfileData("current_projects")} value={profile.current_projects} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="artistic_practice">
-                {messages.artistic_practice}
+                {t('artistic_practice')}
               </label>
-              <small className="mb-2 block">{messages.artistic_practice_hint}</small>
+              <small className="mb-2 block">{t('artistic_practice_hint')}</small>
               <RichTextEditor required onChange={updateProfileData("artistic_practice")} value={profile.artistic_practice} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="inspirations">
-                {messages.inspirations}
+                {t('inspirations')}
               </label>
-              <small className="mb-2 block">{messages.inspirations_hint}</small>
+              <small className="mb-2 block">{t('inspirations_hint')}</small>
               <RichTextEditor onChange={updateProfileData("inspirations")} value={profile.inspirations} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="past_projects">
-                {messages.past_projects}
+                {t('past_projects')}
               </label>
-              <small className="mb-2 block">{messages.past_projects_hint}</small>
+              <small className="mb-2 block">{t('past_projects_hint')}</small>
               <RichTextEditor onChange={updateProfileData("introduction")} value={profile.introduction} />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold" htmlFor="short_introduction">
-                {messages.profile_preview}
+                {t('profile_preview')}
               </label>
-              <small className="mb-2 block">{messages.profile_preview_hint}</small>
+              <small className="mb-2 block">{t('profile_preview_hint')}</small>
               <input required maxLength={500} onChange={updateProfileData("short_introduction")} value={profile.short_introduction} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="short_introduction" type="text" />
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="tags">
-                {messages.tags}
+                {t('tags')}
               </label>
               <div className="flex flex-wrap gap-2">
               {
@@ -189,26 +189,26 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                {messages.links}
+                {t('links')}
               </label>
-              <small className="mb-2 block">{messages.links_hint}</small>
+              <small className="mb-2 block">{t('links_hint')}</small>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(0, 'link_text')} value={profile.links[0].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
-                <input onChange={updateLinks(0, 'url')} value={profile.links[0].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
+                <input onChange={updateLinks(0, 'link_text')} value={profile.links[0].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.text" type="text" />
+                <input onChange={updateLinks(0, 'url')} value={profile.links[0].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link1.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(1, 'link_text')} value={profile.links[1].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
-                <input onChange={updateLinks(1, 'url')} value={profile.links[1].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
+                <input onChange={updateLinks(1, 'link_text')} value={profile.links[1].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.text" type="text" />
+                <input onChange={updateLinks(1, 'url')} value={profile.links[1].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link2.url" type="text" />
               </div>
               <div className="grid grid-cols-2 gap-2">
-                <input onChange={updateLinks(2, 'link_text')} value={profile.links[2].link_text} placeholder={messages.link} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
-                <input onChange={updateLinks(2, 'url')} value={profile.links[2].url} placeholder={messages.url} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
+                <input onChange={updateLinks(2, 'link_text')} value={profile.links[2].link_text} placeholder={t('link')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.text" type="text" />
+                <input onChange={updateLinks(2, 'url')} value={profile.links[2].url} placeholder={t('url')} className="mb-2 shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="link3.url" type="text" />
               </div>
             </div>
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="profile_picture">
-                {messages.profile_picture}
+                {t('profile_picture')}
               </label>
               <input onChange={handleFileChange} type="file" className="" id="profile_picture" />
               {
@@ -231,16 +231,16 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
 
             <div className="mb-6">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
-                {messages.location}
+                {t('location')}
               </label>
-              <small className="mb-2 block">{messages.location_hint}</small>
+              <small className="mb-2 block">{t('location_hint')}</small>
               <div className="mb-6">
-                <button hidden={showPostalCodeField} className="text-sm underline" onClick={revealPostalCodeField}>I do not feel comfortable disclosing my location on a map</button>
+                <button hidden={showPostalCodeField} className="text-sm underline" onClick={revealPostalCodeField}>{t('refuse_location')}</button>
                 <div hidden={!showPostalCodeField}>
                   <label className="block text-gray-700 text-sm font-bold" htmlFor="postal_code">
-                    {messages.postal_code}
+                    {t('postal_code')}
                   </label>
-                  <small className="mb-2 block">{messages.postal_code_hint}</small>
+                  <small className="mb-2 block">{t('postal_code_hint')}</small>
                   <input onChange={updateProfileData("postal_code")} value={profile.postal_code} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="postal_code" type="text" />
                 </div>
               </div>
@@ -250,7 +250,7 @@ export default function ProfileForm({user, defaultProfile, tags, messages, local
 
             <div className="flex items-center justify-between mt-8">
               {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
-              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={messages.submit} />}
+              {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={t('submit')} />}
             </div>
           </form>
         </div>
