@@ -29,10 +29,10 @@ export default function NavigationDropdown({dropdown}) {
                   <item.icon aria-hidden="true" className="size-6 text-gray-600 group-hover:text-indigo-600" />
                 </div>*/}
                 <div>
-                  <Link href={item.dropdown_item_link} className="">
+                  <PopoverButton as={Link} href={item.dropdown_item_link}>
                     {item.dropdown_item_text}
                     <span className="absolute inset-0" />
-                  </Link>
+                  </PopoverButton>
                 </div>
               </div>
             ))}
