@@ -1,6 +1,7 @@
 import { getWorkshopContent } from '@/utils/directus'
 import Image from 'next/image'
 import DOMPurify from "isomorphic-dompurify";
+import ImageWithCaption from '@/components/ImageWithCaption'
 
 export default async function WorkshopPage({params: {locale}}) {
   const content = await getWorkshopContent()
@@ -18,61 +19,28 @@ export default async function WorkshopPage({params: {locale}}) {
         <div className="md:grid grid-cols-2 gap-x-24 gap-y-12">
           <div className="page-content wysiwyg-content max-w-prose col-span-2 max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para1 }} />
           <div className="col-span-2 w-full">
-            <Image
-              className=""
-              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_1.id}`}
-              width={image_1.width}
-              height={image_1.height}
-              alt={image_1.description || ""}
-            />
-           {image_1.description && <p className="py-3 text-slate-500">{image_1.description}</p>}
+            <ImageWithCaption image={image_1} />
           </div>
           <div className="page-content wysiwyg-content max-w-prose max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para2 }} />
           
           <div className="max-w-screen-lg w-full">
-            <Image
-              className=""
-              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_2.id}`}
-              width={image_2.width}
-              height={image_2.height}
-              alt={image_2.description || ""}
-            />
-            {image_2.description && <p className="py-3 text-slate-500">{image_2.description}</p>}
+            <ImageWithCaption image={image_2} />
           </div>
           
           <div className="page-content wysiwyg-content max-w-prose col-span-2 max-md:my-6 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para3 }} />
           
           <div className="">
-            <Image
-              src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_3.id}`}
-              width={image_3.width}
-              height={image_3.height}
-              alt={image_3.description || ""}
-            />
-            {image_3.description && <p className="py-3 text-slate-500">{image_3.description}</p>}
+            <ImageWithCaption image={image_3} />
           </div>
 
           <div className="mt-12 md:mt-48 lg:mt-60">
-          <Image
-            className=""
-            src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_4.id}`}
-            width={image_4.width}
-            height={image_4.height}
-            alt={image_4.description || ""}
-          />
-          {image_4.description && <p className="py-3 text-slate-500">{image_4.description}</p>}
+            <ImageWithCaption image={image_4} />
           </div>
         </div>
         <div className="page-content wysiwyg-content max-w-prose max-md:my-6 my-12 text-xl xl:text-2xl" dangerouslySetInnerHTML={{ __html: para4 }} />
         
         <div className="">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${image_5.id}`}
-            width={image_5.width}
-            height={image_5.height}
-            alt={image_5.description || ""}
-          />
-          {image_5.description && <p className="py-3 text-slate-500">{image_5.description}</p>}
+          <ImageWithCaption image={image_5} />
         </div>
       </div>
     </section>

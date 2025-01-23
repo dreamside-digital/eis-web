@@ -157,3 +157,11 @@ main section:first-of-type {
 input[type='radio'], input[type='range'], input[type='checkbox'] {
     accent-color: #f08372;
 }
+
+input[type='range'].distance-off {
+  accent-color: #C7B3A8;
+}
+
+input[type='range'].distance-on {
+  accent-color: #f08372;
+}

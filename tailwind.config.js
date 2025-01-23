@@ -29,7 +29,8 @@ module.exports = {
         aubergine: '#584963',
         orange: '#EE5D0F',
         pink: '#f08372',
-        latte: '#C7B3A8'
+        latte: '#C7B3A8',
+        grey: '#b2b2b2'
       },
       animation: {
         'spin-slow': 'spin 2s linear infinite',

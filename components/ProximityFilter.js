@@ -116,12 +116,12 @@ export default function ProximityFilter({
               </div>
             </div>
             <div className="mb-4 flex gap-2">
-              <MapIcon className="w-6 h-6" />
               <div>
                 <div className="flex gap-2 items-center nowrap">
-                  <label htmlFor={`distance`} className="font-medium">{t('max_distance')}</label>
+                  <MapIcon className="w-6 h-6" />
+                  <label htmlFor={`distance`} className="font-medium whitespace-nowrap">{t('max_distance')}</label>
                   <input 
-                    className="border border-1 flex-1" 
+                    className={`border border-1 flex-1 ${maxDistance === 0 ? 'distance-off' : 'distance-on'}`} 
                     type="range" 
                     id={'distance'} 
                     name={'distance'} 

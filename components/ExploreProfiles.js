@@ -29,7 +29,7 @@ export default function ExploreProfiles({tags}) {
   const t = useTranslations('shared_messages')
   const viewOptions = [
     { value: "grid", label: t('grid')}, 
-    { value: "calendar", label: t('slides')}
+    { value: "accordion", label: t('slides')}
   ]
 
   const resetLocation = () => {
