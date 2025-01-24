@@ -1,8 +1,7 @@
 import Image from "next/image";
 
-
 export default function ImageWithCaption({image, className, ...props}) {
-  
+  console.log({image})
   return (
     <div className="w-full">
       <Image

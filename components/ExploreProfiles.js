@@ -214,7 +214,7 @@ export default function ExploreProfiles({tags}) {
                           }
                         </div>
 
-                        <div className="inline-flex gap-1">
+                        <div className="inline-flex gap-1 flex-wrap">
                           {profile.tags.map(t => <TagButton tag={t} key={t.id} />)}
                         </div>
 

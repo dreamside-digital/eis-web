@@ -6,6 +6,7 @@ import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 import { PencilIcon } from '@heroicons/react/24/solid'
 import { EyeIcon } from '@heroicons/react/24/solid'
 import { EyeSlashIcon } from '@heroicons/react/24/solid'
+import { GlobeAltIcon } from '@heroicons/react/24/solid'
 import { useState, useEffect } from 'react'
 import { getProfile, updateProfile } from "@/lib/data-access";
 import TagButton from '@/components/TagButton'
@@ -70,7 +71,7 @@ export default function ProfileCard(props) {
             {
               profile.profile_picture &&
               <Image
-                className="relative w-full h-auto aspect-video object-cover  mb-4"
+                className="relative w-full h-auto aspect-video object-cover mb-4"
                 src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
                 alt={profile.public_name} 
                 width={500}
@@ -91,6 +92,12 @@ export default function ProfileCard(props) {
               ) : (
                 <div className="flex flex-col gap-1">
                   <div>
+                    <Link className="inline-flex gap-1 text-sm btn grow-0" href={`/profiles/${profile.slug}`} aria-label="Preview profile">
+                      <EyeIcon className="w-4 h-4" />
+                      {t("preview")}
+                    </Link>
+                  </div>
+                  <div>
                     <Link className="inline-flex gap-1 text-sm btn grow-0" href={`/profiles/${profile.slug}/edit`} aria-label="Edit profile">
                       <PencilIcon className="w-4 h-4" />
                       {t("edit")}
@@ -106,7 +113,7 @@ export default function ProfileCard(props) {
                   {profile.status === "private" && 
                   <div>
                     <button className="inline-flex gap-1 text-sm btn" onClick={changeProfileStatus(profile.id, "published")} aria-label="Publish Profile">
-                      <EyeIcon className="w-4 h-4" />
+                      <GlobeAltIcon className="w-4 h-4" />
                       {t("publish_profile")}
                     </button>
                   </div>}
