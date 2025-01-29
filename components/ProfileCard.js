@@ -56,41 +56,45 @@ export default function ProfileCard(props) {
   const borderColor = statusColors[profile.status]
   const bbColor = statusColorsBg[profile.status]
   return (
-      <div key={profile.id} className={`border-2 ${borderColor} bg-white text-dark relative `}>
+      <div key={profile.id} className={`border-2 ${borderColor} bg-white text-dark relative flex flex-col`}>
         <div className={`${bbColor} text-dark px-6 py-2 uppercase font-medium text-sm`}>
           <span>{t(statusLabels[profile.status])}</span>
         </div>
-        <div className="p-6">
-          <Link className="text-xl no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
-            <h1 className="font-title text-xl md:text-2xl mb-4">
-              {profile.public_name}
-            </h1>
-          </Link>
-          <p className="mb-4">{profile.pronouns}</p>
-          <div className="">
-            {
-              profile.profile_picture &&
-              <Image
-                className="relative w-full h-auto aspect-video object-cover mb-4"
-                src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
-                alt={profile.public_name} 
-                width={500}
-                height={500}
-              />
-            }
-            <div className="flex-1">
-              <p className="mb-4">{profile.short_introduction}</p>
-            </div>
-
-            <div className="mb-2 flex gap-1 flex-wrap">
+        {
+          profile.profile_picture &&
+          <Image
+            className="relative w-full h-auto aspect-video object-cover"
+            src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture}`}
+            alt={profile.public_name} 
+            width={500}
+            height={500}
+          />
+        }
+        <div className="p-6 flex flex-col flex-auto justify-between">
+          <div>
+            <Link className="no-underline hover:text-highlight" href={`/profiles/${profile.slug}`}>
+              <h1 className="font-title text-xl mb-4">
+                {profile.public_name}{profile.pronouns ? ` (${profile.pronouns})` : ""}
+              </h1>
+            </Link>
+            <div className="mb-4 flex gap-1 flex-wrap">
               {profile.tags.map(t => <TagButton key={t.id} tag={t} />)}
             </div>
+            <div className="">
+              <div className="flex-1">
+                <p className="mb-2">{profile.short_introduction}</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div>
 
             {
               loading ? (
                 <Loader className="w-6 h-6" />
               ) : (
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-wrap gap-1 border pt-4 border-l-0 border-r-0 border-b-0">
                   <div>
                     <Link className="inline-flex gap-1 text-sm btn grow-0" href={`/profiles/${profile.slug}`} aria-label="Preview profile">
                       <EyeIcon className="w-4 h-4" />
@@ -128,8 +132,8 @@ export default function ProfileCard(props) {
               )
             }
 
-          </div>
         </div>
       </div>
+    </div>
   )
 }

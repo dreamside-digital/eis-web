@@ -2,6 +2,7 @@ import { currentUser, userSession, getUserProfiles, updateProfile } from "@/lib/
 import ProfileCard from '@/components/ProfileCard'
 import { redirect } from 'next/navigation';
 import {getTranslations} from 'next-intl/server';
+import Link from 'next/link'
 
 
 export default async function AccountPage({params: {locale}}) {
@@ -23,6 +24,10 @@ export default async function AccountPage({params: {locale}}) {
             <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">{t('page_title')}</h1>
             { user && <p>{`${user.first_name} ${user.last_name}`}</p>}
             { user && <p>{user.email}</p>}
+          </div>
+          <div className="p-6 w-full bg-beige text-dark flex flex-col items-end gap-2">
+            <Link href="/profiles/new" className="btn">{t('create_profile')}</Link>
+            <Link href="/events/new" className="btn">{t('create_event')}</Link>
           </div>
         </div>
       </section>
