@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { createSession } from "@/lib/data-access";
 import {useTranslations} from 'next-intl';
+import { signIn } from "next-auth/react"
 
 
 export default function LoginForm({locale}) {
@@ -32,14 +33,17 @@ export default function LoginForm({locale}) {
     e.preventDefault()
     setSubmitting(true)
 
-    const result = await createSession(username, password)
-    if (result?.errors) {
-      console.log(result.errors)
+    const res = await signIn("credentials", {
+      email: username,
+      password: password,
+      callbackUrl: `/`,
+      redirect: false,
+    })
+    if (res?.error) {
+      setErrors(res?.error)
       setSubmitting(false)
-      setErrors(result.errors)
     } else {
-      router.push(`/account`)
-      setSubmitting(false)
+      router.push("/account")
     }
   }
  

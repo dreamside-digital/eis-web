@@ -5,7 +5,7 @@ import {
   staticToken,
 } from "@directus/sdk"
 
-export const directus = (token: string = "") => {
+export const directus = (token="") => {
   if (token) {
     return createDirectus(process.env.NEXT_PUBLIC_DIRECTUS_URL ?? "")
       .with(staticToken(token))
@@ -21,9 +21,6 @@ export const directus = (token: string = "") => {
 export const login = async ({
   email,
   password,
-}: {
-  email: string
-  password: string
 }) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/auth/login`,
