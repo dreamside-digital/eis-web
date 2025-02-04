@@ -1,5 +1,5 @@
-import { Poppins } from "next/font/google";
-import localFont from 'next/font/local';
+import { Poppins } from "next/font/google"
+import localFont from 'next/font/local'
 import Navigation from '@/components/Navigation'
 import { getLayoutContent } from '@/utils/directus'
 import Image from 'next/image'
@@ -7,6 +7,9 @@ import Head from 'next/head'
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import PlausibleProvider from 'next-plausible'
+import { getServerSession } from "next-auth"
+import { options } from "@/lib/auth/options"
+import AdminProvider from "@/components/AdminProvider"
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 const monarque = localFont({
@@ -65,6 +68,7 @@ export const viewport = {
 
 
 export default async function RootLayout({ children, params: { locale } }) {
+  const session = await getServerSession(options)
   const content = await getLayoutContent()
   const { translations } = content;
   const translation = translations.find(t => t.languages_code === locale)
@@ -79,6 +83,7 @@ export default async function RootLayout({ children, params: { locale } }) {
   return (
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative bg-light`}>
+        <AdminProvider session={session}>
         <NextIntlClientProvider messages={messages}>
         <PlausibleProvider domain="editionsinspace.com">
         <Navigation logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
@@ -140,6 +145,7 @@ export default async function RootLayout({ children, params: { locale } }) {
         </footer>
         </PlausibleProvider>
         </NextIntlClientProvider>
+        </AdminProvider>
       </body>
     </html>
   );
