@@ -9,7 +9,6 @@ import { getServerSession } from "next-auth"
 import { getLayoutContent } from '@/utils/directus'
 import { options } from "@/lib/auth/options"
 import Navigation from '@/components/Navigation'
-import AdminProvider from "@/components/AdminProvider"
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 const monarque = localFont({
@@ -83,10 +82,9 @@ export default async function RootLayout({ children, params: { locale } }) {
   return (
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative bg-light`}>
-        <AdminProvider session={session}>
         <NextIntlClientProvider messages={messages}>
         <PlausibleProvider domain="editionsinspace.com">
-        <Navigation logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
+        <Navigation session={session} logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
         <main className="grow">
           {children}
         </main>
@@ -145,7 +143,6 @@ export default async function RootLayout({ children, params: { locale } }) {
         </footer>
         </PlausibleProvider>
         </NextIntlClientProvider>
-        </AdminProvider>
       </body>
     </html>
   );

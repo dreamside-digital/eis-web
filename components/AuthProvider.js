@@ -2,7 +2,7 @@
 import Validate from "@/lib/auth/validate"
 import { SessionProvider } from "next-auth/react"
 
-export default function AdminProvider({
+export default function AuthProvider({
   session,
   children,
 }) {

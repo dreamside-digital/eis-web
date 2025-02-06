@@ -1,17 +1,18 @@
-import { currentUser, userSession, getUserProfiles, updateProfile } from "@/lib/data-access";
+import { getUserProfiles, updateProfile } from "@/lib/data-access";
 import ProfileCard from '@/components/ProfileCard'
-import { redirect } from 'next/navigation';
 import {getTranslations} from 'next-intl/server';
 import Link from 'next/link'
+import { getServerSession } from "next-auth";
+import { options } from "@/lib/auth/options"
+import AuthProvider from "@/components/AuthProvider";
+import { useSession } from "next-auth/react";
 
 
 export default async function AccountPage({params: {locale}}) {
-  const session = await userSession()
-  const user = await currentUser(session)
-  if (!user) {
-    redirect('/login')
-  }
-  const profiles = await getUserProfiles(session, user)
+  const session = useSession()
+  console.log({session})
+  const profiles = await getUserProfiles()
+  console.log({profiles})
   const t = await getTranslations('account_page');
 
   return (
@@ -22,8 +23,8 @@ export default async function AccountPage({params: {locale}}) {
         <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
           <div className="p-6 w-full bg-beige text-dark ">
             <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">{t('page_title')}</h1>
-            { user && <p>{`${user.first_name} ${user.last_name}`}</p>}
-            { user && <p>{user.email}</p>}
+            { session && <p>{`${session.user.first_name} ${session.user.last_name}`}</p>}
+            { session && <p>{session.user.email}</p>}
           </div>
           <div className="p-6 w-full bg-beige text-dark flex flex-col items-end gap-2">
             <Link href="/profiles/new" className="btn">{t('create_profile')}</Link>

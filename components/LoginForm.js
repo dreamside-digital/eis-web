@@ -6,7 +6,6 @@ import { useSearchParams } from "next/navigation";
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
-import { createSession } from "@/lib/data-access";
 import {useTranslations} from 'next-intl';
 import { signIn } from "next-auth/react"
 
@@ -39,6 +38,7 @@ export default function LoginForm({locale}) {
       callbackUrl: `/`,
       redirect: false,
     })
+    console.log({res})
     if (res?.error) {
       setErrors(res?.error)
       setSubmitting(false)

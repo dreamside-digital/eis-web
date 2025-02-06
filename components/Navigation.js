@@ -3,28 +3,21 @@
 import { useState, useEffect } from 'react'
 import Image from "next/image";
 import Link from "next/link";
-import { userSession, currentUser, deleteSession } from '@/lib/data-access'
 import { useRouter, usePathname } from 'next/navigation'
 import NavigationDropdown from '@/components/NavigationDropdown'
 import MobileDropdown from '@/components/MobileDropdown'
 import {useTranslations} from 'next-intl';
+import { useSession } from "next-auth/react"
 
-export default function Navigation({ logo, locale, dropdowns=[] }) {
+export default function Navigation({ session, logo, locale, dropdowns=[] }) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [user, setUser] = useState(false)
-  const router = useRouter()
   const pathname = usePathname();
   const t = useTranslations("shared_messages")
 
-  useEffect(() => {
-    (async () => {
-      const session = await userSession()
-      const authedUser = await currentUser(session)
-      return setUser(authedUser)
-    })();
-  }, [pathname]);
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: '/login' })
+  }
 
-  
   return (
     <div className="absolute top-0 left-0 right-0 w-full text-dark z-10">
       <div className="container max-w-screen-xl mx-auto py-2 max-xl:px-4 flex justify-between">
@@ -44,7 +37,7 @@ export default function Navigation({ logo, locale, dropdowns=[] }) {
             {dropdowns.map(dropdown => {
               return <NavigationDropdown key={dropdown.dropdown_label} dropdown={dropdown}/>
             })}
-            { user ? ( 
+            { session?.user ? ( 
               <NavigationDropdown dropdown={{
                 dropdown_label: t('account'),
                 dropdown_items: [
@@ -59,7 +52,7 @@ export default function Navigation({ logo, locale, dropdowns=[] }) {
             <Link href={pathname.replace(locale, 'fr')} locale="fr" className={locale === 'fr' ? 'hidden' : 'font-medium'}>FR</Link>
           </div>
           <div className="md:hidden">
-            <MobileDropdown pathname={pathname} dropdowns={dropdowns} user={user} locale={locale} />
+            <MobileDropdown pathname={pathname} dropdowns={dropdowns} user={session?.user} locale={locale} />
           </div>
         </div>
       </div>
