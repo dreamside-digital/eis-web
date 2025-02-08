@@ -1,16 +1,17 @@
-import { getProfile, getTags, createEvent, userSession, currentUser } from '@/lib/data-access'
+import { getTags, createEvent } from '@/lib/data-access'
 import Image from 'next/image'
 import EventForm from '@/components/EventForm'
 import { redirect } from 'next/navigation';
+import { getUser } from '@/lib/auth/session'
 
 export default async function NewEventPage({params: {locale}}) {
-  const session = await userSession()
-  const user = await currentUser(session)
-  
+  const user = await getUser()
+  console.log({user})
   if (!user) {
     redirect('/login')
   }
   const tags = await getTags()
+  console.log({tags})
   const tagTranslations = tags.map(t => {
     const translation = t.translations.find(tr => tr.languages_code === locale)
     return {

@@ -1,3 +1,5 @@
+'use client'
+
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
 import Link from "next/link";
@@ -9,8 +11,17 @@ import {
   SquaresPlusIcon,
 } from '@heroicons/react/24/outline'
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
+import { useSession } from 'next-auth/react'
+import { useEffect } from 'react'
 
-export default function MobileDropdown({pathname, locale, dropdowns, user}) {
+export default function MobileDropdown({pathname, locale, dropdowns}) {
+  const { data: session, status } = useSession()
+  const user = session?.user
+
+  useEffect(() => {
+    console.log({pathname})
+  }, [pathname])
+
   return (
     <Popover className="">
       {({ open }) => (
@@ -46,24 +57,24 @@ export default function MobileDropdown({pathname, locale, dropdowns, user}) {
                   <div>
                     <p className="font-semibold uppercase mb-0 p-4 pb-2">{"Account"}</p>
                     <div className="group relative flex gap-x-6 p-2 pl-6 hover:bg-primary">
-                      <a href={'/account'} className="">
+                      <PopoverButton as={Link} href={'/account'} className="">
                         {'My Account'}
                         <span className="absolute inset-0" />
-                      </a>
+                      </PopoverButton>
                     </div>
                     <div className="group relative flex gap-x-6 p-2 pl-6 hover:bg-primary">
-                      <a href={'/logout'} className="">
+                      <PopoverButton as={Link} href={'/logout'} className="">
                         {'Log out'}
                         <span className="absolute inset-0" />
-                      </a>
+                      </PopoverButton>
                     </div>
                   </div>
                 ) : (
-                  <Link className="font-semibold uppercase mb-0 p-4 pb-2" href={'/login'}>Log in</Link>
+                  <PopoverButton as={Link} className="font-semibold uppercase mb-0 p-4 pb-2" href={'/login'}>Log in</PopoverButton>
                 )}
               <div className="font-semibold uppercase mb-0 p-4 pb-2">
-                <Link href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</Link>
-                <Link href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : ''}>FR</Link>
+                <PopoverButton as={Link} href={pathname.replace(locale, 'en')} className={locale === 'en' ? 'hidden' : ''}>EN</PopoverButton>
+                <PopoverButton as={Link} href={pathname.replace(locale, 'fr')} className={locale === 'fr' ? 'hidden' : ''}>FR</PopoverButton>
               </div>
             </div>
           </div>

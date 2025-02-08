@@ -1,18 +1,13 @@
-import { getUserProfiles, updateProfile } from "@/lib/data-access";
+import { getUserProfiles } from "@/lib/data-access";
 import ProfileCard from '@/components/ProfileCard'
 import {getTranslations} from 'next-intl/server';
 import Link from 'next/link'
-import { getServerSession } from "next-auth";
-import { options } from "@/lib/auth/options"
-import AuthProvider from "@/components/AuthProvider";
-import { useSession } from "next-auth/react";
+import { getUser } from "@/lib/auth/session";
 
 
 export default async function AccountPage({params: {locale}}) {
-  const session = useSession()
-  console.log({session})
+  const user = await getUser()
   const profiles = await getUserProfiles()
-  console.log({profiles})
   const t = await getTranslations('account_page');
 
   return (
@@ -20,13 +15,13 @@ export default async function AccountPage({params: {locale}}) {
       <section className="text-dark p-6 py-12 pt-20 relative">
         <div className="bg-[url(/images/Explore_Culture_Vicinity_BG.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-2/3 w-full">
         </div>
-        <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
+        <div className="container max-w-screen-lg mx-auto relative md:flex justify-center pt-6">
           <div className="p-6 w-full bg-beige text-dark ">
             <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">{t('page_title')}</h1>
-            { session && <p>{`${session.user.first_name} ${session.user.last_name}`}</p>}
-            { session && <p>{session.user.email}</p>}
+            { user && <p>{`${user.first_name} ${user.last_name}`}</p>}
+            { user && <p>{user.email}</p>}
           </div>
-          <div className="p-6 w-full bg-beige text-dark flex flex-col items-end gap-2">
+          <div className="p-6 w-full bg-beige text-dark flex flex-col items-start md:items-end gap-2">
             <Link href="/profiles/new" className="btn">{t('create_profile')}</Link>
             <Link href="/events/new" className="btn">{t('create_event')}</Link>
           </div>

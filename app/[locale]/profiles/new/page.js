@@ -2,6 +2,7 @@ import { getTags, userSession, currentUser } from '@/lib/data-access'
 import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
 import { redirect } from 'next/navigation';
+import { getUser } from '@/lib/auth/session'
 
 const defaultProfile = {
   status: "draft",
@@ -22,8 +23,9 @@ const defaultProfile = {
 
 export default async function NewProfilePage({params: {locale}}) {
   const tags = await getTags()
-  const session = await userSession()
-  const user = await currentUser(session)
+  const user = await getUser()
+  
+  console.log({user})
   if (!user) {
     redirect('/login')
   }

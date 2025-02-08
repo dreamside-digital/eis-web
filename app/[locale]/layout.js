@@ -67,7 +67,6 @@ export const viewport = {
 
 
 export default async function RootLayout({ children, params: { locale } }) {
-  const session = await getServerSession(options)
   const content = await getLayoutContent()
   const { translations } = content;
   const translation = translations.find(t => t.languages_code === locale)
@@ -84,7 +83,7 @@ export default async function RootLayout({ children, params: { locale } }) {
       <body className={`${poppins.className} ${monarque.variable} font-light leading-normal flex min-h-screen flex-col relative bg-light`}>
         <NextIntlClientProvider messages={messages}>
         <PlausibleProvider domain="editionsinspace.com">
-        <Navigation session={session} logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
+        <Navigation logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
         <main className="grow">
           {children}
         </main>

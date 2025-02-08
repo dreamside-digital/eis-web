@@ -38,7 +38,6 @@ export default function LoginForm({locale}) {
       callbackUrl: `/`,
       redirect: false,
     })
-    console.log({res})
     if (res?.error) {
       setErrors(res?.error)
       setSubmitting(false)
