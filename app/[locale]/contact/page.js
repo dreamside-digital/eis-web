@@ -1,4 +1,4 @@
-import { getContactContent } from '@/utils/directus'
+import { getContactContent } from '@/lib/data-access'
 import Image from 'next/image'
 import DOMPurify from "isomorphic-dompurify";
 

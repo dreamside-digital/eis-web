@@ -1,7 +1,7 @@
 import {notFound} from 'next/navigation';
 import {getRequestConfig} from 'next-intl/server';
 import {routing} from './routing';
-import {getPageTranslations} from '@/utils/directus'
+import {getPageTranslations} from '@/lib/data-access'
 
  
 export default getRequestConfig(async ({locale}) => {

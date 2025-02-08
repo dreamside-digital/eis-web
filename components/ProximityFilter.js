@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import TagButton from '@/components/TagButton'
 import Loader from '@/components/Loader'
 import LocationSelector from '@/components/LocationSelector'
-import { geocodeAddress, reverseGeocodeLocation } from '@/utils/mapbox'
+import { geocodeAddress, reverseGeocodeLocation } from '@/services/mapbox'
 import {useTranslations} from 'next-intl';
 
 export default function ProximityFilter({ 

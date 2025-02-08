@@ -1,4 +1,4 @@
-import { verifyEmail } from '@/utils/directus'
+import { verifyEmail } from '@/lib/data-access'
 import { redirect } from 'next/navigation'
 
 export async function GET(request) {

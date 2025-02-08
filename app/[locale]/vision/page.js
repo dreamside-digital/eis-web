@@ -1,5 +1,4 @@
-import { getVisionContent } from '@/utils/directus'
-import Image from 'next/image'
+import { getVisionContent } from '@/lib/data-access'
 import DOMPurify from "isomorphic-dompurify";
 import ImageWithCaption from '@/components/ImageWithCaption'
 

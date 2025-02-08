@@ -1,5 +1,4 @@
-import { getWorkshopContent } from '@/utils/directus'
-import Image from 'next/image'
+import { getWorkshopContent } from '@/lib/data-access'
 import DOMPurify from "isomorphic-dompurify";
 import ImageWithCaption from '@/components/ImageWithCaption'
 

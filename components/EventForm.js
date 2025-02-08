@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import { createEvent, uploadImage, userSession, currentUser } from '@/lib/data-access'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
-import { geocodeAddress } from '@/utils/mapbox'
+import { geocodeAddress } from '@/services/mapbox'
 import {useTranslations} from 'next-intl';
 
 

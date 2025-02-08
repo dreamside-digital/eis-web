@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { geocodeAddress } from '@/utils/mapbox'
+import { geocodeAddress } from '@/services/mapbox'
 import { useState } from "react"
 
 

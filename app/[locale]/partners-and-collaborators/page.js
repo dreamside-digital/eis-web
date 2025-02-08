@@ -1,5 +1,4 @@
-import { getCreditsContent } from '@/utils/directus'
-import Image from 'next/image'
+import { getCreditsContent } from '@/lib/data-access'
 import DOMPurify from "isomorphic-dompurify";
 
 export default async function CreditsPage({params: {locale}}) {

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from "next/navigation";
 import { useState } from 'react'
-import { createUserAccount } from '@/utils/directus'
+import { createUserAccount } from '@/lib/data-access'
 import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';

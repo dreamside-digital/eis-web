@@ -7,7 +7,7 @@ import NavigationDropdown from '@/components/NavigationDropdown'
 
 export default function AccountDropdown() {
   const t = useTranslations("shared_messages")
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
 
   if (session?.error) {
     return <Link className="uppercase font-medium" href={'/login'}>{t('login')}</Link>

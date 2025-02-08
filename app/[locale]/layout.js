@@ -1,13 +1,10 @@
 import { Poppins } from "next/font/google"
 import localFont from 'next/font/local'
 import Image from 'next/image'
-import Head from 'next/head'
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import PlausibleProvider from 'next-plausible'
-import { getServerSession } from "next-auth"
-import { getLayoutContent } from '@/utils/directus'
-import { options } from "@/lib/auth/options"
+import { getLayoutContent } from '@/lib/data-access'
 import Navigation from '@/components/Navigation'
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
