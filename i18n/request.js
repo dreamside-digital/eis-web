@@ -4,9 +4,14 @@ import {routing} from './routing';
 import {getPageTranslations} from '@/lib/data-access'
 
  
-export default getRequestConfig(async ({locale}) => {
-  // Validate that the incoming `locale` parameter is valid
-  if (!routing.locales.includes(locale)) notFound();
+export default getRequestConfig(async ({requestLocale}) => {
+  // This typically corresponds to the `[locale]` segment
+  let locale = await requestLocale;
+
+// Ensure that the incoming locale is valid
+  if (!locale || !routing.locales.includes(locale)) {
+    locale = routing.defaultLocale;
+  }
 
   const data = await getPageTranslations()
   const tags = data?.tags || []
@@ -17,6 +22,7 @@ export default getRequestConfig(async ({locale}) => {
   }, {})
 
   return {
+    locale,
     messages: {
       'registration_form': data?.registration_form?.translations?.find(t => t.languages_code === locale),
       'profile_form': data?.profile_form?.translations?.find(t => t.languages_code === locale),
