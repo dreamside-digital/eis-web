@@ -2,12 +2,16 @@ import { getProfile } from '@/lib/data-access'
 import Image from 'next/image'
 import DOMPurify from "isomorphic-dompurify";
 import ImageWithCaption from '@/components/ImageWithCaption'
-
+import { redirect } from 'next/navigation'
 
 export default async function ProfilePage({params}) {
   const { slug } = params
   const profile = await getProfile(slug)
 
+  if (!profile) {
+    redirect('/profiles')
+  }
+  
   const cleanIntroduction = DOMPurify.sanitize(profile.introduction, { USE_PROFILES: { html: true } })
   const cleanDescription = DOMPurify.sanitize(profile.artistic_practice, { USE_PROFILES: { html: true } })
   const cleanCurrentProjects = DOMPurify.sanitize(profile.current_projects, { USE_PROFILES: { html: true } })

@@ -1,13 +1,18 @@
 import { getEvent } from '@/lib/data-access'
 import Image from 'next/image'
 import DOMPurify from "isomorphic-dompurify";
-
+import { redirect } from 'next/navigation'
 const DATE_FORMAT = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }
 
 
 export default async function EventPage({params}) {
   const { slug } = params
   const event = await getEvent(slug)
+
+  if (!event) {
+    redirect('/events')
+  }
+  
   const tagsText = event?.tags?.map(t => t.name).join(", ")
   const startDate = new Date(event.starts_at)
   const startDateText = startDate.toLocaleString('en-CA', DATE_FORMAT)
