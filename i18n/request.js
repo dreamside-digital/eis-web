@@ -26,10 +26,11 @@ export default getRequestConfig(async ({requestLocale}) => {
     messages: {
       'registration_form': data?.registration_form?.translations?.find(t => t.languages_code === locale),
       'profile_form': data?.profile_form?.translations?.find(t => t.languages_code === locale),
-      'event_form': data.event_form.translations.find(t => t.languages_code === locale),
+      'event_form': data?.event_form?.translations?.find(t => t.languages_code === locale),
       'account_page': data?.account_page?.translations?.find(t => t.languages_code === locale),
       'tags': tagTranslations,
       'shared_messages': data?.shared_messages?.translations?.find(t => t.languages_code === locale),
+      // 'tarot_page': data?.tarot_page?.translations?.find(t => t.languages_code === locale),
     }
   };
 });

@@ -3,10 +3,14 @@ import ProfileCard from '@/components/ProfileCard'
 import {getTranslations} from 'next-intl/server';
 import Link from 'next/link'
 import { getUser } from "@/lib/auth/session";
-
+import { redirect } from "next/navigation";
 
 export default async function AccountPage({params: {locale}}) {
   const user = await getUser()
+  console.log({user})
+  if (!user) {
+    redirect("/login")
+  }
   const profiles = await getUserProfiles()
   const t = await getTranslations('account_page');
 

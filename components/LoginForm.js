@@ -14,7 +14,7 @@ export default function LoginForm({locale}) {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [submitting, setSubmitting] = useState(false)
-  const [errors, setErrors] = useState()
+  const [error, setError] = useState()
   const router = useRouter()
   const searchParams = useSearchParams()
   const verification = searchParams.get('verification')
@@ -38,8 +38,9 @@ export default function LoginForm({locale}) {
       callbackUrl: `/`,
       redirect: false,
     })
+
     if (res?.error) {
-      setErrors(res?.error)
+      setError(res?.error)
       setSubmitting(false)
     } else {
       router.push("/account")
@@ -52,9 +53,9 @@ export default function LoginForm({locale}) {
       { verification === "success" &&
         <p>{t("email_verification_success")}</p>
       }
-      { errors && 
+      { error && 
         <div className="errors">
-          { errors.map(error => <p key={error.message}>{error.message}</p>)}
+          <p>{error}</p>
         </div>
       }
       <form className="" onSubmit={handleSubmit}>
@@ -72,7 +73,7 @@ export default function LoginForm({locale}) {
           <input required onChange={updatePassword} value={password} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" />
         </div>
 
-        <div className="flex items-center justify-between mt-8">
+        <div className="flex items-center justify-between mt-6">
           {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
           {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={t("login")} />}
           <Link className="hover:underline" href={`/register`}>{t("create_account")}</Link>

@@ -1,11 +1,9 @@
 "use client"
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from "next/navigation";
 import { useState } from 'react'
 import { createUserAccount } from '@/lib/data-access'
-import { useRouter } from 'next/navigation'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
 
@@ -22,10 +20,9 @@ const formFields = {
 export default function LoginForm({locale}) {
   const [userData, setUserData] = useState(formFields)
 
-  const [submitting, setSubmitting] = useState(false)
+  const [submitting, setSubmitting] = useState(true)
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState()
-  const router = useRouter()
   const searchParams = useSearchParams()
   const verification = searchParams.get('verification')
   const t = useTranslations('registration_form');
@@ -70,7 +67,6 @@ export default function LoginForm({locale}) {
     }
   }
 
-
   const handleSubmit = async(e) => {
     e.preventDefault()
     setSubmitting(true)
@@ -92,9 +88,6 @@ export default function LoginForm({locale}) {
     } finally {
       setSubmitting(false)
     }
-
-    const result = await createUserAccount(userData)
-
   }
 
   if (success) {
@@ -180,7 +173,7 @@ export default function LoginForm({locale}) {
 
         </div>
 
-        <div className="mt-6">
+        <div className="flex items-center justify-between mt-6">
           {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}
           {!submitting && <input className="bg-dark hover:bg-highlight text-white font-medium py-2 px-4 focus:outline-none focus:shadow-outline" type="submit" value={t("join")} />}
         </div>
