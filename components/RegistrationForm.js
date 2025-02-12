@@ -20,7 +20,7 @@ const formFields = {
 export default function LoginForm({locale}) {
   const [userData, setUserData] = useState(formFields)
 
-  const [submitting, setSubmitting] = useState(true)
+  const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState()
   const searchParams = useSearchParams()
