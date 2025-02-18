@@ -1,0 +1,17 @@
+<svg width="250" height="250" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path 
+    d="M125 10
+       Q 125 10, 220 50
+       Q 220 50, 240 125
+       Q 240 125, 220 200
+       Q 220 200, 125 240
+       Q 125 240, 30 200
+       Q 30 200, 10 125
+       Q 10 125, 30 50
+       Q 30 50, 125 10" 
+    fill="#C3D1E9"
+    stroke="#C3D1E9"
+    stroke-width="20"
+    stroke-linejoin="round"
+  />
+</svg> 
