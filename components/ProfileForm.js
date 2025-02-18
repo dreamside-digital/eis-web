@@ -249,7 +249,6 @@ export default function ProfileForm({user, defaultProfile, tags}) {
             </div>
 
             {errors && errors.map(error => <p className="mb-4 text-orange" key={error.message}>{error.message}</p>)}
-            <p className="my-2 text-orange">Test error</p>
 
             <div className="flex items-center justify-between mt-8">
               {submitting && <div className="animate-spin"><ArrowPathIcon className="h-6 w-6 text-dark" /></div>}

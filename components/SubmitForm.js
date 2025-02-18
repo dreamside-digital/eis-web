@@ -60,7 +60,7 @@ export default function SubmitForm({ responses, onSubmit, error, isSubmitting, i
           className="py-2 px-4 btn mt-4"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Sending...' : 'Send Responses'}
+          {isSubmitting ? t('tarot_submit_sending') : t('tarot_submit_send')}
         </button>
       </form>
     </div>
