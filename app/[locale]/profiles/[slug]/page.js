@@ -97,7 +97,8 @@ export default async function ProfilePage({params}) {
               <div className="">
                 <p className="uppercase text-lg mb-4 font-medium">Links</p>
                 {links.map(link => {
-                  return <div key={link.url} className=""><a className="underline hover:text-aubergine" href={link.url}>{link.link_text}</a></div>
+                  const url = link.url.startsWith('http') ? link.url : `https://${link.url}`;
+                  return <div key={link.url} className=""><a className="underline hover:text-aubergine" href={url}>{link.link_text}</a></div>
                 })}
               </div>
             }
