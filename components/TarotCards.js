@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/effect-cards';
 import TarotCard from './TarotCard';
 
-export default function TarotCards({ prompts, locale }) {
+export default function TarotCards({ prompts, locale, setSelectedPrompt  }) {
     const [shuffledPrompts, setShuffledPrompts] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [flippedIndex, setFlippedIndex] = useState(null);
@@ -20,18 +20,20 @@ export default function TarotCards({ prompts, locale }) {
         const shuffled = [...prompts]
             .sort(() => Math.random() - 0.5);
         setShuffledPrompts(shuffled);
-        setActiveIndex(0);
         setFlippedIndex(null);
     };
 
     const handleSlideChange = (swiper) => {
         setActiveIndex(swiper.activeIndex);
         setFlippedIndex(null);
+        setSelectedPrompt(null)
     };
 
-    const handleCardClick = (index) => {
+    const handleCardClick = (promptId) => {
+      const index = shuffledPrompts.findIndex(prompt => prompt.id === promptId);
         if (index === activeIndex) {
             setFlippedIndex(index);
+            setSelectedPrompt(shuffledPrompts[index]);
         }
     };
 
@@ -52,7 +54,7 @@ export default function TarotCards({ prompts, locale }) {
                           prompt={prompt}
                           locale={locale}
                           isFlipped={index === flippedIndex}
-                          onClick={() => handleCardClick(index)}
+                          onClick={() => handleCardClick(prompt.id)}
                       />
                   </SwiperSlide>
               ))}
