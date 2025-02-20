@@ -6,6 +6,8 @@ export default function SubmitForm({ responses, onSubmit, error, isSubmitting, i
   const t = useTranslations('shared_messages');
   const [email, setEmail] = useState('');   
   const [validationError, setValidationError] = useState('');
+  const submitDescription = DOMPurify.sanitize(t.raw('tarot_submit_description'), { USE_PROFILES: { html: true } })
+  const thankyouDescription = DOMPurify.sanitize(t.raw('tarot_thank_you_description'), { USE_PROFILES: { html: true } })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function SubmitForm({ responses, onSubmit, error, isSubmitting, i
     return (
       <div className="mt-8 py-4 w-full max-w-2xl text-center">
         <h3 className="text-xl font-medium mb-2">{t('tarot_thank_you_title')}</h3>
-        <p className="text-dark text-lg mb-6">{t('tarot_thank_you_description')}</p>
+        <div className="text-dark text-lg mb-6" dangerouslySetInnerHTML={{ __html: thankyouDescription }} />
         <button 
           onClick={onReset}
           className="py-2 px-4 btn"
@@ -36,7 +38,7 @@ export default function SubmitForm({ responses, onSubmit, error, isSubmitting, i
   return (
     <div className="mt-8 py-4 w-full max-w-2xl text-center">
       <h3 className="text-xl font-medium mb-2">{t('tarot_submit_title')}</h3>
-      <p className="text-dark text-lg mb-6">{t('tarot_submit_description')}</p>
+      <div className="text-dark text-lg mb-6" dangerouslySetInnerHTML={{ __html: submitDescription }} />
       {error && (
         <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-sm">
           {error}
