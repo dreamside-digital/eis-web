@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import DOMPurify from "isomorphic-dompurify";
 
 export default function SubmitForm({ responses, onSubmit, error, isSubmitting, isSuccess, onReset }) {
   const t = useTranslations('shared_messages');
