@@ -12,19 +12,13 @@ export default function SubmitForm({ responses, onSubmit, error, isSubmitting, i
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    if (!email.trim() || !email.includes('@')) {
-      setValidationError('Please enter a valid email address');
-      return;
-    }
-
     onSubmit({ email, responses });
   };
 
   if (isSuccess) {
     return (
       <div className="mt-8 py-4 w-full max-w-2xl text-center">
-        <h3 className="text-xl font-medium mb-2">{t('tarot_thank_you_title')}</h3>
+        <h3 className="text-lg font-medium mb-2">{t('tarot_thank_you_title')}</h3>
         <div className="text-dark text-lg mb-6" dangerouslySetInnerHTML={{ __html: thankyouDescription }} />
         <button 
           onClick={onReset}
@@ -40,6 +34,7 @@ export default function SubmitForm({ responses, onSubmit, error, isSubmitting, i
     <div className="mt-8 py-4 w-full max-w-2xl text-center">
       <h3 className="text-xl font-medium mb-2">{t('tarot_submit_title')}</h3>
       <div className="text-dark text-lg mb-6" dangerouslySetInnerHTML={{ __html: submitDescription }} />
+      <h3 className="text-sm mb-6">{t('tarot_disclaimer')}</h3>
       {error && (
         <div className="mb-4 p-3 bg-red-50 text-red-600 rounded-sm">
           {error}

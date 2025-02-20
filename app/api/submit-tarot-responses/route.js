@@ -5,11 +5,11 @@ import { createItems } from '@directus/sdk';
 export async function POST(request) {
   try {
     const api = directus(process.env.DIRECTUS_TOKEN);
-    const { email, responses } = await request.json();
+    const { email="", responses } = await request.json();
 
-    if (!email || !responses?.length) {
+    if (!responses?.length) {
       return NextResponse.json(
-        { error: 'Email and responses are required' },
+        { error: 'Responses are required' },
         { status: 400 }
       );
     }
