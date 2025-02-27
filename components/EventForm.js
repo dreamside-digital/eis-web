@@ -111,7 +111,6 @@ export default function EventForm({user, tags}) {
       const eventLink = `/events/${result.slug}`
       router.push(eventLink)
     }
-    setSubmitting(false)
   }
 
   const handleFileChange = async(e) => {
