@@ -21,7 +21,6 @@ export default function ProfileForm({user, defaultProfile, tags}) {
   const t = useTranslations('profile_form');
 
   const updateProfileData = field => input => {
-
     setProfile({
       ...profile,
       [field]: typeof(input) === "string" ? input : input.target?.value
@@ -30,11 +29,11 @@ export default function ProfileForm({user, defaultProfile, tags}) {
 
   const updateTags = (tag, e) => {
     e.preventDefault()
-    const tagIndex = profile.tags.findIndex(t => t.tags_id === tag.id)
+    const tagIndex = profile.tags.findIndex(t => t.id === tag.id)
     if (tagIndex === -1) {
       setProfile({
         ...profile,
-        tags: profile.tags.concat({ tags_id: tag.id })
+        tags: profile.tags.concat(tag)
       })
     } else {
       const newTags = [...profile.tags]
@@ -58,19 +57,22 @@ export default function ProfileForm({user, defaultProfile, tags}) {
   const handleSubmit = async(e) => {
     e.preventDefault()
     setSubmitting(true)
-
+    console.log({profile})
     // filter out empty links
     const links = profile.links.filter(l => (l.url.length > 0))
+    const tagData = profile.tags.map(t => ({tags_id: t.id}))
 
-    const data = {
+    const profileData = {
       ...profile,
       user_created: user?.id,
       links: JSON.stringify(links),
       profile_picture: profile.profile_picture?.id,
       location: location,
-      status: "draft"
+      status: "draft",
+      tags: tagData
     }
-    const result = profile.id ? await updateProfile(profile.id, data) : await createProfile(data)
+    const result = profile.id ? await updateProfile(profile.id, profileData) : await createProfile(profileData)
+    console.log({result})
     if (result.errors) {
       setErrors(result.errors)
       setSubmitting(false)
@@ -82,7 +84,6 @@ export default function ProfileForm({user, defaultProfile, tags}) {
   }
 
   const handleFileChange = async(e) => {
-
     if (e.target.files[0]) {
       setFileUploading(true)
       const formData = new FormData()
@@ -106,7 +107,6 @@ export default function ProfileForm({user, defaultProfile, tags}) {
     setShowPostalCodeField(true)
   }
 
- 
   return (
     <>
       <section className="text-dark p-6 py-12 pt-20 relative">
@@ -178,7 +178,7 @@ export default function ProfileForm({user, defaultProfile, tags}) {
               <div className="flex flex-wrap gap-2">
               {
                 tags.map(tag => {
-                  const selected = profile.tags.findIndex(t => t.tags_id === tag.id)
+                  const selected = profile.tags.findIndex(t => t.id === tag.id)  
                   return (
                     <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-beige'}`}>{tag.name}</button>
                   )
@@ -218,7 +218,7 @@ export default function ProfileForm({user, defaultProfile, tags}) {
               }
               {
                 profile.profile_picture && 
-                <div className="mt-2">
+                <div className="mt-2 w-48 h-48">
                   <Image
                     className="w-48 aspect-square relative w-full h-auto object-cover bg-white"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture.id}`}

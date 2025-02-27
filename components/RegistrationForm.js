@@ -166,7 +166,7 @@ export default function LoginForm({locale}) {
 
           <div className="max-sm:col-span-2">
             <label className="block text-gray-700 text-sm font-medium flex items-center" htmlFor="subscribe">
-              <input required onChange={updateSubscribe} checked={userData.subscribe} className="mr-2 h-4 w-4" id="subscribe" type="checkbox" />
+              <input onChange={updateSubscribe} checked={userData.subscribe} className="mr-2 h-4 w-4" id="subscribe" type="checkbox" />
               {t("subscribe_to_mailing_list")}
             </label>
           </div>

@@ -1,10 +1,18 @@
 import { getProfile, getTags } from '@/lib/data-access'
 import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
+import { getUser } from '@/lib/auth/session'
 
 export default async function EditProfilePage({params: {locale,slug}}) {
   const profile = await getProfile(slug)
   const tags = await getTags()
+  const user = await getUser()
+  
+  console.log({user})
+  if (!user) {
+    redirect('/login')
+  }
+
   const tagTranslations = tags.map(t => {
     const translation = t.translations.find(tr => tr.languages_code === locale)
     return {
@@ -16,6 +24,6 @@ export default async function EditProfilePage({params: {locale,slug}}) {
   })
 
   return (
-    <ProfileForm defaultProfile={profile} tags={tagTranslations} />
+    <ProfileForm user={user} defaultProfile={profile} tags={tagTranslations} />
   )
 }
