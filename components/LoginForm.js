@@ -1,10 +1,10 @@
 "use client"
 
 import Image from 'next/image'
-import Link from 'next/link'
+import {Link} from '@/i18n/navigation';
 import { useSearchParams } from "next/navigation";
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import {useRouter} from '@/i18n/navigation';
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
 import { signIn } from "next-auth/react"

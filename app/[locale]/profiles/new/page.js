@@ -1,7 +1,7 @@
 import { getTags, userSession, currentUser } from '@/lib/data-access'
 import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
-import { redirect } from 'next/navigation';
+import {redirect} from 'next/navigation';
 import { getUser } from '@/lib/auth/session'
 
 const defaultProfile = {
@@ -21,13 +21,13 @@ const defaultProfile = {
   postal_code: "",
 }
 
-export default async function NewProfilePage({params: {locale}}) {
+export default async function NewProfilePage({params}) {
+  const {locale} = await params; 
   const tags = await getTags()
   const user = await getUser()
   
-  console.log({user})
   if (!user) {
-    redirect('/login')
+    redirect(`/${locale}/login`)
   }
   const tagTranslations = tags.map(t => {
     const translation = t.translations.find(tr => tr.languages_code === locale)

@@ -5,7 +5,7 @@ import ImageWithCaption from '@/components/ImageWithCaption'
 import { redirect } from 'next/navigation'
 
 export default async function ProfilePage({params}) {
-  const { slug } = params
+  const { slug } = await params
   const profile = await getProfile(slug)
 
   if (!profile) {

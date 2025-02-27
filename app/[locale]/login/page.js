@@ -1,8 +1,7 @@
 import LoginForm from "@/components/LoginForm"
-import { redirect } from 'next/navigation';
 
 export default async function LoginPage({params}) {
-  const { locale } = params
+  const { locale } = await params
 
   return (
     <section className="text-dark p-6 py-12 pt-20 relative">

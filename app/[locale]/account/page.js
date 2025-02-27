@@ -1,15 +1,15 @@
 import { getUserProfiles } from "@/lib/data-access";
 import ProfileCard from '@/components/ProfileCard'
 import {getTranslations} from 'next-intl/server';
-import Link from 'next/link'
+import {Link} from '@/i18n/navigation';
 import { getUser } from "@/lib/auth/session";
-import { redirect } from "next/navigation";
+import {redirect} from 'next/navigation';
 
-export default async function AccountPage({params: {locale}}) {
+export default async function AccountPage({params}) { 
+  const {locale} = await params;
   const user = await getUser()
-  console.log({user})
   if (!user) {
-    redirect("/login")
+    redirect(`/${locale}/login`)
   }
   const profiles = await getUserProfiles()
   const t = await getTranslations('account_page');

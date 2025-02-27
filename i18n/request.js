@@ -7,7 +7,7 @@ import {getPageTranslations} from '@/lib/data-access'
 export default getRequestConfig(async ({requestLocale}) => {
   // This typically corresponds to the `[locale]` segment
   let locale = await requestLocale;
-
+  console.log({locale})
 // Ensure that the incoming locale is valid
   if (!locale || !routing.locales.includes(locale)) {
     locale = routing.defaultLocale;
@@ -29,8 +29,7 @@ export default getRequestConfig(async ({requestLocale}) => {
       'event_form': data?.event_form?.translations?.find(t => t.languages_code === locale),
       'account_page': data?.account_page?.translations?.find(t => t.languages_code === locale),
       'tags': tagTranslations,
-      'shared_messages': data?.shared_messages?.translations?.find(t => t.languages_code === locale),
-      // 'tarot_page': data?.tarot_page?.translations?.find(t => t.languages_code === locale),
+      'shared_messages': data?.shared_messages?.translations?.find(t => t.languages_code === locale)
     }
   };
 });

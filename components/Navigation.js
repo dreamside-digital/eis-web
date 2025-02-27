@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter, usePathname } from 'next/navigation'
+import {Link} from '@/i18n/navigation';;
+import { useRouter, usePathname } from '@/i18n/navigation'
 import NavigationDropdown from '@/components/NavigationDropdown'
 import MobileDropdown from '@/components/MobileDropdown'
 import AccountDropdown from '@/components/AccountDropdown'
@@ -34,8 +34,8 @@ export default function Navigation({ logo, locale, dropdowns=[] }) {
               return <NavigationDropdown key={dropdown.dropdown_label} dropdown={dropdown}/>
             })}
             <AccountDropdown />
-            <Link href={pathname.replace(locale, 'en')} locale="en" className={locale === 'en' ? 'hidden' : 'font-medium'}>EN</Link>
-            <Link href={pathname.replace(locale, 'fr')} locale="fr" className={locale === 'fr' ? 'hidden' : 'font-medium'}>FR</Link>
+            <Link href={pathname} locale="en" className={locale === 'en' ? 'hidden' : 'font-medium'}>EN</Link>
+            <Link href={pathname} locale="fr" className={locale === 'fr' ? 'hidden' : 'font-medium'}>FR</Link>
           </div>
           <div className="md:hidden">
               <MobileDropdown pathname={pathname} dropdowns={dropdowns} locale={locale} />

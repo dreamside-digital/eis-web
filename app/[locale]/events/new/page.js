@@ -1,17 +1,16 @@
 import { getTags, createEvent } from '@/lib/data-access'
 import Image from 'next/image'
 import EventForm from '@/components/EventForm'
-import { redirect } from 'next/navigation';
+import {redirect} from 'next/navigation';
 import { getUser } from '@/lib/auth/session'
 
-export default async function NewEventPage({params: {locale}}) {
+export default async function NewEventPage({params}) {
+  const {locale} = await params;
   const user = await getUser()
-  console.log({user})
   if (!user) {
-    redirect('/login')
+    redirect(`/${locale}/login`)
   }
   const tags = await getTags()
-  console.log({tags})
   const tagTranslations = tags.map(t => {
     const translation = t.translations.find(tr => tr.languages_code === locale)
     return {

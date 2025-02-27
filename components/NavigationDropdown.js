@@ -1,6 +1,6 @@
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-import Link from "next/link";
+import {Link} from '@/i18n/navigation';;
 import {
   ArrowPathIcon,
   ChartPieIcon,

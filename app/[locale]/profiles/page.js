@@ -2,7 +2,8 @@ import { getProfiles, getTags } from '@/lib/data-access'
 import ExploreProfiles from '@/components/ExploreProfiles'
 
 
-export default async function ProfilesPage({params: {locale}}) {
+export default async function ProfilesPage({params}) {
+  const {locale} = await params;
   const tags = await getTags()
 
   const tagTranslations = tags.map(t => {

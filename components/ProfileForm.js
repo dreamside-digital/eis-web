@@ -5,7 +5,7 @@ import RichTextEditor from '@/components/RichTextEditor'
 import MapPointSelector from '@/components/MapPointSelector'
 import { useState, useEffect } from 'react'
 import { uploadImage, createProfile, updateProfile, userSession, currentUser } from '@/lib/data-access'
-import { useRouter } from 'next/navigation'
+import {useRouter} from '@/i18n/navigation';
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
 
@@ -80,7 +80,6 @@ export default function ProfileForm({user, defaultProfile, tags}) {
       const profileLink = `/profiles/${result.slug}`
       router.push(profileLink)
     }
-    setSubmitting(false)
   }
 
   const handleFileChange = async(e) => {

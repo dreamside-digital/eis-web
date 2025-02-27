@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import {Link} from '@/i18n/navigation';
 import VideoModal from '@/components/VideoModal'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/lib/data-access'
@@ -7,7 +7,8 @@ import RegistrationForm from "@/components/RegistrationForm"
 import DOMPurify from "isomorphic-dompurify";
 
 
-export default async function Home({ params: { locale } }) {
+export default async function Home({ params }) {
+  const {locale} = await params;
   const content = await getHomePageContent()
   const {translations} = content
   const translation = translations.find(t => t.languages_code === locale)

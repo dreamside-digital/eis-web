@@ -1,7 +1,8 @@
 import { getCreditsContent } from '@/lib/data-access'
 import DOMPurify from "isomorphic-dompurify";
 
-export default async function CreditsPage({params: {locale}}) {
+export default async function CreditsPage({params}) {
+  const {locale} = await params;
   const content = await getCreditsContent()
   const translation = content.translations.find(tr => tr.languages_code === locale)
   const pageContent = DOMPurify.sanitize(translation.body, { USE_PROFILES: { html: true } })

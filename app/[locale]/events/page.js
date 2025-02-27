@@ -1,7 +1,8 @@
 import { getEvents, getTags } from '@/lib/data-access'
 import ExploreEvents from "@/components/ExploreEvents"
 
-export default async function AllEventsPage({params: {locale}}) {
+export default async function AllEventsPage({params}) {
+  const {locale} = await params;
   const tags = await getTags()
 
   const tagTranslations = tags.map(t => {

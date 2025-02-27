@@ -6,6 +6,8 @@ import {getMessages} from 'next-intl/server';
 import PlausibleProvider from 'next-plausible'
 import { getLayoutContent } from '@/lib/data-access'
 import Navigation from '@/components/Navigation'
+import {notFound} from 'next/navigation';
+import {routing} from '@/i18n/routing';
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"] });
 const monarque = localFont({
@@ -63,7 +65,11 @@ export const viewport = {
 }
 
 
-export default async function RootLayout({ children, params: { locale } }) {
+export default async function RootLayout({ children, params }) {
+  const {locale} = await params;
+  if (!routing.locales.includes(locale)) {
+    notFound();
+  }
   const content = await getLayoutContent()
   const { translations } = content;
   const translation = translations.find(t => t.languages_code === locale)

@@ -1,6 +1,6 @@
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import Image from "next/image";
-import Link from "next/link";
+import {Link} from '@/i18n/navigation';;
 
 
 export default function Footer({ logo }) {

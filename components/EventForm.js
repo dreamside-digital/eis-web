@@ -6,7 +6,7 @@ import MapWithMarker from '@/components/MapWithMarker'
 import LocationSelector from '@/components/LocationSelector'
 import { useState, useEffect } from 'react'
 import { createEvent, uploadImage, userSession, currentUser } from '@/lib/data-access'
-import { useRouter } from 'next/navigation'
+import {useRouter} from '@/i18n/navigation';
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { geocodeAddress } from '@/services/mapbox'
 import {useTranslations} from 'next-intl';

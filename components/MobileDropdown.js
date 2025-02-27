@@ -1,18 +1,13 @@
 'use client'
 
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import Link from "next/link";
+import {Link} from '@/i18n/navigation';;
 import { Bars2Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { useSession } from 'next-auth/react'
-import { useEffect } from 'react'
 
 export default function MobileDropdown({pathname, locale, dropdowns}) {
   const { data: session } = useSession()
   const user = session?.user
-
-  useEffect(() => {
-    console.log({pathname})
-  }, [pathname])
 
   return (
     <Popover className="">
