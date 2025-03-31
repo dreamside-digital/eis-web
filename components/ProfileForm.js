@@ -86,7 +86,7 @@ export default function ProfileForm({user, defaultProfile, tags}) {
     if (e.target.files[0]) {
       setFileUploading(true)
       const formData = new FormData()
-      formData.append('file', e.target.files[0], event.target?.files[0]?.name)
+      formData.append('file', e.target.files[0], e.target?.files[0]?.name)
       const result = await uploadImage(formData)
       setProfile({
         ...profile,

@@ -2,7 +2,8 @@ import { getContactContent } from '@/lib/data-access'
 import Image from 'next/image'
 import DOMPurify from "isomorphic-dompurify";
 
-export default async function ContactPage({params: {locale}}) {
+export default async function ContactPage({params}) {
+  const {locale} = await params;
   const content = await getContactContent()
   console.log({content})
   const translation = content.translations.find(tr => tr.languages_code === locale)

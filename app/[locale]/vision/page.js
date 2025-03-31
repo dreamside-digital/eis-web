@@ -2,7 +2,8 @@ import { getVisionContent } from '@/lib/data-access'
 import DOMPurify from "isomorphic-dompurify";
 import ImageWithCaption from '@/components/ImageWithCaption'
 
-export default async function VisionPage({params: {locale}}) {
+export default async function VisionPage({params}) {
+  const {locale} = await params;
   const content = await getVisionContent()
   const translation = content.translations.find(tr => tr.languages_code === locale)
   const para1 = DOMPurify.sanitize(translation.paragraph_1, { USE_PROFILES: { html: true } })

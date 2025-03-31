@@ -3,7 +3,8 @@ import DOMPurify from "isomorphic-dompurify";
 import { getPrompts } from '@/lib/data-access';
 import TarotContainer from '@/components/TarotContainer';
 
-export default async function TarotPage({ params: { locale } }) {
+export default async function TarotPage({ params }) {
+  const {locale} = await params;
   const t = await getTranslations('shared_messages');
   const description = DOMPurify.sanitize(t.raw('tarot_description'), { USE_PROFILES: { html: true } })
   const prompts = await getPrompts()
