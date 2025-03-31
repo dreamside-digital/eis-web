@@ -10,7 +10,7 @@ import {useTranslations} from 'next-intl';
 import { signIn } from "next-auth/react"
 
 
-export default function LoginForm({locale}) {
+export default function LoginForm() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [submitting, setSubmitting] = useState(false)

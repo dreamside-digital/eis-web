@@ -1,8 +1,8 @@
 import { Poppins } from "next/font/google"
 import localFont from 'next/font/local'
 import Image from 'next/image'
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
+import {NextIntlClientProvider, hasLocale} from 'next-intl';
+import {getMessages, setRequestLocale} from 'next-intl/server';
 import PlausibleProvider from 'next-plausible'
 import { getLayoutContent } from '@/lib/data-access'
 import Navigation from '@/components/Navigation'
@@ -63,13 +63,19 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1
 }
-
+ 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
 
 export default async function RootLayout({ children, params }) {
   const {locale} = await params;
-  if (!routing.locales.includes(locale)) {
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  // Enable static rendering
+  setRequestLocale(locale);
+
   const content = await getLayoutContent()
   const { translations } = content;
   const translation = translations.find(t => t.languages_code === locale)
@@ -78,8 +84,6 @@ export default async function RootLayout({ children, params }) {
   const ccaImg = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.CCA_logo}`
   const footerCol1Parts = translation?.footer_column_1_title.split(" ")
   const footerCol2Parts = translation?.footer_column_2_title.split(" ")
-  const footerCol1LastWord = footerCol1Parts?.splice(-1).join(" ")
-  const footerCol2LastWord = footerCol2Parts?.splice(-1).join(" ")
   
   return (
     <html lang={locale} className="scroll-smooth overflow-x-hidden" id="root">

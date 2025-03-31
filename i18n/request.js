@@ -1,17 +1,16 @@
-import {notFound} from 'next/navigation';
 import {getRequestConfig} from 'next-intl/server';
+import {hasLocale} from 'next-intl';
 import {routing} from './routing';
 import {getPageTranslations} from '@/lib/data-access'
 
  
 export default getRequestConfig(async ({requestLocale}) => {
   // This typically corresponds to the `[locale]` segment
-  let locale = await requestLocale;
-  console.log({locale})
-// Ensure that the incoming locale is valid
-  if (!locale || !routing.locales.includes(locale)) {
-    locale = routing.defaultLocale;
-  }
+  const requested = await requestLocale;
+  const locale = hasLocale(routing.locales, requested)
+    ? requested
+    : routing.defaultLocale;
+ 
 
   const data = await getPageTranslations()
   const tags = data?.tags || []
