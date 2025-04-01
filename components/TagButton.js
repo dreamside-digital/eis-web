@@ -6,7 +6,7 @@ export default function TagButton({ tag, isSelected, onClick=null }) {
 
   if (clickable) {
     return (
-      <button className={`${isSelected ? 'bg-dark text-white' : 'bg-white text-dark'} hover:bg-primary border border-dark px-2 inline-flex nowrap items-center`} onClick={onClick}>
+      <button className={`${isSelected ? 'bg-dark text-white' : 'bg-white text-dark'} hover:bg-highlight border border-dark px-2 inline-flex nowrap items-center`} onClick={onClick}>
         <span className="">{t(tag.slug)}</span>
       </button>
     )

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
 import {redirect} from 'next/navigation';
 import { getUser } from '@/lib/auth/session'
+import { getPrompts } from '@/lib/data-access';
 
 const defaultProfile = {
   status: "draft",
@@ -25,6 +26,7 @@ export default async function NewProfilePage({params}) {
   const {locale} = await params; 
   const tags = await getTags()
   const user = await getUser()
+  const prompts = await getPrompts()
   
   if (!user) {
     redirect(`/${locale}/login`)
@@ -40,6 +42,6 @@ export default async function NewProfilePage({params}) {
   })
 
   return (
-    <ProfileForm user={user} defaultProfile={defaultProfile} tags={tagTranslations} />
+    <ProfileForm locale={locale} user={user} defaultProfile={defaultProfile} tags={tagTranslations} prompts={prompts} />
   )
 }

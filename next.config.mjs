@@ -12,7 +12,12 @@ const nextConfig = {
         pathname: '/assets/**',
       },
     ],
-  }
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+  },
 };
 
 export default withNextIntl(nextConfig);
