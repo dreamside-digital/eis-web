@@ -1,3 +1,4 @@
+"use client";
 import { useTranslations } from 'next-intl';
 import MapPointSelector from '@/components/MapPointSelector';
 import { useState } from 'react';
@@ -12,28 +13,54 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
   }
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
         <div>
         <label className="font-semibold mb-1 block">{t('public_name')}</label>
+        <small className="mb-2 block">{t('public_name_hint')}</small>
         <input 
             required 
             onChange={updateProfileData("public_name")} 
             value={profile.public_name} 
-            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-            type="text" 
-            placeholder={t('public_name_hint')}
+            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar" 
         />
         </div>
 
         <div>
         <label className="font-semibold mb-1 block">{t('pronouns')}</label>
+        <small className="mb-2 block">{t('pronouns_hint')}</small>
         <input 
             onChange={updateProfileData("pronouns")} 
             value={profile.pronouns} 
-            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-            type="text" 
-            placeholder={t('pronouns_hint')}
+            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar" 
         />
+        </div>
+
+        <div>
+        <label className="font-semibold mb-1 block">{t('profile_type')}</label>
+        <div className="space-x-4">
+            <label className="inline-flex items-center">
+                <input
+                    type="radio"
+                    name="profile_type"
+                    value="individual"
+                    checked={profile.profile_type === 'individual'}
+                    onChange={updateProfileData("profile_type")}
+                    className="form-radio text-lavendar focus:ring-2 focus:ring-lavendar"
+                />
+                <span className="ml-2">{t('individual')}</span>
+            </label>
+            <label className="inline-flex items-center">
+                <input
+                    type="radio"
+                    name="profile_type"
+                    value="collective"
+                    checked={profile.profile_type === 'collective'}
+                    onChange={updateProfileData("profile_type")}
+                    className="form-radio text-lavendar focus:ring-2 focus:ring-lavendar"
+                />
+                <span className="ml-2">{t('collective')}</span>
+            </label>
+        </div>
         </div>
 
         <div>
@@ -48,7 +75,7 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
             <input 
                 onChange={updateProfileData("postal_code")} 
                 value={profile.postal_code} 
-                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar" 
             />
             </div>
         ) : (

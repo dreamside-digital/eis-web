@@ -108,7 +108,7 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
         type="button"
         onClick={getCurrentLocation}
         disabled={gettingLocation}
-        className="btn bg-white text-dark flex items-center gap-1 absolute top-2 right-2 shadow-md"
+        className="btn bg-white text-dark flex items-center gap-1 absolute top-2 right-2 shadow-lg"
       >
         <MapPinIcon className="w-4 h-4" />
         {gettingLocation ? t('getting_location') : t('use_my_location')}

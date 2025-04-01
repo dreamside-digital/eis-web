@@ -1,48 +1,30 @@
 import { useTranslations } from 'next-intl';
-import MapPointSelector from '@/components/MapPointSelector';
 import { useState } from 'react';
+import { uploadImage } from '@/lib/data-access';
+import Image from 'next/image';
 
-export default function Stage2({ profile, updateProfileData }) {
+export default function Stage2({ profile, updateProfileData, setProfile }) {
   const t = useTranslations('profile_form');
   const [fileUploading, setFileUploading] = useState(false)
 
   const handleFileChange = async(e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFileUploading(true);
-      
-      // Preview the image immediately
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfile({
-          ...profile,
-          profile_picture: {
-            id: 'preview',
-            width: 400,
-            height: 400,
-            preview: reader.result
-          }
-        });
-      };
-      reader.readAsDataURL(file);
-
-      // Upload the image
-      const formData = new FormData();
-      formData.append('file', file, file.name);
-      const result = await uploadImage(formData);
-      
+    if (e.target.files[0]) {
+      setFileUploading(true)
+      const formData = new FormData()
+      formData.append('file', e.target.files[0], e.target?.files[0]?.name)
+      const result = await uploadImage(formData)
       setProfile({
         ...profile,
         profile_picture: result
-      });
-      setFileUploading(false);
+      })
+      setFileUploading(false)
     } else {
       setProfile({
         ...profile,
         profile_picture: null
-      });
+      })
     }
-  };
+  }
 
   return (
     <div className="flex flex-col items-center">
