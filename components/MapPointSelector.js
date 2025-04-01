@@ -20,6 +20,32 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
   const [locationError, setLocationError] = useState(null);
   let marker;
 
+  const setMarkerLocation = (lng, lat) => {
+    // remove marker if there is already one on the map
+    if (marker !== undefined) {
+      marker.remove()
+    }
+
+    // add marker to map
+    const el = markerDiv.current
+    el.className = 'marker';
+    el.style.backgroundImage = "url('/map-icon.png')";
+    el.style.width = `40px`;
+    el.style.height = `40px`;
+    el.style.backgroundSize = 'cover';
+    el.style.cursor = "pointer";
+
+    marker = new mapboxgl.Marker(el).setLngLat({lng, lat}).addTo(map.current)
+
+    // convert to point data for backend
+    const locationJson = {
+      "type": "Point",
+      "coordinates": [lng,lat]
+    }
+
+    setLocation(locationJson)
+  }
+
   useEffect(() => {
     if (map.current) return; // initialize map only once
 
@@ -33,33 +59,9 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
 
     map.current.on('click', (e) => {
       const lngLat = e.lngLat.wrap()
-      console.log(lngLat)
-
-      // remove marker if there is already one on the map
-      if (marker !== undefined) {
-        marker.remove()
-      }
-
-      // add marker to map
-      const el = markerDiv.current
-      el.className = 'marker';
-      el.style.backgroundImage = "url('/map-icon.png')";
-      el.style.width = `40px`;
-      el.style.height = `40px`;
-      el.style.backgroundSize = 'cover';
-      el.style.cursor = "pointer";
-
-      marker = new mapboxgl.Marker(el).setLngLat(lngLat).addTo(map.current)
-
-      // convert to point data for backend
-      const locationJson = {
-        "type": "Point",
-        "coordinates": [lngLat.lng,lngLat.lat]
-      }
-
-      setLocation(locationJson)
+      setMarkerLocation(lngLat.lng, lngLat.lat)
     });
-  });
+  })
 
   const getCurrentLocation = () => {
     setGettingLocation(true);
@@ -73,12 +75,12 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
           // Pan and zoom to the location
           map.current.flyTo({
             center: coordinates,
-            zoom: 13,
+            zoom: 15,
             essential: true
           });
 
           // Update marker
-          updateMarkerPosition(coordinates);
+          setMarkerLocation(coordinates[0], coordinates[1]);
           setGettingLocation(false);
         },
         (error) => {
@@ -98,20 +100,10 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
     }
   };
 
-  const updateMarkerPosition = (coordinates) => {
-    if (!marker) {
-      marker = new mapboxgl.Marker()
-        .setLngLat(coordinates)
-        .addTo(map.current);
-    } else {
-      marker.setLngLat(coordinates);
-    }
-    setLocation({ lng: coordinates[0], lat: coordinates[1] });
-  };
-
   return (
     <div className="relative">
       <div ref={mapContainer} className="map-container w-full h-[300px] rounded-lg mb-2" />
+      <div ref={markerDiv} />
       <button
         type="button"
         onClick={getCurrentLocation}

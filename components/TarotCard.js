@@ -14,7 +14,6 @@ const shapeDict = {
 }
 
 export default function TarotCard({ prompt, locale, isFlipped, onClick }) {
-  console.log({prompt})
   const translation = prompt.translations.find(t => t.languages_code === locale) || prompt.translations[0];
   const promptText = translation?.prompt || '';
   const category = prompt.category?.translations.find(t => t.languages_code === locale)?.name || '';

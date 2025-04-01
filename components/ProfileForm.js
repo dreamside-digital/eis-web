@@ -28,7 +28,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
   const router = useRouter()
   const t = useTranslations('profile_form');
   const [visibleLinks, setVisibleLinks] = useState(1);
-
+  const [selectedContextQuestion, setSelectedContextQuestion] = useState(null);
   const updateProfileData = field => input => {
     setProfile({
       ...profile,
@@ -86,8 +86,10 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       setErrors(result.errors)
       setSubmitting(false)
     } else {
-      const profileLink = `/profiles/${result.slug}`
-      router.push(profileLink)
+      // const profileLink = `/profiles/${result.slug}`
+      // router.push(profileLink)
+      setProfile(result)
+      swiperRef.current?.slideNext()
     }
   }
 
@@ -387,7 +389,17 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       title: t('step_5_title'),
       description: t('step_5_description'),
       content: (
-        <TarotContainer prompts={contextQuestions} locale={locale} />
+        <div>
+          <TarotCards prompts={contextQuestions} locale={locale} setSelectedPrompt={setSelectedContextQuestion} />
+          {
+            selectedContextQuestion && (
+              <div>
+                <label className="font-semibold mb-1 block">{selectedContextQuestion.translations[0].prompt}</label>
+                <p>{selectedContextQuestion?.prompt}</p>
+              </div>
+            )
+          }
+        </div>
       )
     },
     {
@@ -474,9 +486,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                       </button>
                     ) : (
                       <button 
-                        type="button"
+                        type="submit"
                         className="btn flex items-center gap-1"
-                        onClick={() => swiperRef.current?.slideNext()}
                       >
                         {t('next_slide')}
                         <ChevronRightIcon className="w-4 h-4" />
