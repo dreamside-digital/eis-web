@@ -34,8 +34,6 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       ...profile,
       [field]: typeof(input) === "string" ? input : input.target?.value
     })
-    // Advance to next slide after input
-    swiperRef.current?.slideNext()
   }
 
   const updateTags = (tag, e) => {
