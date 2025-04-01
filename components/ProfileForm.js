@@ -15,20 +15,22 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import TarotContainer from '@/components/TarotContainer';
-
+import TarotCards from '@/components/TarotCards';
+import SlideContainer from '@/components/profile-form/SlideContainer';
+import Stage1 from '@/components/profile-form/Stage1';
+import Stage2 from '@/components/profile-form/Stage2';
 
 export default function ProfileForm({user, defaultProfile, tags, prompts, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
-  const [fileUploading, setFileUploading] = useState(false)
   const [location, setLocation] = useState(null)
   const [submitting, setSubmitting] = useState(false)
-  const [showPostalCodeField, setShowPostalCodeField] = useState(false)
   const [errors, setErrors] = useState()
   const swiperRef = useRef(null)
   const router = useRouter()
   const t = useTranslations('profile_form');
   const [visibleLinks, setVisibleLinks] = useState(1);
   const [selectedContextQuestion, setSelectedContextQuestion] = useState(null);
+
   const updateProfileData = field => input => {
     setProfile({
       ...profile,
@@ -131,11 +133,6 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
     }
   };
 
-  const revealPostalCodeField = (e) => {
-    e.preventDefault()
-    setShowPostalCodeField(true)
-  }
-
   const addNewLink = (e) => {
     e.preventDefault();
     if (visibleLinks < 3) {
@@ -155,7 +152,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
 
   const contextQuestions = [
     {
-      id: 1,
+      id: 'artistic_practice',
       category: {
         id: '1',
         translations: [
@@ -181,7 +178,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       ]
     },
     {
-      id: 2,
+      id: 'current_projects',
       category: {
         id: '2',
         translations: [
@@ -207,7 +204,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       ]
     },
     {
-      id: 3,
+      id: 'introduction',
       category: {
         id: '3',
         translations: [
@@ -391,14 +388,29 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       content: (
         <div>
           <TarotCards prompts={contextQuestions} locale={locale} setSelectedPrompt={setSelectedContextQuestion} />
-          {
-            selectedContextQuestion && (
-              <div>
-                <label className="font-semibold mb-1 block">{selectedContextQuestion.translations[0].prompt}</label>
-                <p>{selectedContextQuestion?.prompt}</p>
-              </div>
-            )
-          }
+          <div className={`mb-6 ${selectedContextQuestion?.id === 'current_projects' ? '' : 'hidden'}`}>
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="current_projects">
+                {t('current_project')}
+              </label>
+              <small className="mb-2 block">{t('current_project_hint')}</small>
+              <RichTextEditor required onChange={updateProfileData("current_projects")} value={profile.current_projects} />
+            </div>
+
+            <div className={`mb-6 ${selectedContextQuestion?.id === 'artistic_practice' ? '' : 'hidden'}`}>
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="artistic_practice">
+                {t('artistic_practice')}
+              </label>
+              <small className="mb-2 block">{t('artistic_practice_hint')}</small>
+              <RichTextEditor required onChange={updateProfileData("artistic_practice")} value={profile.artistic_practice} />
+            </div>
+
+            <div className={`mb-6 ${selectedContextQuestion?.id === 'introduction' ? '' : 'hidden'}`}>
+              <label className="block text-gray-700 text-sm font-bold" htmlFor="past_projects">
+                {t('past_projects')}
+              </label>
+              <small className="mb-2 block">{t('past_projects_hint')}</small>
+              <RichTextEditor onChange={updateProfileData("introduction")} value={profile.introduction} />
+            </div>
         </div>
       )
     },
@@ -448,54 +460,30 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               }}
               allowTouchMove={false}
             >
-              {formSlides.map((slide, index) => (
-                <SwiperSlide key={index} className="p-4">
-                  <div className="mb-6">
-                    <label className="block text-xl font-semibold mb-4 text-center">
-                      {slide.title}
-                    </label>
-                    {slide.description && (
-                      <p className="mb-6 block text-lg text-center italic">{slide.description}</p>
-                    )}
-                    {slide.content}
-                  </div>
-                  
-                  <div className="flex justify-between mt-8 items-center">
-                    <button 
-                      type="button"
-                      className={`btn bg-transparent text-dark flex items-center gap-1 ${index === 0 ? 'invisible' : ''}`}
-                      onClick={() => swiperRef.current?.slidePrev()}
-                    >
-                      <ChevronLeftIcon className="w-4 h-4" />
-                      {t('previous_slide')}
-                    </button>
-                    {index === formSlides.length - 1 ? (
-                      <button 
-                        type="submit"
-                        className="btn flex items-center gap-1"
-                        disabled={submitting}
-                      >
-                        {submitting ? (
-                          <ArrowPathIcon className="h-6 w-6 animate-spin" />
-                        ) : (
-                          <>
-                            {t('submit')}
-                            <PaperAirplaneIcon className="w-4 h-4" />
-                          </>
-                        )}
-                      </button>
-                    ) : (
-                      <button 
-                        type="submit"
-                        className="btn flex items-center gap-1"
-                      >
-                        {t('next_slide')}
-                        <ChevronRightIcon className="w-4 h-4" />
-                      </button>
-                    )}
-                  </div>
-                </SwiperSlide>
-              ))}
+              <SwiperSlide>
+                <SlideContainer title={t('step_1_title')} description={t('step_1_description')}>
+                  <Stage1 
+                    profile={profile} 
+                    updateProfileData={updateProfileData} 
+                    setLocation={setLocation} 
+                    location={location} 
+                  />
+                </SlideContainer>
+                <div className="flex justify-end mt-8 items-center">
+                  <button 
+                    type="submit"
+                    className="btn flex items-center gap-1"
+                  >
+                    {t('next_slide')}
+                    <ChevronRightIcon className="w-4 h-4" />
+                  </button>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <SlideContainer title={t('step_2_title')} description={t('step_2_description')}>
+                  <Stage2 profile={profile} updateProfileData={updateProfileData} />
+                </SlideContainer>
+              </SwiperSlide>
             </Swiper>
 
             {errors && errors.map(error => (
