@@ -15,28 +15,28 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
   return (
     <div className="space-y-6">
         <div>
-        <label className="font-semibold mb-1 block">{t('public_name')}</label>
-        <small className="mb-2 block">{t('public_name_hint')}</small>
+        <label className="font-semibold mb-1 block text-xl">{t('public_name')}</label>
+        {t.has('public_name_hint') && <small className="mb-2 block">{t('public_name_hint')}</small>}
         <input 
             required 
             onChange={updateProfileData("public_name")} 
             value={profile.public_name} 
-            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar" 
+            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar text-xl" 
         />
         </div>
 
         <div>
-        <label className="font-semibold mb-1 block">{t('pronouns')}</label>
-        <small className="mb-2 block">{t('pronouns_hint')}</small>
+        <label className="font-semibold mb-1 block text-xl">{t('pronouns')}</label>
+        {t.has('pronouns_hint') && <small className="mb-2 block">{t('pronouns_hint')}</small>}
         <input 
             onChange={updateProfileData("pronouns")} 
             value={profile.pronouns} 
-            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar" 
+            className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar text-xl" 
         />
         </div>
 
         <div>
-        <label className="font-semibold mb-1 block">{t('profile_type')}</label>
+        <label className="font-semibold mb-1 block text-xl">{t('profile_type')}</label>
         <div className="space-x-4">
             <label className="inline-flex items-center">
                 <input
@@ -45,7 +45,7 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
                     value="individual"
                     checked={profile.profile_type === 'individual'}
                     onChange={updateProfileData("profile_type")}
-                    className="form-radio text-lavendar focus:ring-2 focus:ring-lavendar"
+                    className="form-radio text-lavendar focus:ring-2 focus:ring-lavendar text-xl"
                 />
                 <span className="ml-2">{t('individual')}</span>
             </label>
@@ -56,7 +56,7 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
                     value="collective"
                     checked={profile.profile_type === 'collective'}
                     onChange={updateProfileData("profile_type")}
-                    className="form-radio text-lavendar focus:ring-2 focus:ring-lavendar"
+                    className="form-radio text-lavendar focus:ring-2 focus:ring-lavendar text-xl"
                 />
                 <span className="ml-2">{t('collective')}</span>
             </label>
@@ -64,18 +64,18 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
         </div>
 
         <div>
-        <label className="font-semibold mb-1 block">{t('location')}</label>
+        <label className="font-semibold mb-1 block text-xl">{t('location')}</label>
         <small className="mb-2 block">{t('location_hint')}</small>
         <button hidden={showPostalCodeField} className="text-sm underline mb-4" onClick={revealPostalCodeField}>
             {t('refuse_location')}
         </button>
         {showPostalCodeField ? (
             <div>
-            <label className="font-semibold mb-1 block">{t('postal_code')}</label>
+            <label className="font-semibold mb-1 block text-xl">{t('postal_code')}</label>
             <input 
                 onChange={updateProfileData("postal_code")} 
                 value={profile.postal_code} 
-                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar" 
+                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar text-xl" 
             />
             </div>
         ) : (

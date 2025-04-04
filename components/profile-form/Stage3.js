@@ -33,7 +33,7 @@ export default function Stage3({ profile, updateProfileData, setProfile }) {
 
   return (
     <div className="space-y-4">
-        <label className="font-semibold mb-1 block">{t('links')}</label>
+        <label className="font-semibold mb-1 block text-xl">{t('links')}</label>
         {[...Array(visibleLinks)].map((_, index) => (
         <div key={index} className="space-y-2">
             <div className="flex gap-2">
@@ -42,13 +42,13 @@ export default function Stage3({ profile, updateProfileData, setProfile }) {
                 onChange={updateLinks(index, 'link_text')} 
                 value={profile.links[index]?.link_text || ''} 
                 placeholder={t('link')} 
-                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xl" 
                 />
                 <input 
                 onChange={updateLinks(index, 'url')} 
                 value={profile.links[index]?.url || ''} 
                 placeholder={t('url')} 
-                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xl" 
                 />
             </div>
             <button 

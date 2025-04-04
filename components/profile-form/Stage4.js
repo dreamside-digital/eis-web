@@ -5,6 +5,6 @@ export default function Stage4({ prompts, locale }) {
   const t = useTranslations('profile_form');
 
   return (
-    <TarotContainer prompts={prompts} locale={locale} />
+    <TarotContainer prompts={prompts} locale={locale} profileFlow={true} />
   )
 }

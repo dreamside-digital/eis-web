@@ -24,17 +24,17 @@ export default function Stage6({ profile, setProfile, tags }) {
 
   return (
     <div className="mb-6">
-        <label className="font-semibold mb-1 block" htmlFor="tags">
+        <label className="font-semibold mb-1 block text-xl" htmlFor="tags">
         {t('tags')}
         </label>
         <div className="flex flex-wrap gap-2">
         {
-        tags.map(tag => {
-            const selected = profile.tags.findIndex(t => t.tags_id === tag.id)
-            return (
-                <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-lavendar'}`}>{tag.name}</button>
-            )
-        })
+            tags.map(tag => {
+                const selected = profile.tags.findIndex(t => t.id === tag.id)  
+                return (
+                <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-beige'}`}>{tag.name}</button>
+                )
+            })
         }
         </div>
     </div>

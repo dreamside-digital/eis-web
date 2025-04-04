@@ -56,10 +56,11 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       setErrors(result.errors)
       setSubmitting(false)
     } else {
-      // const profileLink = `/profiles/${result.slug}`
-      // router.push(profileLink)
       setProfile(result)
-      swiperRef.current?.slideNext()
+      const profileLink = `/profiles/${result.slug}`
+      router.push(profileLink)
+  
+      // swiperRef.current?.slideNext()
     }
   }
 

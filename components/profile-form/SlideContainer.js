@@ -1,7 +1,7 @@
 export default function SlideContainer({ children, title, description }) {
   return (
     <div className="mb-6">
-        <label className="block text-xl font-semibold mb-4 text-center">
+        <label className="block text-2xl font-semibold mb-4 text-center">
             {title}
         </label>
         {description && (
