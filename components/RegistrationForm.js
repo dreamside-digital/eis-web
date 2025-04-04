@@ -6,6 +6,23 @@ import { useState } from 'react'
 import { createUserAccount } from '@/lib/data-access'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
+import { Suspense } from 'react'
+
+function VerificationMessage() {
+  const searchParams = useSearchParams()
+  const verification = searchParams.get('verification')
+  const t = useTranslations('shared_messages');
+  
+  if (verification === "failed") {  
+    return <p>{t("verification_failed")}</p>
+  }
+
+  if (verification === "success") {
+    return <p>{t("email_verification_success")}</p>
+  }
+
+  return null
+}
 
 const formFields = {
     first_name: "",
@@ -23,8 +40,6 @@ export default function LoginForm({locale}) {
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState()
-  const searchParams = useSearchParams()
-  const verification = searchParams.get('verification')
   const t = useTranslations('registration_form');
 
   const updateUserData = field => input => {
@@ -101,9 +116,9 @@ export default function LoginForm({locale}) {
  
   return (
     <>
-      { verification === "failed" &&
-        <p>{t("verification_failed")}</p>
-      }
+      <Suspense>
+        <VerificationMessage />
+      </Suspense>
       { (errors.length > 0) && 
         <div className="errors">
           { errors.map(error => <p key={error.message}>{error.message}</p>)}

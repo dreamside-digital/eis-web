@@ -8,6 +8,22 @@ import {useRouter} from '@/i18n/navigation';
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
 import { signIn } from "next-auth/react"
+import { Suspense } from 'react'
+
+function VerificationMessage() {
+  const searchParams = useSearchParams()
+  const verification = searchParams.get('verification')
+  const t = useTranslations('shared_messages');
+ 
+  if (verification === "failed") {  
+    return <p>{t("verification_failed")}</p>
+  }
+
+  if (verification === "success") {
+    return <p>{t("email_verification_success")}</p>
+  }
+  return null
+}
 
 
 export default function LoginForm() {
@@ -16,8 +32,6 @@ export default function LoginForm() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState()
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const verification = searchParams.get('verification')
   const t = useTranslations('shared_messages');
 
   const updateUsername = input => {
@@ -50,9 +64,9 @@ export default function LoginForm() {
   return (
     <>
       <h1 className="uppercase text-3xl mb-4 md:mb-6 font-medium">{t("login")}</h1>
-      { verification === "success" &&
-        <p>{t("email_verification_success")}</p>
-      }
+      <Suspense>
+        <VerificationMessage />
+      </Suspense>
       { error && 
         <div className="errors">
           <p>{error}</p>
