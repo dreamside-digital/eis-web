@@ -27,7 +27,7 @@ export default function TarotResponse({ activePrompt, locale, onSave, savedRespo
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto mt-8 bg-white shadow-lg">
+    <div className="w-full max-w-2xl mx-auto my-8 bg-white shadow-lg">
       {activePrompt ? (
         <div className="p-6">
           <h3 className="text-xl font-medium mb-4">{category.name}</h3>

@@ -24,9 +24,10 @@ export default function Stage6({ profile, setProfile, tags }) {
 
   return (
     <div className="mb-6">
-        <label className="font-semibold mb-1 block text-xl" htmlFor="tags">
-        {t('tags')}
-        </label>
+        <div className="mb-4">
+            <label className="font-semibold mb-1 block text-xl">{t('tags')}</label>
+            {t.has('tags_hint') && <p className="mb-2 text-sm block">{t('tags_hint')}</p>}
+        </div>
         <div className="flex flex-wrap gap-2">
         {
             tags.map(tag => {

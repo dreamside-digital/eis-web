@@ -6,7 +6,12 @@ import SubmitForm from './SubmitForm';
 import { useTranslations } from 'next-intl';
 import DOMPurify from "isomorphic-dompurify";
 
-export default function TarotContainer({ prompts: initialPrompts, locale, profileFlow = false }) {
+export default function TarotContainer({ 
+  prompts: initialPrompts, 
+  locale, 
+  profileFlow = false,
+  onResponsesChange
+}) {
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [responses, setResponses] = useState([]);
   const [availablePrompts, setAvailablePrompts] = useState(initialPrompts);
@@ -24,6 +29,13 @@ export default function TarotContainer({ prompts: initialPrompts, locale, profil
     );
     setAvailablePrompts(filteredPrompts);
   }, [responses, initialPrompts]);
+
+  // Add effect to notify parent of responses changes
+  useEffect(() => {
+    if (onResponsesChange) {
+      onResponsesChange(responses);
+    }
+  }, [responses, onResponsesChange]);
 
   const handleResponseSave = (response) => {
     if (!response || !response.trim()) {
@@ -105,7 +117,7 @@ export default function TarotContainer({ prompts: initialPrompts, locale, profil
 
       {availablePrompts.length === 0 && responses.length > 0 && profileFlow && (
         <div className="flex flex-col items-center justify-center gap-4">
-          <div className="text-center my-4" dangerouslySetInnerHTML={{ __html: cleanTarotSectionCompleted }} />
+          <div className="text-center my-4 text-lg" dangerouslySetInnerHTML={{ __html: cleanTarotSectionCompleted }} />
         </div>
       )}
     </>

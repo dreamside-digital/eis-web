@@ -92,20 +92,22 @@ export default function Stage5({ locale, profile, updateProfileData }) {
   return (
     <div>
           <TarotCards prompts={contextQuestions} locale={locale} setSelectedPrompt={setSelectedContextQuestion} />
-          <div className={`my-6 ${selectedContextQuestion?.id === 1 ? '' : 'hidden'}`}>
-              <RichTextEditor onChange={updateProfileData("artistic_practice")} value={profile.artistic_practice} />
-              <small className="my-2 block">{t('max_words')}</small>
-            </div>
+          <div className={`${selectedContextQuestion ? 'min-h-[300px]' : ''}`}>
+            <div className={`my-6 ${selectedContextQuestion?.id === 1 ? '' : 'hidden'}`}>
+                <RichTextEditor onChange={updateProfileData("artistic_practice")} value={profile.artistic_practice} />
+                <small className="my-2 block">{t('max_words')}</small>
+                </div>
 
-          <div className={`my-6 ${selectedContextQuestion?.id === 2 ? '' : 'hidden'}`}>
-              <RichTextEditor onChange={updateProfileData("current_projects")} value={profile.current_projects} />
-              <small className="my-2 block">{t('max_words')}</small>
-            </div>
+            <div className={`my-6 ${selectedContextQuestion?.id === 2 ? '' : 'hidden'}`}>
+                <RichTextEditor onChange={updateProfileData("current_projects")} value={profile.current_projects} />
+                <small className="my-2 block">{t('max_words')}</small>
+                </div>
 
             <div className={`my-6 ${selectedContextQuestion?.id === 3 ? '' : 'hidden'}`}>
-              <RichTextEditor onChange={updateProfileData("introduction")} value={profile.introduction} />
-              <small className="my-2 block">{t('max_words')}</small>
+                <RichTextEditor onChange={updateProfileData("introduction")} value={profile.introduction} />
+                <small className="my-2 block">{t('max_words')}</small>
             </div>
         </div>
+    </div>
   )
 }

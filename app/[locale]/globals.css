@@ -170,3 +170,7 @@ input[type='range'].distance-on {
   accent-color: #f08372;
 }
 
+.profile-form-swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background-color: #223659;
+}
+

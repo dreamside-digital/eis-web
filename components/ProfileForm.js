@@ -19,36 +19,6 @@ import Stage4 from '@/components/profile-form/Stage4';
 import Stage5 from '@/components/profile-form/Stage5';
 import Stage6 from '@/components/profile-form/Stage6';
 
-const SwiperNextButton = () => {
-  const swiper = useSwiper()
-  const t = useTranslations('profile_form');
-  return (
-    <button 
-      type="button"
-      className="btn flex items-center gap-1"
-      onClick={() => swiper.slideNext()}
-    >
-      {t('next_slide')}
-      <ChevronRightIcon className="w-4 h-4" />
-    </button>
-  )
-}
-
-const SwiperPrevButton = () => {
-  const swiper = useSwiper()
-  const t = useTranslations('profile_form');
-  return (
-    <button 
-      type="button"
-      className="btn flex items-center gap-1"
-      onClick={() => swiper.slidePrev()}
-    >
-      {t('previous_slide')}
-      <ChevronLeftIcon className="w-4 h-4" />
-    </button>
-  )
-}
-
 export default function ProfileForm({user, defaultProfile, tags, prompts, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [location, setLocation] = useState(null)
@@ -101,7 +71,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       <div className="bg-[url(/backdrops/Painting_2.png)] bg-no-repeat bg-cover absolute top-0 left-0 h-[50vh] w-full" />    
         <div className="container relative sm:max-w-screen-sm md:max-w-screen-md mx-auto my-0 md:my-4 lg:my-8">
         <h1 className="font-title text-center text-4xl md:text-5xl lg:text-6xl mb-6 lg:mb-8">{t('page_title')}</h1>      
-        <div className="bg-beige p-8"> 
+        <div className="bg-beige profile-form-swiper"> 
             <Swiper
               modules={[Navigation, Pagination]}
               navigation={{
@@ -111,18 +81,23 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               className="relative"
               pagination={{
                 clickable: true,
+                type: 'progressbar',
               }}
               allowTouchMove={false}
               autoHeight={true}
             >
               <SwiperSlide>
-                <Intro  />
-                <div className="flex justify-end mt-8 items-center">
-                  <SwiperNextButton />
-                </div>
+                <SlideContainer   
+                  isFirstSlide={true}
+                >
+                  <Intro  />
+                </SlideContainer>
               </SwiperSlide>
               <SwiperSlide>
-                <SlideContainer title={t('step_1_title')} description={t('step_1_description')}>
+                <SlideContainer 
+                  title={t('step_1_title')} 
+                  description={t('step_1_description')}
+                >
                   <Stage1 
                     profile={profile} 
                     updateProfileData={updateProfileData} 
@@ -130,65 +105,47 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                     location={location} 
                   />
                 </SlideContainer>
-                <div className="flex justify-between mt-8 items-center">
-                  <SwiperPrevButton />
-                  <SwiperNextButton />  
-                </div>
               </SwiperSlide>
               <SwiperSlide>
-                <SlideContainer title={t('step_2_title')} description={t('step_2_description')}>
+                <SlideContainer 
+                  title={t('step_2_title')} 
+                  description={t('step_2_description')}
+                >
                   <Stage2 
                     profile={profile} 
                     updateProfileData={updateProfileData}
                     setProfile={setProfile}
                   />
                 </SlideContainer>
-                <div className="flex justify-between mt-8 items-center">
-                  <SwiperPrevButton />
-                  <SwiperNextButton />  
-                </div>
               </SwiperSlide>
               <SwiperSlide>
-                <SlideContainer title={t('step_3_title')} description={t('step_3_description')}>
+                <SlideContainer 
+                  title={t('step_3_title')} 
+                  description={t('step_3_description')}
+                >
                   <Stage3 
                     profile={profile} 
                     updateProfileData={updateProfileData}
                     setProfile={setProfile}
                   />
                 </SlideContainer>
-                <div className="flex justify-between mt-8 items-center">
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiper.slidePrev()}
-                  >
-                    {t('previous_slide')}
-                    <ChevronLeftIcon className="w-4 h-4" />
-                  </button>
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiper.slideNext()}
-                  >
-                    {t('next_slide')}
-                    <ChevronRightIcon className="w-4 h-4" />
-                  </button>
-                </div>
               </SwiperSlide>
               <SwiperSlide>
-                <SlideContainer title={t('step_4_title')} description={t('step_4_description')}>
+                <SlideContainer 
+                  title={t('step_4_title')} 
+                  description={t('step_4_description')}
+                >
                   <Stage4 
                     prompts={prompts}
                     locale={locale}
                   />
                 </SlideContainer>
-                <div className="flex justify-between mt-8 items-center">
-                  <SwiperPrevButton />
-                  <SwiperNextButton />
-                </div>
               </SwiperSlide>
               <SwiperSlide>
-                <SlideContainer title={t('step_5_title')} description={t('step_5_description')}>
+                <SlideContainer 
+                  title={t('step_5_title')} 
+                  description={t('step_5_description')}
+                >
                   <Stage5 
                     profile={profile} 
                     updateProfileData={updateProfileData}
@@ -196,23 +153,20 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                     locale={locale}
                   />
                 </SlideContainer>
-                <div className="flex justify-between mt-8 items-center">
-                  <SwiperPrevButton />
-                  <SwiperNextButton />
-                </div>
               </SwiperSlide>
               <SwiperSlide>
-                <SlideContainer title={t('step_6_title')} description={t('step_6_description')}>
+                <SlideContainer 
+                  title={t('step_6_title')} 
+                  description={t('step_6_description')}
+                  isLastSlide={true}
+                  handleSubmit={handleSubmit}
+                >
                   <Stage6 
                     profile={profile} 
                     setProfile={setProfile}
                     tags={tags}
                   />
                 </SlideContainer>
-                <div className="flex justify-between mt-8 items-center">
-                  <SwiperPrevButton />
-                  <SwiperNextButton />
-                </div>
               </SwiperSlide>
             </Swiper>
 
