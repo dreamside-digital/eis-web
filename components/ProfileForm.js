@@ -4,13 +4,14 @@ import { useState, useEffect, useRef } from 'react'
 import { createProfile, updateProfile, userSession, currentUser } from '@/lib/data-access'
 import {useRouter} from '@/i18n/navigation';
 import {useTranslations} from 'next-intl';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Navigation, EffectFade, Pagination } from 'swiper/modules';
 import { ChevronRightIcon, ChevronLeftIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+
 import SlideContainer from '@/components/profile-form/SlideContainer';
+import Intro from '@/components/profile-form/Intro';
 import Stage1 from '@/components/profile-form/Stage1';
 import Stage2 from '@/components/profile-form/Stage2';
 import Stage3 from '@/components/profile-form/Stage3';
@@ -18,12 +19,41 @@ import Stage4 from '@/components/profile-form/Stage4';
 import Stage5 from '@/components/profile-form/Stage5';
 import Stage6 from '@/components/profile-form/Stage6';
 
+const SwiperNextButton = () => {
+  const swiper = useSwiper()
+  const t = useTranslations('profile_form');
+  return (
+    <button 
+      type="button"
+      className="btn flex items-center gap-1"
+      onClick={() => swiper.slideNext()}
+    >
+      {t('next_slide')}
+      <ChevronRightIcon className="w-4 h-4" />
+    </button>
+  )
+}
+
+const SwiperPrevButton = () => {
+  const swiper = useSwiper()
+  const t = useTranslations('profile_form');
+  return (
+    <button 
+      type="button"
+      className="btn flex items-center gap-1"
+      onClick={() => swiper.slidePrev()}
+    >
+      {t('previous_slide')}
+      <ChevronLeftIcon className="w-4 h-4" />
+    </button>
+  )
+}
+
 export default function ProfileForm({user, defaultProfile, tags, prompts, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
   const [location, setLocation] = useState(null)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
-  const swiperRef = useRef(null)
   const router = useRouter()
   const t = useTranslations('profile_form');
 
@@ -60,9 +90,11 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       const profileLink = `/profiles/${result.slug}`
       router.push(profileLink)
   
-      // swiperRef.current?.slideNext()
+      // swiper.slideNext()
     }
   }
+
+  const swiper = useSwiper()
 
   return (
     <section className="text-dark p-6 py-12 pt-20 relative min-h-screen">
@@ -71,9 +103,6 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
         <h1 className="font-title text-center text-4xl md:text-5xl lg:text-6xl mb-6 lg:mb-8">{t('page_title')}</h1>      
         <div className="bg-beige p-8"> 
             <Swiper
-              onSwiper={(swiper) => {
-                swiperRef.current = swiper;
-              }}
               modules={[Navigation, Pagination]}
               navigation={{
                 prevEl: '.swiper-button-prev',
@@ -81,12 +110,17 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               }}
               className="relative"
               pagination={{
-                el: '.swiper-pagination',
                 clickable: true,
               }}
               allowTouchMove={false}
               autoHeight={true}
             >
+              <SwiperSlide>
+                <Intro  />
+                <div className="flex justify-end mt-8 items-center">
+                  <SwiperNextButton />
+                </div>
+              </SwiperSlide>
               <SwiperSlide>
                 <SlideContainer title={t('step_1_title')} description={t('step_1_description')}>
                   <Stage1 
@@ -96,15 +130,9 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                     location={location} 
                   />
                 </SlideContainer>
-                <div className="flex justify-end mt-8 items-center">
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slideNext()}
-                  >
-                    {t('next_slide')}
-                    <ChevronRightIcon className="w-4 h-4" />
-                  </button>
+                <div className="flex justify-between mt-8 items-center">
+                  <SwiperPrevButton />
+                  <SwiperNextButton />  
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -116,22 +144,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                   />
                 </SlideContainer>
                 <div className="flex justify-between mt-8 items-center">
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slidePrev()}
-                  >
-                    {t('previous_slide')}
-                    <ChevronLeftIcon className="w-4 h-4" />
-                  </button>
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slideNext()}
-                  >
-                    {t('next_slide')}
-                    <ChevronRightIcon className="w-4 h-4" />
-                  </button>
+                  <SwiperPrevButton />
+                  <SwiperNextButton />  
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -146,7 +160,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                   <button 
                     type="button"
                     className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slidePrev()}
+                    onClick={() => swiper.slidePrev()}
                   >
                     {t('previous_slide')}
                     <ChevronLeftIcon className="w-4 h-4" />
@@ -154,7 +168,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                   <button 
                     type="button"
                     className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slideNext()}
+                    onClick={() => swiper.slideNext()}
                   >
                     {t('next_slide')}
                     <ChevronRightIcon className="w-4 h-4" />
@@ -169,22 +183,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                   />
                 </SlideContainer>
                 <div className="flex justify-between mt-8 items-center">
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slidePrev()}
-                  >
-                    {t('previous_slide')}
-                    <ChevronLeftIcon className="w-4 h-4" />
-                  </button>
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slideNext()}
-                  >
-                    {t('next_slide')}
-                    <ChevronRightIcon className="w-4 h-4" />
-                  </button>
+                  <SwiperPrevButton />
+                  <SwiperNextButton />
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -197,22 +197,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                   />
                 </SlideContainer>
                 <div className="flex justify-between mt-8 items-center">
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slidePrev()}
-                  >
-                    {t('previous_slide')}
-                    <ChevronLeftIcon className="w-4 h-4" />
-                  </button>
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slideNext()}
-                  >
-                    {t('next_slide')}
-                    <ChevronRightIcon className="w-4 h-4" />
-                  </button>
+                  <SwiperPrevButton />
+                  <SwiperNextButton />
                 </div>
               </SwiperSlide>
               <SwiperSlide>
@@ -224,22 +210,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                   />
                 </SlideContainer>
                 <div className="flex justify-between mt-8 items-center">
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={() => swiperRef.current?.slidePrev()}
-                  >
-                    {t('previous_slide')}
-                    <ChevronLeftIcon className="w-4 h-4" />
-                  </button>
-                  <button 
-                    type="button"
-                    className="btn flex items-center gap-1"
-                    onClick={handleSubmit}
-                  >
-                    {t('submit')}
-                    <PaperAirplaneIcon className="w-4 h-4" />
-                  </button>
+                  <SwiperPrevButton />
+                  <SwiperNextButton />
                 </div>
               </SwiperSlide>
             </Swiper>

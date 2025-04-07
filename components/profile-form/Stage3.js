@@ -33,21 +33,24 @@ export default function Stage3({ profile, updateProfileData, setProfile }) {
 
   return (
     <div className="space-y-4">
-        <label className="font-semibold mb-1 block text-xl">{t('links')}</label>
+        <div>
+            <label className="font-semibold block text-xl">{t('links')}</label>
+            {t.has('links_hint') && <p className="my-2 block text-sm">{t('links_hint')}</p>}
+        </div>
         {[...Array(visibleLinks)].map((_, index) => (
         <div key={index} className="space-y-2">
             <div className="flex gap-2">
             <div className="grid grid-cols-2 gap-2 flex-1">
                 <input 
-                onChange={updateLinks(index, 'link_text')} 
-                value={profile.links[index]?.link_text || ''} 
-                placeholder={t('link')} 
-                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xl" 
-                />
-                <input 
                 onChange={updateLinks(index, 'url')} 
                 value={profile.links[index]?.url || ''} 
                 placeholder={t('url')} 
+                className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xl" 
+                />
+                <input 
+                onChange={updateLinks(index, 'link_text')} 
+                value={profile.links[index]?.link_text || ''} 
+                placeholder={t('link')} 
                 className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xl" 
                 />
             </div>
