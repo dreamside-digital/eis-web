@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl';
 
 export default function Stage6({ profile, setProfile, tags }) {
   const t = useTranslations('profile_form');
-  console.log({profile})
 
   const updateTags = (tag, e) => {
     e.preventDefault()
