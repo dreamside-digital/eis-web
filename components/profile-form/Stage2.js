@@ -11,7 +11,6 @@ export default function Stage2({ profile, updateProfileData, setProfile }) {
 
   const handleFileChange = async(e) => {
     const file = e.target.files[0];
-    console.log({file})
     if (file) {
       if (file.size > 2 * 1024 * 1024) {
         alert("The file is too large, please select a file smaller than 2MB");

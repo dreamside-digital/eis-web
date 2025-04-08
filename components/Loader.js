@@ -1,5 +1,4 @@
 import Image from "next/image";
-import {Link} from '@/i18n/navigation';;
 
 
 export default function Loader({loading, text, className}) {

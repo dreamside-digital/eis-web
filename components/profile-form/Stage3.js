@@ -1,10 +1,17 @@
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSwiper } from 'swiper/react';
+
 
 export default function Stage3({ profile, updateProfileData, setProfile }) {
   const t = useTranslations('profile_form');
   const [visibleLinks, setVisibleLinks] = useState(1);
-  
+  const swiper = useSwiper();
+
+  useEffect(() => {
+    swiper.updateAutoHeight(100)
+  }, [swiper, visibleLinks])
+
   const addNewLink = (e) => {
     e.preventDefault();
     if (visibleLinks < 3) {

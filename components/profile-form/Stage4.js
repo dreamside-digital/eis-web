@@ -55,11 +55,7 @@ export default function Stage4({
   };
 
   return (
-    <SlideContainer 
-      title={t('step_4_title')} 
-      description={t('step_4_description')}
-      disableNext={responses.length < 3}
-    >
+    <div>
       <TarotCards 
         prompts={availablePrompts} 
         locale={locale} 
@@ -113,6 +109,6 @@ export default function Stage4({
           <div className="text-center my-4 text-lg" dangerouslySetInnerHTML={{ __html: t.raw('tarot_section_completed') }} />
         </div>
       )}
-    </SlideContainer>
+    </div>
   );
 } 
