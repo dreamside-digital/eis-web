@@ -4,7 +4,10 @@ import TarotCards from './TarotCards';
 import TarotResponse from './TarotResponse';
 import SubmitForm from './SubmitForm';
 
-export default function TarotContainer({ prompts: initialPrompts, locale }) {
+export default function TarotContainer({ 
+  prompts: initialPrompts, 
+  locale
+}) {
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [responses, setResponses] = useState([]);
   const [availablePrompts, setAvailablePrompts] = useState(initialPrompts);

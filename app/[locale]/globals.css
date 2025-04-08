@@ -124,9 +124,9 @@ main section:first-of-type {
 }
 
 .wysiwyg-content h2 {
-  font-size: 1.25em;
+  font-size: 1.5em;
   font-family: var(--font-title);
-  margin-bottom: 0.5em;
+  margin-bottom: 0.75em;
   font-weight: 700;
   line-height: normal;
 }
@@ -140,6 +140,10 @@ main section:first-of-type {
 .wysiwyg-content table {
   border-spacing: 1rem;
   border-collapse: separate;
+}
+
+.wysiwyg-content p {
+  margin-bottom: 0.5em;
 }
 
 .tox.tox-tinymce {
@@ -164,4 +168,21 @@ input[type='range'].distance-off {
 
 input[type='range'].distance-on {
   accent-color: #f08372;
+}
+
+.profile-form-swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background-color: #223659;
+}
+
+.appear {
+  animation: fade-in 3s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
 }

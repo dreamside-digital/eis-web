@@ -14,7 +14,6 @@ const shapeDict = {
 }
 
 export default function TarotCard({ prompt, locale, isFlipped, onClick }) {
-  console.log({prompt})
   const translation = prompt.translations.find(t => t.languages_code === locale) || prompt.translations[0];
   const promptText = translation?.prompt || '';
   const category = prompt.category?.translations.find(t => t.languages_code === locale)?.name || '';
@@ -50,8 +49,8 @@ export default function TarotCard({ prompt, locale, isFlipped, onClick }) {
               height={120}
               className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 rotate-[30deg]"
             />
-            <div className="flex justify-between items-center gap-6">
-              <div className="text-sm uppercase text-dark text-left pt-2 pr-4 relative z-10">{label}</div>
+            <div className="flex justify-end items-center gap-6">
+              {/* <div className="text-sm uppercase text-dark text-left pt-2 pr-4 relative z-10">{label}</div> */}
               <div className="text-lg text-dark text-right pt-2 pr-4 relative z-10">{prompt.id}</div>
             </div>
           </div>
