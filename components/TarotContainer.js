@@ -8,9 +8,7 @@ import DOMPurify from "isomorphic-dompurify";
 
 export default function TarotContainer({ 
   prompts: initialPrompts, 
-  locale, 
-  profileFlow = false,
-  onResponsesChange
+  locale
 }) {
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [responses, setResponses] = useState([]);
@@ -29,13 +27,6 @@ export default function TarotContainer({
     );
     setAvailablePrompts(filteredPrompts);
   }, [responses, initialPrompts]);
-
-  // Add effect to notify parent of responses changes
-  useEffect(() => {
-    if (onResponsesChange) {
-      onResponsesChange(responses);
-    }
-  }, [responses, onResponsesChange]);
 
   const handleResponseSave = (response) => {
     if (!response || !response.trim()) {

@@ -1,16 +1,26 @@
 "use client";
-import { useSwiper } from 'swiper/react';
+import { useSwiper, useSwiperSlide } from 'swiper/react';
 import { useTranslations } from 'next-intl';
 import { ChevronRightIcon, ChevronLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 
-const SwiperNextButton = () => {
+const SwiperNextButton = ({ disabled, validate }) => {
   const swiper = useSwiper();
   const t = useTranslations('profile_form');
+
+  const handleClick = () => {
+    if (validate) {
+        validate() && swiper.slideNext()
+    } else {
+        swiper.slideNext()
+    }
+  }
+
   return (
     <button 
       type="button"
-      className="btn flex items-center gap-1"
-      onClick={() => swiper.slideNext()}
+      className={`btn flex items-center gap-1 ${disabled ? 'bg-grey hover:bg-grey cursor-not-allowed' : ''}`}
+      onClick={handleClick}
+      disabled={disabled}
     >
       {t('next_slide')}
       <ChevronRightIcon className="w-4 h-4" />
@@ -39,12 +49,16 @@ export default function SlideContainer({
   children, 
   isFirstSlide, 
   isLastSlide,
-  hideNavigation = false,
-  handleSubmit
+  disableNext = false,
+  handleSubmit,
+  validate
 }) {
   const t = useTranslations('profile_form');
+  const swiperSlide = useSwiperSlide();
+  const isActive = swiperSlide.isActive;
+
   return (
-    <div className="p-8">
+    <div className={`p-8 ${isActive ? 'appear' : ''}`}>
       <div className="mb-6">
         <label className="block text-3xl font-semibold mb-3 text-center">
           {title}
@@ -54,10 +68,9 @@ export default function SlideContainer({
         )}
         {children}
       </div>
-      {!hideNavigation && (
         <div className={`flex mt-8 items-center w-full ${isFirstSlide ? 'justify-end' : 'justify-between'}`}>
           {!isFirstSlide && <SwiperPrevButton />}
-          {!isLastSlide && <SwiperNextButton />}
+          {!isLastSlide && <SwiperNextButton disabled={disableNext} validate={validate} />}
           {isLastSlide && (
             <button 
                 className="btn flex items-center gap-1" 
@@ -68,7 +81,6 @@ export default function SlideContainer({
             </button>
           )}
         </div>
-      )}
     </div>
   );
 }

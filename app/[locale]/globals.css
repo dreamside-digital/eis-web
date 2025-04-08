@@ -174,3 +174,15 @@ input[type='range'].distance-on {
   background-color: #223659;
 }
 
+.appear {
+  animation: fade-in 3s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}

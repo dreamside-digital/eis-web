@@ -1,9 +1,15 @@
 "use client"
 
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 const Editor = dynamic(() => import('@tinymce/tinymce-react').then(mod => mod.Editor), { ssr: false });
 
-const RichTextEditor = ({onChange, value}) => {
+const RichTextEditor = ({onChange, value, onRender}) => {
+  useEffect(() => {
+    if (onRender) {
+      onRender();
+    }
+  }, [onRender]);
 
   return (
     <Editor

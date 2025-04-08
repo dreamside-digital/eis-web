@@ -11,6 +11,11 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
     e.preventDefault()
     setShowPostalCodeField(true)
   }
+
+  const hidePostalCodeField = (e) => {
+    e.preventDefault()
+    setShowPostalCodeField(false)
+  }
   
   return (
     <div className="space-y-6">
@@ -89,6 +94,9 @@ export default function Stage1({ profile, updateProfileData, setLocation, locati
                 value={profile.postal_code} 
                 className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar text-xl" 
             />
+            <button className="text-sm underline my-4" onClick={hidePostalCodeField}>
+                {t('show_map')}
+            </button>
             </div>
         ) : (
             <MapPointSelector setLocation={setLocation} selectedLocation={location} />

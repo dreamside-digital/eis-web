@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import DOMPurify from "isomorphic-dompurify";
 import Image from 'next/image';
+
 export default function Intro({ prompts, locale }) {
   const t = useTranslations('profile_form');
   const cleanIntro = DOMPurify.sanitize(t.raw('profile_form_intro'), { USE_PROFILES: { html: true } })
