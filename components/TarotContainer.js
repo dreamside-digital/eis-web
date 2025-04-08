@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import TarotCards from './TarotCards';
 import TarotResponse from './TarotResponse';
 import SubmitForm from './SubmitForm';
-import { useTranslations } from 'next-intl';
-import DOMPurify from "isomorphic-dompurify";
 
 export default function TarotContainer({ 
   prompts: initialPrompts, 
@@ -16,8 +14,6 @@ export default function TarotContainer({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
-  const t = useTranslations('profile_form');
-  const cleanTarotSectionCompleted = DOMPurify.sanitize(t.raw('tarot_section_completed'), { USE_PROFILES: { html: true } })
 
   // Update available prompts whenever responses change
   useEffect(() => {
@@ -95,7 +91,7 @@ export default function TarotContainer({
         onSave={handleResponseSave}
         savedResponses={responses}
       />
-      {availablePrompts.length === 0 && responses.length > 0 && !profileFlow &&(
+      {availablePrompts.length === 0 && responses.length > 0 && (
         <SubmitForm 
           responses={responses}
           onSubmit={handleSubmit}
@@ -104,12 +100,6 @@ export default function TarotContainer({
           isSuccess={isSubmitSuccess}
           onReset={handleReset}
         />
-      )}
-
-      {availablePrompts.length === 0 && responses.length > 0 && profileFlow && (
-        <div className="flex flex-col items-center justify-center gap-4">
-          <div className="text-center my-4 text-lg" dangerouslySetInnerHTML={{ __html: cleanTarotSectionCompleted }} />
-        </div>
       )}
     </>
   );
