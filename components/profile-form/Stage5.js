@@ -1,96 +1,74 @@
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import TarotContainer from '@/components/TarotContainer';
 import TarotCards from '@/components/TarotCards';
 import RichTextEditor from '@/components/RichTextEditor';
 import { useEffect } from 'react';
 import { useSwiper } from 'swiper/react';
 
-const contextQuestions = [
-    {
-      id: 1,
-      category: {
-        id: '1',
-        translations: [
-          {
-            languages_code: "en",
-            name: "Bio"
-          },
-          {
-            languages_code: "fr",
-            name: "Bio"
-          }
-        ]
-      },
-      translations: [
-        {
-          languages_code: "en",
-          prompt: "Describe your artistic practice"
-        },
-        {
-          languages_code: "fr",
-          prompt: "Describe your artistic practice"
-        }
-      ]
-    },
-    {
-      id: 2,
-      category: {
-        id: '2',
-        translations: [
-          {
-            languages_code: "en",
-            name: "Current Project"
-          },
-          {
-            languages_code: "fr",
-            name: "Current Project"
-          }
-        ]
-      },
-      translations: [
-        {
-          languages_code: "en",
-          prompt: "What are you working on now?"
-        },
-        {
-          languages_code: "fr",
-          prompt: "What are you working on now?"
-        }
-      ]
-    },
-    {
-      id: 3,
-      category: {
-        id: '3',
-        translations: [
-          {
-            languages_code: "en",
-            name: "Past Projects"
-          },
-          {
-            languages_code: "fr",
-            name: "Past Projects"
-          }
-        ]
-      },
-      translations: [
-        {
-          languages_code: "en",
-          prompt: "Tell us about your past projects"
-        },
-        {
-          languages_code: "fr",
-          prompt: "Tell us about your past projects"
-        }
-      ]
-    }
-  ]
-
 export default function Stage5({ locale, profile, updateProfileData }) {
   const t = useTranslations('profile_form');
   const [selectedContextQuestion, setSelectedContextQuestion] = useState(null);
   const swiper = useSwiper();
+
+  const contextQuestions = useMemo(() => {
+    return [
+        {
+          id: 1,
+          category: {
+            id: '1',
+            translations: [
+              {
+                languages_code: locale,
+                name: t('artistic_practice')
+              }
+            ]
+          },
+          translations: [
+            {
+              languages_code: locale,
+              prompt: t('artistic_practice_hint')
+            }
+          ]
+        },
+        {
+          id: 2,
+          category: {
+            id: '2',
+            translations: [
+              {
+                languages_code: locale,
+                name: t('current_project')
+              }
+            ]
+          },
+          translations: [
+            {
+              languages_code: locale,
+              prompt: t('current_project_hint')
+            }
+          ]
+        },
+        {
+          id: 3,
+          category: {
+            id: '3',
+            translations: [
+              {
+                languages_code: locale,
+                name: t('past_projects')
+              }
+            ]
+          },
+          translations: [
+            {
+              languages_code: locale,
+              prompt: t('past_projects_hint')
+            }
+          ]
+        }
+      ]
+  }, [t]);
 
   const handleEditorChange = (field) => (value) => {
     updateProfileData(field)(value);
