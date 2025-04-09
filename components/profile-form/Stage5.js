@@ -75,6 +75,10 @@ export default function Stage5({ locale, profile, updateProfileData }) {
     setSelectedContextQuestion(null);
   }
 
+  useEffect(() => {
+    swiper.updateAutoHeight(100);
+  }, [selectedContextQuestion]);
+
   return (
     <div>
           <TarotCards prompts={contextQuestions} locale={locale} setSelectedPrompt={setSelectedContextQuestion} />
