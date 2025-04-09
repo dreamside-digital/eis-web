@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
 const Editor = dynamic(() => import('@tinymce/tinymce-react').then(mod => mod.Editor), { ssr: false });
 
-const RichTextEditor = ({onChange, value, onRender, hintText}) => {
+const RichTextEditor = ({onChange, onSave, value, initialValue,onRender, hintText}) => {
   const editorRef = useRef(null);
 
   const initEditor = (_evt, editor) => {
@@ -21,7 +21,8 @@ const RichTextEditor = ({onChange, value, onRender, hintText}) => {
     <div className="space-y-4">
         <Editor
         apiKey={process.env.NEXT_PUBLIC_TINYMCE_KEY}
-        initialValue={value}
+        initialValue={initialValue}
+        value={value}
         init={{
           height: 300,
           menubar: false,
@@ -30,17 +31,21 @@ const RichTextEditor = ({onChange, value, onRender, hintText}) => {
           content_style: `body { font-family: Helvetica, Arial, sans-serif; font-size:14px }`
         }}
         onInit={initEditor}
-        // onEditorChange={(newContent) => onChange(newContent)}
+        onEditorChange={(newContent) => onChange ? onChange(newContent) : null}
       />
       
       <div className="flex justify-between items-start gap-4">
-        <small className="mb-2 block">{hintText}</small>
-        <button 
-          onClick={() => onChange(editorRef.current.getContent())}
-          className="btn"
-        >
-          Save
-        </button>
+        {hintText && <small className="mb-2 block">{hintText}</small>}
+        {
+          onSave && (
+            <button 
+              onClick={() => onSave(editorRef.current.getContent())}
+              className="btn"
+            >
+              Save
+            </button>
+          )
+        }
       </div>
     </div>
   );

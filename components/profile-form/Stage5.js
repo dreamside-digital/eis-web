@@ -85,8 +85,8 @@ export default function Stage5({ locale, profile, updateProfileData }) {
           <div className={`${selectedContextQuestion ? 'min-h-[300px]' : ''}`}>
             <div className={`my-6 ${selectedContextQuestion?.id === 1 ? '' : 'hidden'}`}>
                 <RichTextEditor 
-                    onChange={handleEditorChange("artistic_practice")} 
-                    value={profile.artistic_practice} 
+                    onSave={handleEditorChange("artistic_practice")} 
+                    initialValue={profile.artistic_practice} 
                     onRender={() => swiper.updateAutoHeight(100)} 
                     hintText={t('max_words')}
                 />
@@ -94,8 +94,8 @@ export default function Stage5({ locale, profile, updateProfileData }) {
 
             <div className={`my-6 ${selectedContextQuestion?.id === 2 ? '' : 'hidden'}`}>
                 <RichTextEditor 
-                    onChange={handleEditorChange("current_projects")} 
-                    value={profile.current_projects} 
+                    onSave={handleEditorChange("current_projects")} 
+                    initialValue={profile.current_projects} 
                     onRender={() => swiper.updateAutoHeight(100)} 
                     hintText={t('max_words')}
                 />
@@ -103,8 +103,8 @@ export default function Stage5({ locale, profile, updateProfileData }) {
 
             <div className={`my-6 ${selectedContextQuestion?.id === 3 ? '' : 'hidden'}`}>
                 <RichTextEditor 
-                    onChange={handleEditorChange("introduction")} 
-                    value={profile.introduction} 
+                    onSave={handleEditorChange("introduction")} 
+                    initialValue={profile.introduction} 
                     onRender={() => swiper.updateAutoHeight(100)} 
                     hintText={t('max_words')}
                 />
