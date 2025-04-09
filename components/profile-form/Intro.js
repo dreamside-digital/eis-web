@@ -1,10 +1,17 @@
 import { useTranslations } from 'next-intl';
 import DOMPurify from "isomorphic-dompurify";
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { useSwiper } from 'swiper/react';
 
 export default function Intro({ prompts, locale }) {
   const t = useTranslations('profile_form');
   const cleanIntro = DOMPurify.sanitize(t.raw('profile_form_intro'), { USE_PROFILES: { html: true } })
+  const swiper = useSwiper();
+
+  useEffect(() => {
+    swiper.updateAutoHeight(100);
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
