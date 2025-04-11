@@ -205,7 +205,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               <SlideContainer 
                 title={t('step_2_title')} 
                 description={t('step_2_description')}
-                // validate={validateStage2} 
+                validate={validateStage2} 
               >
                 <Stage2 
                   profile={profile} 
