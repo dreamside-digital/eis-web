@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-
+import Image from 'next/image';
 export default function Stage6({ profile, setProfile, tags }) {
   const t = useTranslations('profile_form');
 
@@ -23,6 +23,9 @@ export default function Stage6({ profile, setProfile, tags }) {
 
   return (
     <div className="mb-6">
+        <div className="flex flex-col items-center justify-center mt-2 mb-4">
+            <Image src="/shapes/Shape_5.png" alt="Intro" width={180} height={180} />
+        </div>
         <div className="mb-4">
             <label className="font-semibold mb-1 block text-xl">{t('tags')}</label>
             {t.has('tags_hint') && <p className="mb-2 text-sm block">{t('tags_hint')}</p>}

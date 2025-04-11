@@ -4,7 +4,7 @@ import TarotCards from '@/components/TarotCards';
 import { useTranslations } from 'next-intl';
 import SlideContainer from './SlideContainer';
 import { useSwiper } from 'swiper/react';
-
+import Image from 'next/image';
 export default function Stage4({ 
   prompts: initialPrompts, 
   locale,
@@ -55,7 +55,7 @@ export default function Stage4({
   };
 
   return (
-    <div>
+    <div className="mt-6">
       <TarotCards 
         prompts={availablePrompts} 
         locale={locale} 
@@ -106,7 +106,11 @@ export default function Stage4({
 
       {availablePrompts.length === 0 && responses.length === 3 && (
         <div className="flex flex-col items-center justify-center gap-4">
-          <div className="text-center my-4 text-lg" dangerouslySetInnerHTML={{ __html: t.raw('tarot_section_completed') }} />
+            <Image src="/shapes/Icons-09.png" alt="Intro" width={200} height={200} />
+          <div className="flex flex-col sm:flex-row  items-center justify-center gap-2 bg-white rounded-xl shadow-[0_0_10px_10px_#fff] p-2 mt-4 mb-8 mx-4 md:mx-12">
+                <Image src="/shapes/Shape_1.png" alt="Intro" width={40} height={50} />
+                <div className="text-center sm:text-left font-title italic text-lg mb-0 [&_p]:mb-0" dangerouslySetInnerHTML={{ __html: t.raw('tarot_section_completed') }} />
+            </div>
         </div>
       )}
     </div>

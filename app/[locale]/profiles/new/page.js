@@ -17,7 +17,7 @@ const defaultProfile = {
   inspirations: "",
   past_projects: "",
   tags: [],
-  links: [{link_text: "", url: ""}, {link_text: "", url: ""}, {link_text: "", url: ""}],
+  links: [],
   location: "",
   postal_code: "",
 }

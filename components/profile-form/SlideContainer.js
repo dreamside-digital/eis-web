@@ -1,4 +1,5 @@
 "use client";
+import Image from 'next/image';
 import { useSwiper, useSwiperSlide } from 'swiper/react';
 import { useTranslations } from 'next-intl';
 import { ChevronRightIcon, ChevronLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
@@ -64,7 +65,12 @@ export default function SlideContainer({
           {title}
         </label>
         {description && (
-          <p className="mb-6 block text-lg text-center italic">{description}</p>
+            <div className="flex justify-center">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 bg-white rounded-xl shadow-[0_0_10px_10px_#fff] p-2 mt-4 mb-8">
+                    <Image src="/shapes/Shape_1.png" alt="Intro" width={40} height={50} />
+                    <p className="mb-0 block text-lg text-center font-title italic">{description}</p>
+                </div>
+            </div>
         )}
         {children}
       </div>

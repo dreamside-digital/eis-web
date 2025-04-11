@@ -47,6 +47,14 @@ body {
   .btn {
     @apply inline-flex items-center bg-dark hover:bg-highlight text-light hover:text-white px-2 py-1;
   }
+
+  .oracle-text {
+    @apply flex items-center justify-center gap-2 bg-white rounded-xl shadow-[0_0_10px_10px_#fff] p-2 mt-4 mb-6;
+  }
+
+  .oracle-text p {
+    @apply mb-0 block text-lg text-center font-title italic;
+  }
 }
 
 
@@ -172,6 +180,12 @@ input[type='range'].distance-on {
 
 .profile-form-swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
   background-color: #223659;
+}
+
+.profile-form-swiper .swiper-horizontal > .swiper-pagination-progressbar, .swiper-pagination-progressbar.swiper-pagination-horizontal {
+  height: 7px;
+  bottom: 0;
+  top: unset;
 }
 
 .appear {

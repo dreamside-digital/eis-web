@@ -38,6 +38,10 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
     })
   }
 
+  useEffect(() => {
+    setErrors(null)
+  }, [profile])
+
   const handleSubmit = async() => {
     setSubmitting(true)
 
@@ -110,6 +114,25 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
     return true
   }
 
+  const validateStage2 = () => {
+    setErrors(null)
+    if (!profile.profile_picture?.id) {
+        setErrors([{message: "Please add a profile picture."}])
+      return false
+    }
+    return true
+  }
+
+  const validateStage3 = () => {
+    setErrors(null)
+    const links = profile.links.filter(l => (l.url.length > 0))
+    if (links.length < 1) {
+        setErrors([{message: "Please add at least one link."}])
+      return false
+    }
+    return true
+  }
+
   const validateStage4 = () => {
     setErrors(null)
     if (tarotResponses.length !== 3) {
@@ -127,6 +150,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
     }
     return true
   }
+
+  console.log({profile})
 
   return (
     <section className="text-dark p-6 py-12 pt-20 relative min-h-screen">
@@ -180,6 +205,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               <SlideContainer 
                 title={t('step_2_title')} 
                 description={t('step_2_description')}
+                // validate={validateStage2} 
               >
                 <Stage2 
                   profile={profile} 
@@ -192,6 +218,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               <SlideContainer 
                 title={t('step_3_title')} 
                 description={t('step_3_description')}
+                validate={validateStage3}
               >
                 <Stage3 
                   profile={profile} 
@@ -203,7 +230,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
             <SwiperSlide virtualIndex={4}>
               <SlideContainer 
                 title={t('step_4_title')} 
-                description={t('step_4_description')}
+                description={tarotResponses.length < 3 ? t('step_4_description') : null}
                 validate={validateStage4}
                 disableNext={tarotResponses.length < 3}
               >

@@ -32,6 +32,7 @@ export default function Stage3({ profile, updateProfileData, setProfile }) {
   const updateLinks = (index, field) => input => {
     const newLinks = [...profile.links]
     newLinks[index] = {...profile.links[index], [field]: input.target.value }
+
     setProfile({
       ...profile,
       links: newLinks
@@ -47,7 +48,7 @@ export default function Stage3({ profile, updateProfileData, setProfile }) {
         {[...Array(visibleLinks)].map((_, index) => (
         <div key={index} className="space-y-2">
             <div className="flex gap-2">
-            <div className="grid grid-cols-2 gap-2 flex-1">
+            <div className="grid md:grid-cols-2 gap-2 flex-1">
                 <input 
                 onChange={updateLinks(index, 'url')} 
                 value={profile.links[index]?.url || ''} 

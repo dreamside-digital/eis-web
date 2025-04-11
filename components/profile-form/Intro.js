@@ -15,8 +15,10 @@ export default function Intro({ prompts, locale }) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-        <Image src="/shapes/Shape_1.png" alt="Intro" width={200} height={200} />
-        <div className="text-center my-4 wysiwyg-content" dangerouslySetInnerHTML={{ __html: cleanIntro }} />
+        <div className="oracle-text rounded-[50px] flex-col mx-4 md:mx-12 shadow-[0_0_15px_15px_#fff]">
+            <Image src="/shapes/Shape_1.png" alt="Intro" width={200} height={200} />
+            <div className="text-center my-4 wysiwyg-content" dangerouslySetInnerHTML={{ __html: cleanIntro }} />
+        </div>
     </div>
   )
 }
