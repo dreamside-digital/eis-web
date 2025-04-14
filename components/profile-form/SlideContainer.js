@@ -1,5 +1,5 @@
 "use client";
-import Image from 'next/image';
+
 import { Typewriter } from 'react-simple-typewriter'
 import { useSwiper, useSwiperSlide } from 'swiper/react';
 import { useTranslations } from 'next-intl';
@@ -56,22 +56,28 @@ export default function SlideContainer({
   validate
 }) {
   const t = useTranslations('profile_form');
+  const swiper = useSwiper();
   const swiperSlide = useSwiperSlide();
   const isActive = swiperSlide.isActive;
 
   return (
-    <div className={`p-8 ${isActive ? 'appear' : ''}`}>
+    <div className={`py-8 px-12 ${isActive ? 'appear' : ''}`}>
       <div className="mb-6">
-        <label className="block text-3xl font-semibold mb-3 text-center">
+        <label className="block text-3xl font-semibold mb-3 text-center my-4">
           {title}
         </label>
-        {isActive && description && (
-            <div className="flex justify-center mb-6 font-title text-xl">
-                <Typewriter
-                    words={[description]}
-                    loop={1}
-                    typeSpeed={70}
-                />
+        {description && (
+            <div className="flex justify-center my-6 mx-auto font-title italic text-xl">
+                {isActive ? (
+                    <Typewriter
+                        words={[description]}
+                        loop={1}
+                        typeSpeed={40}
+                        onType={() => swiper.updateAutoHeight()}
+                    />
+                ) : (
+                    description
+                )}
             </div>
         )}
         {children}

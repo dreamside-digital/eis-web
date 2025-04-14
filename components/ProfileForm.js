@@ -191,7 +191,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               <SlideContainer 
                 title={t('step_1_title')} 
                 description={t('step_1_description')}
-                    validate={validateStage1}
+                validate={validateStage1}
               >
                 <Stage1 
                   profile={profile} 
@@ -246,7 +246,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               <SlideContainer 
                 title={t('step_5_title')} 
                 description={t('step_5_description')}
-                 validate={validateStage5}
+                validate={validateStage5}
                 disableNext={!profile.introduction?.trim() && !profile.artistic_practice?.trim() && !profile.current_projects?.trim()}
               >
                 <Stage5 

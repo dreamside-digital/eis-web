@@ -109,11 +109,12 @@ export default function Stage4({
       {availablePrompts.length === 0 && responses.length === 3 && (
         <div className="flex flex-col items-center justify-center gap-4">
             <Image src="/shapes/Icons-09.png" alt="Intro" width={200} height={200} />
-            <div className="flex justify-center mb-6 font-title text-xl">
+            <div className="flex justify-center mb-6 font-title italic text-xl">
                 <Typewriter
                     words={[t('tarot_cards_done')]}
                     loop={1}
-                    typeSpeed={50}
+                    typeSpeed={40}
+                    onType={() => swiper.updateAutoHeight()}
                 />
             </div>
         </div>
