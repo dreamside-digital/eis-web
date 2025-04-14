@@ -52,7 +52,7 @@ export default function TarotContainer({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, responses }),
+        body: JSON.stringify({ email, responses, source: 'editions_tarot' }),
       });
       
       const data = await response.json();

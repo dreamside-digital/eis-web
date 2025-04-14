@@ -55,7 +55,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
           },
           body: JSON.stringify({
             email: user.email,
-            responses: tarotResponses
+            responses: tarotResponses,
+            source: 'profile_form'
           }),
         });
 
@@ -66,7 +67,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
         }
 
         // Add the tarot submission ID to the profile data
-        profile.tarot_submissions = [{tarot_submissions_id: tarotData.submission.id}]
+        profile.tarot_submissions = tarotData.submission.id
       } catch (error) {
         console.error('Error submitting tarot responses:', error);
         setErrors([{message: 'Failed to submit tarot responses. Please try again.'}]);
