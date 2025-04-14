@@ -61,13 +61,13 @@ export default function SlideContainer({
   const isActive = swiperSlide.isActive;
 
   return (
-    <div className={`py-8 px-12 ${isActive ? 'appear' : ''}`}>
+    <div className={`p-8 md:px-12 ${isActive ? 'appear' : ''}`}>
       <div className="mb-6">
         <label className="block text-3xl font-semibold mb-3 text-center my-4">
           {title}
         </label>
         {description && (
-            <div className="flex justify-center my-6 mx-auto font-title italic text-xl">
+            <div className="flex justify-center my-6 mx-auto font-title italic text-xl text-center">
                 {isActive ? (
                     <Typewriter
                         words={[description]}

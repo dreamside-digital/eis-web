@@ -151,8 +151,6 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
     return true
   }
 
-  console.log({profile})
-
   return (
     <section className="text-dark p-6 py-12 pt-20 relative min-h-screen">
       <ErrorAlert errors={errors} setErrors={setErrors} />
