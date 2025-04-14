@@ -26,12 +26,12 @@ export default async function ProfilePage({params}) {
       </div>
       <div className="container max-w-screen-lg mx-auto relative flex justify-center pt-6">
         <div className="p-6 w-full bg-beige text-dark ">
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col md:flex-row">
             <div>
                 {
                   profile.profile_picture &&
                   <Image
-                    className="max-w-48 relative w-full h-full object-cover  aspect-square mr-6"
+                    className="md:max-w-48 relative w-full h-full object-cover  aspect-square mb-6 md:mr-6"
                     src={`${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${profile.profile_picture.id}`}
                     alt={profile.profile_picture.description || profile.public_name} 
                     width={800}
@@ -93,7 +93,7 @@ export default async function ProfilePage({params}) {
             }
           </div>
 
-          <div className="basis-1/4 md:pl-8">
+          <div className="basis-1/4 pt-6 md:pt-0 md:pl-8">
             {(profile.tags?.length > 0) &&
             <div className="mb-6">
               <p className="uppercase text-lg mb-4 font-medium">Tags</p>
