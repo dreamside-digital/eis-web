@@ -5,8 +5,9 @@ import ImageWithCaption from '@/components/ImageWithCaption'
 import { redirect } from 'next/navigation'
 
 export default async function ProfilePage({params}) {
-  const { slug } = await params
+  const { locale,slug } = await params
   const profile = await getProfile(slug)
+  console.log(profile)
 
   if (!profile) {
     redirect('/profiles')
@@ -52,32 +53,41 @@ export default async function ProfilePage({params}) {
 
     <section className="text-dark relative">
       <div className="container max-w-screen-lg mx-auto px-6 mb-12 lg:mb-20">
-        <div className="flex flex-col md:flex-row max-md:divide-y md:divide-x">
+        <div className="flex flex-col md:flex-row max-md:divide-y md:divide-x divide-beige">
           <div className="basis-3/4 md:pr-8">
+            {profile.tarot_submissions?.responses.map(response => {
+                return (
+                  <div key={response.id} className="mb-6">
+                    <p className="uppercase text-lg mb-4 font-medium">{response.prompt.translations.find(t => t.languages_code === locale).prompt}</p>
+                    <p className="text-lg">{response.response}</p>
+                  </div>
+                )
+              })}
+              
             { cleanCurrentProjects && 
               <div className="mb-6">
-                <p className="font-title text-2xl">Current projects</p>
+                <p className="uppercase text-lg mb-4 font-medium">Current projects</p>
                 <div className="" dangerouslySetInnerHTML={{ __html: cleanCurrentProjects }} />
               </div>
             }
 
             { cleanDescription && 
               <div className="mb-6">
-                <p className="font-title text-2xl">Artistic Practice</p>
+                <p className="uppercase text-lg mb-4 font-medium">Artistic Practice</p>
                 <div className="" dangerouslySetInnerHTML={{ __html: cleanDescription }} />
               </div>
             }
 
             { cleanIntroduction && 
               <div className="mb-6">
-                <p className="font-title text-2xl">Past Projects</p>
+                <p className="uppercase text-lg mb-4 font-medium">Past Projects</p>
                 <div className="" dangerouslySetInnerHTML={{ __html: cleanIntroduction }} />
               </div>
             }
 
             { cleanInspirations &&
               <div className="mb-6">
-                <p className="font-title text-2xl">Inspirations</p>
+                <p className="uppercase text-lg mb-4 font-medium">Inspirations</p>
                 <div className="" dangerouslySetInnerHTML={{ __html: cleanInspirations }} />
               </div>
             }
