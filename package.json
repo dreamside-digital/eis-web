@@ -22,6 +22,7 @@
     "next-auth": "^4.24.11",
     "next-intl": "^4.0.2",
     "next-plausible": "^3.12.4",
+    "openai": "^4.94.0",
     "react": "^18",
     "react-accessible-accordion": "^5.0.0",
     "react-big-calendar": "^1.15.0",

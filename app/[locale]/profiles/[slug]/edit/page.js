@@ -3,12 +3,14 @@ import Image from 'next/image'
 import ProfileForm from '@/components/ProfileForm'
 import { getUser } from '@/lib/auth/session'
 import {redirect} from 'next/navigation';
+import { getPrompts } from '@/lib/data-access';
 
 export default async function EditProfilePage({params}) {
   const {locale,slug} = await params;
   const profile = await getProfile(slug)
   const tags = await getTags()
   const user = await getUser()
+  const prompts = await getPrompts()
   
   if (!user) {
     redirect(`/${locale}/login`) 
@@ -25,6 +27,6 @@ export default async function EditProfilePage({params}) {
   })
 
   return (
-    <ProfileForm user={user} defaultProfile={profile} tags={tagTranslations} />
+    <ProfileForm locale={locale} user={user} defaultProfile={profile} tags={tagTranslations} prompts={prompts} />
   )
 }

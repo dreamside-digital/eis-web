@@ -13,8 +13,8 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
   const map = useRef(null);
   const markerDiv = useRef(null);
   const t = useTranslations('profile_form');
-  const [lng, setLng] = useState(-76.17);
-  const [lat, setLat] = useState(44.478);
+  const [lng, setLng] = useState(selectedLocation?.coordinates[0] || -76.17);
+  const [lat, setLat] = useState(selectedLocation?.coordinates[1] || 44.478);
   const [zoom, setZoom] = useState(6);
   const [gettingLocation, setGettingLocation] = useState(false);
   const [locationError, setLocationError] = useState(null);
@@ -57,6 +57,15 @@ const MapPointSelector = ({setLocation, selectedLocation}) => {
       maxZoom: 15
     });
 
+    if (selectedLocation) {
+      map.current.flyTo({
+        center: selectedLocation.coordinates,
+        zoom: 15,
+        essential: true
+      });
+      setMarkerLocation(selectedLocation.coordinates[0], selectedLocation.coordinates[1])
+    }
+    
     map.current.on('click', (e) => {
       const lngLat = e.lngLat.wrap()
       setMarkerLocation(lngLat.lng, lngLat.lat)

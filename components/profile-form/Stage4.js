@@ -6,6 +6,7 @@ import SlideContainer from './SlideContainer';
 import { useSwiper } from 'swiper/react';
 import Image from 'next/image';
 import { Typewriter } from 'react-simple-typewriter'
+import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
 export default function Stage4({ 
   prompts: initialPrompts, 
@@ -24,7 +25,7 @@ export default function Stage4({
   }, [selectedPrompt]);
 
   useEffect(() => {
-    const usedCategories = responses.map(r => r.categoryId);
+    const usedCategories = responses.map(r => r.categoryId || r.prompt.category);
     const filteredPrompts = initialPrompts.filter(
       prompt => !usedCategories.includes(prompt.category.id)
     );
@@ -55,7 +56,14 @@ export default function Stage4({
     e.target.reset();
     setSelectedPrompt(null);
   };
+  
+  const handleReset = () => {
+    setResponses([]);
+    setSelectedPrompt(null);
+    setAvailablePrompts(initialPrompts);
+  };
 
+  console.log({responses})
   return (
     <div className="mt-6">
       <TarotCards 
@@ -117,6 +125,13 @@ export default function Stage4({
                     onType={() => swiper.updateAutoHeight()}
                 />
             </div>
+            <button
+              onClick={handleReset}
+              className="btn bg-white text-dark flex items-center gap-2"
+            >
+              <ArrowPathIcon className="w-5 h-5" />
+              {t('draw_new_cards')}
+            </button>
         </div>
       )}
     </div>

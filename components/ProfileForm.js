@@ -6,6 +6,7 @@ import {useRouter} from '@/i18n/navigation';
 import {useTranslations} from 'next-intl';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Virtual } from 'swiper/modules';
+import { generateProfilePreview } from '@/lib/openai';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/virtual';
@@ -23,8 +24,8 @@ import ErrorAlert from '@/components/ErrorAlert';
 
 export default function ProfileForm({user, defaultProfile, tags, prompts, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
-  const [tarotResponses, setTarotResponses] = useState([])
-  const [location, setLocation] = useState(null)
+  const [tarotResponses, setTarotResponses] = useState(profile.tarot_submissions?.responses || [])
+  const [location, setLocation] = useState(profile.location || null)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
   const router = useRouter()
@@ -75,6 +76,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
         return;
       }
     }
+
     // filter out empty links
     const links = profile.links.filter(l => (l.url.length > 0))
     const tagData = profile.tags.map(t => ({tags_id: t.id}))
@@ -88,6 +90,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
       status: "draft",
       tags: tagData
     }
+
     const result = profile.id ? await updateProfile(profile.id, profileData) : await createProfile(profileData)
 
     if (result.errors) {
@@ -152,6 +155,15 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
     return true
   }
 
+  const validateStage6 = () => {
+    setErrors(null)
+    if (!profile.short_introduction?.trim()) {
+      setErrors([{message: "Please write or generate a short preview of your profile."}])
+      return false
+    }
+    return true
+  }
+
   return (
     <section className="text-dark p-6 py-12 pt-20 relative min-h-screen">
       <ErrorAlert errors={errors} setErrors={setErrors} />
@@ -204,7 +216,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
               <SlideContainer 
                 title={t('step_2_title')} 
                 description={t('step_2_description')}
-                validate={validateStage2} 
+                // validate={validateStage2} 
               >
                 <Stage2 
                   profile={profile} 
@@ -262,6 +274,7 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                 description={t('step_6_description')}
                 isLastSlide={true}
                 handleSubmit={handleSubmit}
+                validate={validateStage6}
               >
                 <Stage6 
                   profile={profile} 
