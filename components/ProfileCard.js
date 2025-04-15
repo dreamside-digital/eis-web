@@ -27,13 +27,6 @@ const statusColorsBg = {
   'published': 'bg-medium'
 }
 
-const statusLabels = {
-  'draft': 'draft',
-  'review': 'in_review',
-  'private': 'private',
-  'published': 'published'
-}
-
 
 export default function ProfileCard(props) {
   const [profile, setProfile] = useState(props.profile)
@@ -55,10 +48,12 @@ export default function ProfileCard(props) {
 
   const borderColor = statusColors[profile.status]
   const bbColor = statusColorsBg[profile.status]
+  console.log(profile)
+
   return (
       <div key={profile.id} className={`border-2 ${borderColor} bg-white text-dark relative flex flex-col`}>
         <div className={`${bbColor} text-dark px-6 py-2 uppercase font-medium text-sm`}>
-          <span>{t(statusLabels[profile.status])}</span>
+          <span>{t(profile.status)}</span>
         </div>
         {
           profile.profile_picture &&
