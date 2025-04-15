@@ -45,14 +45,23 @@ export default function Stage6({ profile, setProfile, tags }) {
     setIsGenerating(false);
   };
 
-  const handleTagClick = (tag) => {
-    const isSelected = selectedTags.some(t => t.id === tag.id);
-    if (isSelected) {
-      setSelectedTags(selectedTags.filter(t => t.id !== tag.id));
+  const updateTags = (tag, e) => {
+    e.preventDefault()
+    const tagIndex = profile.tags.findIndex(t => t.id === tag.id)
+    if (tagIndex === -1) {
+      setProfile({
+        ...profile,
+        tags: profile.tags.concat(tag)
+      })
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      const newTags = [...profile.tags]
+      newTags.splice(tagIndex,1)
+      setProfile({
+        ...profile,
+        tags: newTags
+      })
     }
-  };
+  }
 
   const handlePreviewChange = (e) => {
     const text = e.target.value;
