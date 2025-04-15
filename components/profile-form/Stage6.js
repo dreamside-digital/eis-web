@@ -6,11 +6,13 @@ import Loader from '@/components/Loader';
 import { useSwiperSlide } from 'swiper/react';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 
+const MAX_CHARS = 255;
 
 export default function Stage6({ profile, setProfile, tags }) {
   const t = useTranslations('profile_form');
   const [selectedTags, setSelectedTags] = useState(profile.tags || []);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [error, setError] = useState('');
   const swiperSlide = useSwiperSlide();
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function Stage6({ profile, setProfile, tags }) {
     }
     
     setIsGenerating(true);
-    console.log('generating preview');
+    setError('');
     const preview = await generateProfilePreview(profile);
     if (preview) {
       setProfile({
@@ -50,6 +52,19 @@ export default function Stage6({ profile, setProfile, tags }) {
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
+  };
+
+  const handlePreviewChange = (e) => {
+    const text = e.target.value;
+    if (text.length > MAX_CHARS) {
+      setError("The maximum length of your profile preview is 255 characters");
+    } else {
+      setError('');
+    }
+    setProfile({
+      ...profile,
+      short_introduction: text
+    });
   };
 
   return (
@@ -71,33 +86,35 @@ export default function Stage6({ profile, setProfile, tags }) {
             <Loader className="w-8 h-8" />
           </div>
         ) : (
-          <textarea
-            value={profile.short_introduction || ''}
-            onChange={(e) => setProfile({
-              ...profile,
-              short_introduction: e.target.value
-            })}
-            className="shadow appearance-none border w-full h-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar text-xl"
-          />
+          <div>
+            <textarea
+              value={profile.short_introduction || ''}
+              onChange={handlePreviewChange}
+              className={`shadow appearance-none border w-full h-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-lavendar text-xl ${error ? 'border-red-500' : ''}`}
+            />
+            <div className="flex justify-between items-center mt-1">
+              <div>
+                {error && <p className="text-red-500 text-sm">{error}</p>}
+              </div>
+              <div className="text-sm text-gray-500">
+                {profile.short_introduction?.length || 0}/{MAX_CHARS}
+              </div>
+            </div>
+          </div>
         )}
       </div>
 
       <div>
         <label className="font-semibold mb-4 block text-xl">{t('tags')}</label>
         <div className="flex flex-wrap gap-2">
-          {tags.map(tag => (
-            <button
-              key={tag.id}
-              onClick={() => handleTagClick(tag)}
-              className={`px-4 py-2 rounded-full text-sm font-medium ${
-                selectedTags.some(t => t.id === tag.id)
-                  ? 'bg-lavendar text-white'
-                  : 'bg-white text-dark hover:bg-gray-100'
-              }`}
-            >
-              {tag.name}
-            </button>
-          ))}
+        {
+            tags.map(tag => {
+                const selected = profile.tags.findIndex(t => t.id === tag.id)  
+                return (
+                <button key={tag.id} onClick={(e) => updateTags(tag, e)} className={`border py-1 px-3 shadow text-sm ${selected >= 0 ? 'bg-highlight text-white' : 'bg-white hover:bg-beige'}`}>{tag.name}</button>
+                )
+            })
+        }
         </div>
       </div>
     </div>

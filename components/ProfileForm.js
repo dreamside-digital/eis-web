@@ -24,7 +24,15 @@ import ErrorAlert from '@/components/ErrorAlert';
 
 export default function ProfileForm({user, defaultProfile, tags, prompts, locale}) {
   const [profile, setProfile] = useState(defaultProfile)
-  const [tarotResponses, setTarotResponses] = useState(profile.tarot_submissions?.responses || [])
+  const submissionResponses = defaultProfile.tarot_submissions?.responses.map(r => {
+    return {
+      promptId: r.prompt.id,
+      promptText: r.prompt.translations.find(t => t.languages_code === locale)?.prompt || '',
+      categoryId: r.prompt.category,
+      response: r.response
+    }
+  })
+  const [tarotResponses, setTarotResponses] = useState(submissionResponses || [])
   const [location, setLocation] = useState(profile.location || null)
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState()
@@ -246,6 +254,8 @@ export default function ProfileForm({user, defaultProfile, tags, prompts, locale
                 disableNext={tarotResponses.length < 3}
               >
                 <Stage4 
+                  profile={profile}
+                  setProfile={setProfile}
                   prompts={prompts}
                   locale={locale}
                   setResponses={setTarotResponses}

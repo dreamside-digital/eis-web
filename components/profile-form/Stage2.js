@@ -41,8 +41,6 @@ export default function Stage2({ profile, updateProfileData, setProfile }) {
     });
   };
 
-  console.log({profile})
-
   return (
     <div className="flex flex-col items-center">
     <div className="relative w-full max-w-xl aspect-square mb-4 bg-white border-2 border-dashed border-gray-300 rounded-lg overflow-hidden">

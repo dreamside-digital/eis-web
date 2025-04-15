@@ -12,7 +12,9 @@ export default function Stage4({
   prompts: initialPrompts, 
   locale,
   responses,
-  setResponses
+  setResponses,
+  profile,
+  setProfile
 }) {
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [availablePrompts, setAvailablePrompts] = useState(initialPrompts);
@@ -25,7 +27,7 @@ export default function Stage4({
   }, [selectedPrompt]);
 
   useEffect(() => {
-    const usedCategories = responses.map(r => r.categoryId || r.prompt.category);
+    const usedCategories = responses.map(r => r.categoryId);
     const filteredPrompts = initialPrompts.filter(
       prompt => !usedCategories.includes(prompt.category.id)
     );
@@ -61,9 +63,12 @@ export default function Stage4({
     setResponses([]);
     setSelectedPrompt(null);
     setAvailablePrompts(initialPrompts);
+    setProfile({
+      ...profile,
+      tarot_submissions: null
+    })
   };
 
-  console.log({responses})
   return (
     <div className="mt-6">
       <TarotCards 
