@@ -29,6 +29,7 @@ export default async function AccountPage({params}) {
             <Link href="/profiles/new" className="btn">{t('create_profile')}</Link>
             <Link href="/events/new" className="btn">{t('create_event')}</Link>
             <Link href="/artwork/new" className="btn">{t('upload_artwork')}</Link>
+            <Link href="/artwork" className="btn">{t('view_artwork')}</Link>
           </div>
         </div>
       </section>
