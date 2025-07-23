@@ -15,20 +15,27 @@ export default getRequestConfig(async ({requestLocale}) => {
   const data = await getPageTranslations()
   const tags = data?.tags || []
   const tagTranslations = tags.reduce((obj, tag) => {
-    const translation = tag.translations.find(t => t.languages_code === locale)
-    obj[tag.slug] = translation.name
+    const translation = tag?.translations?.find(t => t.languages_code === locale)
+    if (translation) {
+      obj[tag.slug] = translation.name
+    }
     return obj
   }, {})
+
+  const getTranslation = (collection) => {
+    return data?.[collection]?.translations?.find(t => t.languages_code === locale) || {}
+  }
 
   return {
     locale,
     messages: {
-      'registration_form': data?.registration_form?.translations?.find(t => t.languages_code === locale),
-      'profile_form': data?.profile_form?.translations?.find(t => t.languages_code === locale),
-      'event_form': data?.event_form?.translations?.find(t => t.languages_code === locale),
-      'account_page': data?.account_page?.translations?.find(t => t.languages_code === locale),
+      'registration_form': getTranslation('registration_form'),
+      'profile_form': getTranslation('profile_form'),
+      'event_form': getTranslation('event_form'),
+      'artwork_form': getTranslation('artwork_form'),
+      'account_page': getTranslation('account_page'),
       'tags': tagTranslations,
-      'shared_messages': data?.shared_messages?.translations?.find(t => t.languages_code === locale)
+      'shared_messages': getTranslation('shared_messages')
     }
   };
 });
