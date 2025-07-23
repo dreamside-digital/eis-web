@@ -531,7 +531,12 @@ export default function ArtworkEditForm({user, artwork, tags, profiles, locale})
                 disabled={submitting || fileUploading}
                 className="btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded disabled:opacity-50"
               >
-                {submitting ? (
+                {fileUploading ? (
+                  <div className="flex items-center">
+                    <ArrowPathIcon className="h-4 w-4 animate-spin mr-2" />
+                    Uploading images...
+                  </div>
+                ) : submitting ? (
                   <div className="flex items-center">
                     <ArrowPathIcon className="h-4 w-4 animate-spin mr-2" />
                     Updating...
