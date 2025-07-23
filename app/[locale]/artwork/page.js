@@ -53,7 +53,7 @@ export default async function ArtworkListPage({params}) {
         <div className="container max-w-screen-lg mx-auto">
           {artworks.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-600 mb-4">You haven't uploaded any artwork yet.</p>
+              <p className="text-gray-600 mb-4">You haven&apos;t uploaded any artwork yet.</p>
               <Link href="/artwork/new" className="btn">
                 Upload Your First Artwork
               </Link>
@@ -101,8 +101,8 @@ export default async function ArtworkListPage({params}) {
                               <p className="mb-0"><span className="font-medium">Year:</span> {artwork.year_created}</p>
                             )}
                             {artwork.width && artwork.height && (
-                              <p className="mb-0"><span className="font-medium">Dimensions:</span> {artwork.width}" × {artwork.height}"
-                                {artwork.depth && ` × ${artwork.depth}"`}
+                              <p className="mb-0"><span className="font-medium">Dimensions:</span> {artwork.width}&quot; × {artwork.height}&quot;
+                                {artwork.depth && ` × ${artwork.depth}&quot;`}
                               </p>
                             )}
                           </div>
