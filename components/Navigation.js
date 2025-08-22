@@ -9,6 +9,7 @@ import MobileDropdown from '@/components/MobileDropdown'
 import AccountDropdown from '@/components/AccountDropdown'
 import {useTranslations} from 'next-intl';
 import { SessionProvider } from 'next-auth/react';
+
 export default function Navigation({ logo, locale, dropdowns=[] }) {
   const pathname = usePathname();
   const t = useTranslations("shared_messages")

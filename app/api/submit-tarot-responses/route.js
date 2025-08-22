@@ -5,7 +5,7 @@ import { createItems } from '@directus/sdk';
 export async function POST(request) {
   try {
     const api = directus(process.env.DIRECTUS_TOKEN);
-    const { email="", responses, source } = await request.json();
+    const { email="", responses, source, fortune } = await request.json();
 
     if (!responses?.length) {
       return NextResponse.json(
@@ -18,14 +18,15 @@ export async function POST(request) {
       submitted_by: email,
       prompt: response.promptId,
       prompt_text: response.promptText,
-      response: response.response,
+      response: response.response
     }));
 
     const submission = await api.request(
       createItems('tarot_submissions', {
         submitted_by: email,
         responses: responses_array,
-        source: source
+        source: source,
+        oracle_reading: fortune
       })
     );
 

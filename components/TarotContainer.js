@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import TarotCards from './TarotCards';
 import TarotResponse from './TarotResponse';
 import SubmitForm from './SubmitForm';
+import { generateOracleResponse } from '@/lib/openai';
+import { useRouter } from 'next/navigation';
+
+
 
 export default function TarotContainer({ 
   prompts: initialPrompts, 
@@ -14,6 +18,8 @@ export default function TarotContainer({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
+  const [fortune, setFortune] = useState("blibliblah")
+  const router = useRouter();
 
   // Update available prompts whenever responses change
   useEffect(() => {
@@ -47,21 +53,27 @@ export default function TarotContainer({
     setSubmitError('');
     
     try {
+      const generatedFortune = await generateOracleResponse(responses);
       const response = await fetch('/api/submit-tarot-responses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, responses, source: 'editions_tarot' }),
+        body: JSON.stringify({ email, responses, fortune: generatedFortune,source: 'editions_tarot' }),
       });
       
       const data = await response.json();
+      console.log({data})
       
       if (!response.ok) {
         throw new Error(data.error || 'Failed to submit responses');
       }
-      
-      setIsSubmitSuccess(true);
+
+      if (data?.submission?.id) {
+        router.push(`/fortune/${data.submission.id}`)
+      } else {
+        setSubmitError('Failed to submit responses. Please try again.');
+      }
     } catch (error) {
       console.error('Error submitting responses:', error);
       setSubmitError(error.message || 'Failed to submit responses. Please try again.');
@@ -75,7 +87,6 @@ export default function TarotContainer({
     setResponses([]);
     setAvailablePrompts(initialPrompts);
     setSubmitError('');
-    setIsSubmitSuccess(false);
   };
 
   return (
@@ -97,8 +108,6 @@ export default function TarotContainer({
           onSubmit={handleSubmit}
           error={submitError}
           isSubmitting={isSubmitting}
-          isSuccess={isSubmitSuccess}
-          onReset={handleReset}
         />
       )}
     </>

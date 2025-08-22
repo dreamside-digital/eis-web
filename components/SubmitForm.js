@@ -2,32 +2,25 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import DOMPurify from "isomorphic-dompurify";
+import Loader from '@/components/Loader';
 
-export default function SubmitForm({ responses, onSubmit, error, isSubmitting, isSuccess, onReset }) {
+export default function SubmitForm({ responses, onSubmit, error, isSubmitting }) {
   const t = useTranslations('shared_messages');
   const [email, setEmail] = useState('');   
   const [validationError, setValidationError] = useState('');
   const submitDescription = DOMPurify.sanitize(t.raw('tarot_submit_description'), { USE_PROFILES: { html: true } })
-  const thankyouDescription = DOMPurify.sanitize(t.raw('tarot_thank_you_description'), { USE_PROFILES: { html: true } })
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ email, responses });
   };
 
-  if (isSuccess) {
+  if (isSubmitting) {
     return (
-      <div className="mt-8 py-4 w-full max-w-2xl text-center">
-        <h3 className="text-lg font-medium mb-2">{t('tarot_thank_you_title')}</h3>
-        <div className="text-dark text-lg mb-6" dangerouslySetInnerHTML={{ __html: thankyouDescription }} />
-        <button 
-          onClick={onReset}
-          className="py-2 px-4 btn"
-        >
-          Start Over
-        </button>
+      <div className="h-64 flex items-center justify-center">
+        <Loader className="w-16 h-16" />
       </div>
-    );
+    )
   }
 
   return (
@@ -58,7 +51,7 @@ export default function SubmitForm({ responses, onSubmit, error, isSubmitting, i
           className="py-2 px-4 btn mt-4"
           disabled={isSubmitting}
         >
-          {isSubmitting ? t('tarot_submit_sending') : t('tarot_submit_send')}
+          {t('tarot_submit_send')}
         </button>
       </form>
     </div>
