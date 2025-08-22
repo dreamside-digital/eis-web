@@ -77,7 +77,6 @@ export default function TarotContainer({
     } catch (error) {
       console.error('Error submitting responses:', error);
       setSubmitError(error.message || 'Failed to submit responses. Please try again.');
-    } finally {
       setIsSubmitting(false);
     }
   };
