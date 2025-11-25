@@ -3,7 +3,7 @@ import {Link} from '@/i18n/navigation';
 import VideoModal from '@/components/VideoModal'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/lib/data-access'
-import RegistrationForm from "@/components/RegistrationForm"
+import NewsletterSignupForm from "@/components/NewsletterSignupForm"
 import DOMPurify from "isomorphic-dompurify";
 
 
@@ -146,7 +146,7 @@ export default async function Home({ params }) {
                 <div className="" dangerouslySetInnerHTML={{ __html: `${translation?.join_section_body}` }} />
               </div>
               <div className="flex-1">
-                <RegistrationForm locale={locale} />
+                <NewsletterSignupForm locale={locale} />
               </div>
             </div>
           </div>

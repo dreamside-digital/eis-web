@@ -12,8 +12,8 @@ function VerificationMessage() {
   const searchParams = useSearchParams()
   const verification = searchParams.get('verification')
   const t = useTranslations('shared_messages');
-  
-  if (verification === "failed") {  
+
+  if (verification === "failed") {
     return <p>{t("verification_failed")}</p>
   }
 
@@ -113,13 +113,13 @@ export default function LoginForm({locale}) {
       </>
     )
   }
- 
+
   return (
     <>
       <Suspense>
         <VerificationMessage />
       </Suspense>
-      { (errors.length > 0) && 
+      { (errors.length > 0) &&
         <div className="errors">
           { errors.map(error => <p key={error.message}>{error.message}</p>)}
         </div>
@@ -139,7 +139,7 @@ export default function LoginForm({locale}) {
             </label>
             <input required onChange={updateUserData("last_name")} value={userData.last_name} className="shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="last_name" type="text" />
           </div>
-       
+
           <div className=" col-span-2">
             <label className="block text-gray-700 text-sm font-medium" htmlFor="email">
               {t("email")}
@@ -169,11 +169,11 @@ export default function LoginForm({locale}) {
               <div className="inline-flex gap-6">
                 <label className="block text-gray-700 text-sm flex items-center" htmlFor="en">
                   <input onChange={updateLanguage} className="mr-1 h-4 w-4" type="radio" id="en" value="en" checked={userData.language === "en"} name="language" />
-                  {t("french")}
+                  {t("english")}
                 </label>
                 <label className="block text-gray-700 text-sm flex items-center" htmlFor="fr">
                   <input onChange={updateLanguage} className="mr-1 h-4 w-4" type="radio" id="fr" value="fr" checked={userData.language === "fr"} name="language" />
-                  {t("english")}
+                  {t("french")}
                 </label>
               </div>
             </fieldset>
