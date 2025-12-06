@@ -87,7 +87,7 @@ export default function LoginForm({locale}) {
     setSubmitting(true)
 
     try {
-      validateForm()
+      await validateForm()
 
       if (errors.length > 0) return
 
