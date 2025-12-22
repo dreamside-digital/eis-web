@@ -1,11 +1,11 @@
 import { getCreditsContent } from '@/lib/data-access'
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize';
 
 export default async function CreditsPage({params}) {
   const {locale} = await params;
   const content = await getCreditsContent()
   const translation = content.translations.find(tr => tr.languages_code === locale)
-  const pageContent = DOMPurify.sanitize(translation.body, { USE_PROFILES: { html: true } })
+  const pageContent = sanitize(translation.body)
 
   return (
     <section className="text-dark p-6 py-12 pt-20 relative">

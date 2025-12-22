@@ -11,7 +11,7 @@ import { ChevronLeftIcon, ChevronRightIcon, Squares2X2Icon, CalendarDaysIcon } f
 import { DATE_FORMAT } from '@/utils/constants'
 import TagButton from '@/components/TagButton'
 import CalendarView from '@/components/CalendarView'
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize'
 import Loader from '@/components/Loader'
 import {useTranslations} from 'next-intl';
 
@@ -174,7 +174,7 @@ export default function ExploreEvents({tags, locale, messages }) {
               const endDate = new Date(event.ends_at)
               const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
               const locationText = [event.title, event.address].filter(i=>i).join(", ")
-              const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
+              const cleanDescription = sanitize(event.description)
               return (
                 <div className="max-w-lg h-full" key={event.id}>
                   <Link className="no-underline hover:no-underline" href={`/events/${event.slug}`}>

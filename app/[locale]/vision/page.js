@@ -1,16 +1,16 @@
 import { getVisionContent } from '@/lib/data-access'
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize';
 import ImageWithCaption from '@/components/ImageWithCaption'
 
 export default async function VisionPage({params}) {
   const {locale} = await params;
   const content = await getVisionContent()
   const translation = content.translations.find(tr => tr.languages_code === locale)
-  const para1 = DOMPurify.sanitize(translation.paragraph_1, { USE_PROFILES: { html: true } })
-  const para2 = DOMPurify.sanitize(translation.paragraph_2, { USE_PROFILES: { html: true } })
-  const para3 = DOMPurify.sanitize(translation.paragraph_3, { USE_PROFILES: { html: true } })
-  const para4 = DOMPurify.sanitize(translation.paragraph_4, { USE_PROFILES: { html: true } })
-  const para5 = DOMPurify.sanitize(translation.paragraph_5, { USE_PROFILES: { html: true } })
+  const para1 = sanitize(translation.paragraph_1)
+  const para2 = sanitize(translation.paragraph_2)
+  const para3 = sanitize(translation.paragraph_3)
+  const para4 = sanitize(translation.paragraph_4)
+  const para5 = sanitize(translation.paragraph_5)
   const  { image_1, image_2, image_3, image_4, image_5 } = translation
 
   return (

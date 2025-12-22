@@ -1,6 +1,6 @@
 import { getEvent } from '@/lib/data-access'
 import Image from 'next/image'
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize'
 import { redirect } from 'next/navigation'
 const DATE_FORMAT = { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }
 
@@ -20,8 +20,8 @@ export default async function EventPage({params}) {
   const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
   // const locationText = [event.location.name, event.location.street_address, event.location.city].filter(i=>i).join(", ")
   const locationText = [event.venue, event.address].filter(i=>i).join(", ")
-  const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
-  const cleanInstructions = DOMPurify.sanitize(event.instructions, { USE_PROFILES: { html: true } })
+  const cleanDescription = sanitize(event.description)
+  const cleanInstructions = sanitize(event.instructions)
 
   return (
     <>

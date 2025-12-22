@@ -1,12 +1,12 @@
 import { getTranslations } from 'next-intl/server';
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize';
 import { getPrompts } from '@/lib/data-access';
 import TarotContainer from '@/components/TarotContainer';
 
 export default async function TarotPage({ params }) {
   const {locale} = await params;
   const t = await getTranslations('shared_messages');
-  const description = DOMPurify.sanitize(t.raw('tarot_description'), { USE_PROFILES: { html: true } })
+  const description = sanitize(t.raw('tarot_description'))
   const prompts = await getPrompts()
 
   return (

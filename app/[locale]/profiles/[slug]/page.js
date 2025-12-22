@@ -1,6 +1,6 @@
 import { getProfile } from '@/lib/data-access'
 import Image from 'next/image'
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize'
 import ImageWithCaption from '@/components/ImageWithCaption'
 import { redirect } from 'next/navigation'
 
@@ -13,10 +13,10 @@ export default async function ProfilePage({params}) {
     redirect('/profiles')
   }
   
-  const cleanIntroduction = DOMPurify.sanitize(profile.introduction, { USE_PROFILES: { html: true } })
-  const cleanDescription = DOMPurify.sanitize(profile.artistic_practice, { USE_PROFILES: { html: true } })
-  const cleanCurrentProjects = DOMPurify.sanitize(profile.current_projects, { USE_PROFILES: { html: true } })
-  const cleanInspirations = DOMPurify.sanitize(profile.inspirations, { USE_PROFILES: { html: true } })
+  const cleanIntroduction = sanitize(profile.introduction)
+  const cleanDescription = sanitize(profile.artistic_practice)
+  const cleanCurrentProjects = sanitize(profile.current_projects)
+  const cleanInspirations = sanitize(profile.inspirations)
   const links = profile?.links?.filter(l => l.url && l.link_text)
 
   return (

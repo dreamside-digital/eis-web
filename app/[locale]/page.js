@@ -4,7 +4,7 @@ import VideoModal from '@/components/VideoModal'
 import { PlayCircleIcon } from '@heroicons/react/24/solid'
 import { getHomePageContent, getFeatures } from '@/lib/data-access'
 import NewsletterSignupForm from "@/components/NewsletterSignupForm"
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize';
 
 
 export default async function Home({ params }) {
@@ -14,7 +14,7 @@ export default async function Home({ params }) {
   const translation = translations.find(t => t.languages_code === locale)
   const keyFeatures = await getFeatures(translation?.key_features.map(f=>f.features_id))
   const benefits = await getFeatures(translation?.benefits.map(f=>f.features_id))
-  const cleanKeyFeaturesSubtitle = DOMPurify.sanitize(translation?.key_features_section_subtitle, { USE_PROFILES: { html: true } })
+  const cleanKeyFeaturesSubtitle = sanitize(translation?.key_features_section_subtitle)
 
   const landingBgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.landing_section_background_image.id}`
   const benefitsBgUrl = `${process.env.NEXT_PUBLIC_DIRECTUS_URL}/assets/${content.benefits_section_background_image.id}`

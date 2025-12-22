@@ -1,6 +1,6 @@
 
 import { useTranslations } from 'next-intl';
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { useSwiper, useSwiperSlide } from 'swiper/react';
@@ -8,7 +8,7 @@ import { Typewriter } from 'react-simple-typewriter'
 export default function Intro({ prompts, locale }) {
 
   const t = useTranslations('profile_form');
-  const cleanIntro = DOMPurify.sanitize(t.raw('profile_form_intro'), { USE_PROFILES: { html: true } })
+  const cleanIntro = sanitize(t.raw('profile_form_intro'))
   const swiper = useSwiper();
   const swiperSlide = useSwiperSlide();
   const isActive = swiperSlide.isActive;

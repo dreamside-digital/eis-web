@@ -12,7 +12,7 @@ import {
 import { useState, useEffect } from "react"
 import { DATE_FORMAT } from '@/utils/constants'
 import TagButton from '@/components/TagButton'
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize'
 
 const CustomAccordionItem = ({ uuid, currentItemUid, title, children }) => {
   const selected = currentItemUid.includes(uuid)
@@ -100,7 +100,7 @@ export default function ProfileDrawers({profiles, events}) {
             const endDate = new Date(event.ends_at)
             const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
             const locationText = [event.title, event.address].filter(i=>i).join(", ")
-            const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
+            const cleanDescription = sanitize(event.description)
 
             return (
               <CustomAccordionItem key={event.id} uuid={event.id} currentItemUid={currentItemUid} title={event.title}>

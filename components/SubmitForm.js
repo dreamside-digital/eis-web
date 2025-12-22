@@ -1,14 +1,14 @@
 "use client";
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize';
 import Loader from '@/components/Loader';
 
 export default function SubmitForm({ responses, onSubmit, error, isSubmitting }) {
   const t = useTranslations('shared_messages');
   const [email, setEmail] = useState('');   
   const [validationError, setValidationError] = useState('');
-  const submitDescription = DOMPurify.sanitize(t.raw('tarot_submit_description'), { USE_PROFILES: { html: true } })
+  const submitDescription = sanitize(t.raw('tarot_submit_description'))
 
   const handleSubmit = (e) => {
     e.preventDefault();

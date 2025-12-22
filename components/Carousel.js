@@ -8,7 +8,7 @@ import 'swiper/css/effect-cards';
 import 'swiper/css/effect-coverflow';
 import { EffectCoverflow } from 'swiper/modules';
 import { DATE_FORMAT } from '@/utils/constants'
-import DOMPurify from "isomorphic-dompurify";
+import { sanitize } from '@/lib/sanitize'
 
 export default function Carousel({profiles, events}) {
 
@@ -97,7 +97,7 @@ export default function Carousel({profiles, events}) {
             const endDate = new Date(event.ends_at)
             const endDateText = endDate.toLocaleString('en-CA', DATE_FORMAT)
             const locationText = [event.location.name, event.location.street_address, event.location.city].filter(i=>i).join(", ")
-            const cleanDescription = DOMPurify.sanitize(event.description, { USE_PROFILES: { html: true } })
+            const cleanDescription = sanitize(event.description)
 
             return (
               <SwiperSlide key={event.id} className=" max-w-lg">
