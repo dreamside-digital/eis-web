@@ -20,7 +20,7 @@ const statusColorsBg = {
   'published': 'bg-medium'
 }
 
-export default async function ArtworkListPage({params}) { 
+export default async function ArtworkListPage({params}) {
   const {locale} = await params;
   const user = await getUser()
   if (!user) {
@@ -48,7 +48,7 @@ export default async function ArtworkListPage({params}) {
           </div>
         </div>
       </section>
-      
+
       <section className="text-dark relative p-6">
         <div className="container max-w-screen-lg mx-auto">
           {artworks.length === 0 ? (
@@ -63,14 +63,14 @@ export default async function ArtworkListPage({params}) {
               {artworks.map(artwork => {
                 const borderColor = statusColors[artwork.status]
                 const bbColor = statusColorsBg[artwork.status]
-                
+
                 return (
                   <div key={artwork.id} className={`border-2 ${borderColor} bg-white text-dark relative flex flex-col`}>
                     {/* Status Header */}
                     <div className={`${bbColor} text-dark px-6 py-2 uppercase font-medium text-sm`}>
                       <span>{t(artwork.status)}</span>
                     </div>
-                    
+
                     {/* Artwork Image */}
                     {artwork.images && artwork.images.length > 0 ? (
                       <Image
@@ -85,14 +85,14 @@ export default async function ArtworkListPage({params}) {
                         <span className="text-gray-500">No Image</span>
                       </div>
                     )}
-                    
+
                     {/* Artwork Details */}
                     <div className="p-6 flex flex-col flex-auto justify-between">
                       <div>
                         <h1 className="font-title text-xl mb-4">
                           {artwork.title}
                         </h1>
-                        
+
                         <div className="mb-4">
                           <div className="space-y-1 text-sm">
                             <p className="mb-0"><span className="font-medium">Medium:</span> {artwork.medium}</p>
@@ -101,8 +101,8 @@ export default async function ArtworkListPage({params}) {
                               <p className="mb-0"><span className="font-medium">Year:</span> {artwork.year_created}</p>
                             )}
                             {artwork.width && artwork.height && (
-                              <p className="mb-0"><span className="font-medium">Dimensions:</span> {artwork.width}&quot; × {artwork.height}&quot;
-                                {artwork.depth && ` × ${artwork.depth}&quot;`}
+                              <p className="mb-0"><span className="font-medium">Dimensions:</span> {artwork.width}" × {artwork.height}"
+                                {artwork.depth && ` × ${artwork.depth}"`}
                               </p>
                             )}
                           </div>
@@ -112,8 +112,8 @@ export default async function ArtworkListPage({params}) {
                       {/* Actions */}
                       <div className="flex flex-wrap gap-1 border pt-4 border-l-0 border-r-0 border-b-0">
                         <div>
-                          <Link 
-                            className="inline-flex gap-1 text-sm btn grow-0" 
+                          <Link
+                            className="inline-flex gap-1 text-sm btn grow-0"
                             href={`/artwork/${artwork.id}/edit`}
                             aria-label="Edit artwork"
                           >

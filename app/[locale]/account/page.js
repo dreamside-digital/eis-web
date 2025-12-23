@@ -27,7 +27,6 @@ export default async function AccountPage({params}) {
           </div>
           <div className="p-6 w-full bg-beige text-dark flex flex-col items-start md:items-end gap-2">
             <Link href="/profiles/new" className="btn">{t('create_profile')}</Link>
-            <Link href="/events/new" className="btn">{t('create_event')}</Link>
             <Link href="/artwork/new" className="btn">{t('upload_artwork')}</Link>
             <Link href="/artwork" className="btn">{t('view_artwork')}</Link>
           </div>
