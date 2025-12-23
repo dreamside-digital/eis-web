@@ -12,7 +12,7 @@ export default function ErrorAlert({ errors, setErrors }) {
             <div className="flex-1 flex flex-col gap-1">
               {errors.map((error, index) => (
                 <p key={index} className="text-white font-medium mb-0">
-                  {error.message}
+                  {typeof error === 'string' ? error : error.message}
                 </p>
               ))}
             </div>
