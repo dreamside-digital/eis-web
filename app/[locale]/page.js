@@ -6,6 +6,8 @@ import { getHomePageContent, getFeatures } from '@/lib/data-access'
 import NewsletterSignupForm from "@/components/NewsletterSignupForm"
 import { sanitize } from '@/lib/sanitize';
 
+// Revalidate this page every 60 seconds to fetch fresh data from Directus
+export const revalidate = 60
 
 export default async function Home({ params }) {
   const {locale} = await params;

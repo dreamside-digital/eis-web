@@ -2,6 +2,9 @@ import { getArtboxContent } from '@/lib/data-access'
 import { sanitize } from '@/lib/sanitize';
 import ImageWithCaption from '@/components/ImageWithCaption'
 
+// Revalidate this page every 60 seconds to fetch fresh data from Directus
+export const revalidate = 60
+
 export default async function ArtboxPage({params}) {
   const {locale} = await params;
   const content = await getArtboxContent()

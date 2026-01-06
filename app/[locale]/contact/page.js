@@ -2,6 +2,9 @@ import { getContactContent } from '@/lib/data-access'
 import Image from 'next/image'
 import { sanitize } from '@/lib/sanitize';
 
+// Revalidate this page every 60 seconds to fetch fresh data from Directus
+export const revalidate = 60
+
 export default async function ContactPage({params}) {
   const {locale} = await params;
   const content = await getContactContent()

@@ -1,6 +1,9 @@
 import { getCreditsContent } from '@/lib/data-access'
 import { sanitize } from '@/lib/sanitize';
 
+// Revalidate this page every 60 seconds to fetch fresh data from Directus
+export const revalidate = 60
+
 export default async function CreditsPage({params}) {
   const {locale} = await params;
   const content = await getCreditsContent()
