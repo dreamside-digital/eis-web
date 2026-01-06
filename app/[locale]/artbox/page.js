@@ -25,6 +25,10 @@ export default async function ArtboxPage({params}) {
   const ctaForArtists = sanitize(translation?.CTA_for_Artists || '')
   const ctaForSubscribers = sanitize(translation?.CTA_for_Subscribers || '')
   const joinUs = sanitize(translation?.Join_Us || '')
+  const subscribersHeader = sanitize(translation?.Subscribers_col_Header || '')
+  const subscribersButton = sanitize(translation?.Subscribers_button || '')
+  const artistsHeader = sanitize(translation?.Artists_col_Header || '')
+  const artistsButton = sanitize(translation?.Artists_button || '')
 
   const { Mission, Image_for_Artists, Image_for_Subscribers } = translation || {}
 
@@ -71,6 +75,21 @@ export default async function ArtboxPage({params}) {
 
           {/* Join Us */}
           <div className="page-content wysiwyg-content max-w-prose max-md:my-6 text-xl xl:text-2xl mb-12" dangerouslySetInnerHTML={{ __html: joinUs }} />
+
+          {/* Two Column CTA Section */}
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mt-16">
+            {/* Subscribers Column */}
+            <div className="flex flex-col items-center text-center p-8 bg-white rounded-lg">
+              <div className="page-content wysiwyg-content text-2xl lg:text-3xl font-medium mb-6" dangerouslySetInnerHTML={{ __html: subscribersHeader }} />
+              <div className="w-full [&_a]:bg-dark [&_a]:hover:bg-highlight [&_a]:text-white [&_a]:hover:!text-white [&_a]:font-medium [&_a]:py-2 [&_a]:px-4 [&_a]:inline-block [&_a]:cursor-pointer [&_a]:no-underline [&_a:hover]:no-underline" dangerouslySetInnerHTML={{ __html: subscribersButton }} />
+            </div>
+
+            {/* Artists Column */}
+            <div className="flex flex-col items-center text-center p-8 bg-white rounded-lg">
+              <div className="page-content wysiwyg-content text-2xl lg:text-3xl font-medium mb-6" dangerouslySetInnerHTML={{ __html: artistsHeader }} />
+              <div className="w-full [&_a]:bg-dark [&_a]:hover:bg-highlight [&_a]:text-white [&_a]:hover:!text-white [&_a]:font-medium [&_a]:py-2 [&_a]:px-4 [&_a]:inline-block [&_a]:cursor-pointer [&_a]:no-underline [&_a:hover]:no-underline" dangerouslySetInnerHTML={{ __html: artistsButton }} />
+            </div>
+          </div>
         </div>
       </div>
     </section>
