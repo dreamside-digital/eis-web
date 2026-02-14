@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { createNewsletterSubscriber } from '@/lib/data-access'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { useTranslations } from 'next-intl'
@@ -9,7 +9,8 @@ const formFields = {
   first_name: "",
   last_name: "",
   email: "",
-  language: "en"
+  language: "en",
+  _hp: "",
 }
 
 export default function NewsletterSignupForm({ locale }) {
@@ -17,6 +18,7 @@ export default function NewsletterSignupForm({ locale }) {
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState(false)
+  const loadedAt = useRef(Date.now())
   const t = useTranslations('registration_form')
 
   // Newsletter-specific success messages
@@ -70,7 +72,11 @@ export default function NewsletterSignupForm({ locale }) {
     }
 
     try {
-      const result = await createNewsletterSubscriber(formData)
+      const result = await createNewsletterSubscriber({
+        ...formData,
+        _hp: formData._hp,
+        _t: loadedAt.current,
+      })
 
       if (result.success) {
         setSuccess(true)
@@ -105,6 +111,18 @@ export default function NewsletterSignupForm({ locale }) {
         </div>
       )}
       <form className="" onSubmit={handleSubmit}>
+        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+          <label htmlFor="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            autoComplete="off"
+            tabIndex={-1}
+            value={formData._hp}
+            onChange={updateFormData("_hp")}
+          />
+        </div>
         <div className="grid grid-cols-2 gap-6 mb-6">
           <div className="">
             <label className="block text-gray-700 text-sm font-medium" htmlFor="first_name">
