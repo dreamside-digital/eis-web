@@ -101,7 +101,7 @@ export default async function ArtworkListPage({params}) {
                               <p className="mb-0"><span className="font-medium">Year:</span> {artwork.year_created}</p>
                             )}
                             {artwork.width && artwork.height && (
-                              <p className="mb-0"><span className="font-medium">Dimensions:</span> {artwork.width}" × {artwork.height}"
+                              <p className="mb-0"><span className="font-medium">Dimensions:</span> {artwork.width}&quot; × {artwork.height}&quot;
                                 {artwork.depth && ` × ${artwork.depth}"`}
                               </p>
                             )}
