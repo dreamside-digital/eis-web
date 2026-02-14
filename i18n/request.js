@@ -35,7 +35,8 @@ export default getRequestConfig(async ({requestLocale}) => {
       'artwork_form': getTranslation('artwork_form'),
       'account_page': getTranslation('account_page'),
       'tags': tagTranslations,
-      'shared_messages': getTranslation('shared_messages')
+      'shared_messages': getTranslation('shared_messages'),
+      'artbox_discover': getTranslation('artbox_discover')
     }
   };
 });

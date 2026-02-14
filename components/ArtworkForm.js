@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { createArtwork, uploadImage } from '@/lib/data-access'
+import { createArtwork, uploadImage, extractArtworkPalette } from '@/lib/data-access'
 import {useRouter} from '@/i18n/navigation';
 import { ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
@@ -199,11 +199,15 @@ export default function ArtworkForm({user, defaultArtwork, tags, profiles, local
       
       if (result.errors) {
         // Handle both string errors and object errors
-        const errorMessages = result.errors.map(error => 
+        const errorMessages = result.errors.map(error =>
           typeof error === 'string' ? error : (error.message || 'Unknown error')
         )
         setErrors(errorMessages)
       } else {
+        // Extract colour palette from first image (fire and forget)
+        if (result.id) {
+          extractArtworkPalette(result.id).catch(() => {})
+        }
         router.push('/artwork')
       }
     } catch (error) {

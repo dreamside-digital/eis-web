@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { updateArtwork, uploadImage } from '@/lib/data-access'
+import { updateArtwork, uploadImage, extractArtworkPalette } from '@/lib/data-access'
 import {useRouter} from '@/i18n/navigation';
 import { ArrowPathIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
@@ -36,9 +36,12 @@ const typeOptions = [
 ]
 
 export default function ArtworkEditForm({user, artwork, tags, profiles, locale}) {
+  const resolvedProfileId = (typeof artwork.profile_id === 'object' ? artwork.profile_id?.id : artwork.profile_id)?.toString()
+    || (profiles?.length === 1 ? profiles[0].id.toString() : "")
+
   const [formData, setFormData] = useState({
     ...artwork,
-    profile_id: artwork.profile_id?.id?.toString() || artwork.profile_id?.toString() || "",
+    profile_id: resolvedProfileId,
     themes: artwork.themes?.map(theme => ({ tags_id: theme.id })) || [],
     width: artwork.width?.toString() || "",
     height: artwork.height?.toString() || "",
@@ -211,11 +214,13 @@ export default function ArtworkEditForm({user, artwork, tags, profiles, locale})
       console.log('Update artwork result:', result)
       
       if (result.errors) {
-        const errorMessages = result.errors.map(error => 
+        const errorMessages = result.errors.map(error =>
           typeof error === 'string' ? error : (error.message || 'Unknown error')
         )
         setErrors(errorMessages)
       } else {
+        // Extract colour palette from first image (fire and forget)
+        extractArtworkPalette(artwork.id).catch(() => {})
         router.push('/artwork')
       }
     } catch (error) {

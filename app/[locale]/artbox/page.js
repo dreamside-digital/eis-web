@@ -1,6 +1,7 @@
 import { getArtboxContent } from '@/lib/data-access'
 import { sanitize } from '@/lib/sanitize';
 import ImageWithCaption from '@/components/ImageWithCaption'
+import Link from 'next/link'
 
 // Revalidate this page every 60 seconds to fetch fresh data from Directus
 export const revalidate = 60
@@ -29,6 +30,7 @@ export default async function ArtboxPage({params}) {
   const subscribersButton = sanitize(translation?.Subscribers_button || '')
   const artistsHeader = sanitize(translation?.Artists_col_Header || '')
   const artistsButton = sanitize(translation?.Artists_button || '')
+  const discoverButton = translation?.Discover_button || 'Discover Art by Colour'
 
   const { Mission, Image_for_Artists, Image_for_Subscribers } = translation || {}
 
@@ -76,8 +78,18 @@ export default async function ArtboxPage({params}) {
           {/* Join Us */}
           <div className="page-content wysiwyg-content max-w-prose max-md:my-6 text-xl xl:text-2xl mb-12" dangerouslySetInnerHTML={{ __html: joinUs }} />
 
+          {/* Discover Link */}
+          <div className="flex justify-center mb-16">
+            <Link
+              href={`/${locale}/artbox/discover`}
+              className="bg-dark hover:bg-highlight text-white hover:!text-white font-medium py-3 px-8 text-lg inline-block no-underline hover:no-underline transition-colors"
+            >
+              {discoverButton}
+            </Link>
+          </div>
+
           {/* Two Column CTA Section */}
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 mt-16">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             {/* Subscribers Column */}
             <div className="flex flex-col items-center text-center p-8 bg-white rounded-lg">
               <div className="page-content wysiwyg-content text-2xl lg:text-3xl font-medium mb-6" dangerouslySetInnerHTML={{ __html: subscribersHeader }} />
