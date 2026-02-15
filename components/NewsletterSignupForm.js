@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { createNewsletterSubscriber } from '@/lib/data-access'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { useTranslations } from 'next-intl'
+import { Turnstile } from 'react-turnstile'
 
 const formFields = {
   first_name: "",
@@ -18,6 +19,7 @@ export default function NewsletterSignupForm({ locale }) {
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState(null)
   const loadedAt = useRef(Date.now())
   const t = useTranslations('registration_form')
 
@@ -76,6 +78,7 @@ export default function NewsletterSignupForm({ locale }) {
         ...formData,
         _hp: formData._hp,
         _t: loadedAt.current,
+        turnstileToken,
       })
 
       if (result.success) {
@@ -199,6 +202,14 @@ export default function NewsletterSignupForm({ locale }) {
               </div>
             </fieldset>
           </div>
+        </div>
+
+        <div className="mt-6">
+          <Turnstile
+            sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onVerify={(token) => setTurnstileToken(token)}
+            onExpire={() => setTurnstileToken(null)}
+          />
         </div>
 
         <div className="flex items-center justify-between mt-6">
