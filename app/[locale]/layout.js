@@ -91,7 +91,7 @@ export default async function RootLayout({ children, params }) {
         <NextIntlClientProvider messages={messages}>
         <PlausibleProvider domain="editionsinspace.com">
         <Navigation logo={logoImg} locale={locale} dropdowns={translation?.navigation_dropdowns} />
-        <main className="grow">
+        <main className="grow flex flex-col">
           {children}
         </main>
         <footer className="bg-dark">
