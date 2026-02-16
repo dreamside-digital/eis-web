@@ -7,6 +7,7 @@ import { createUserAccount } from '@/lib/data-access'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import {useTranslations} from 'next-intl';
 import { Suspense } from 'react'
+import { Turnstile } from 'react-turnstile'
 
 function VerificationMessage() {
   const searchParams = useSearchParams()
@@ -40,6 +41,7 @@ export default function LoginForm({locale}) {
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState([])
   const [success, setSuccess] = useState()
+  const [turnstileToken, setTurnstileToken] = useState(null)
   const t = useTranslations('registration_form');
 
   const updateUserData = field => input => {
@@ -91,7 +93,7 @@ export default function LoginForm({locale}) {
 
       if (errors.length > 0) return
 
-      const result = await createUserAccount(userData)
+      const result = await createUserAccount({ ...userData, turnstileToken })
 
       if (result.status === 204) {
         setSuccess(true)
@@ -186,6 +188,14 @@ export default function LoginForm({locale}) {
             </label>
           </div>
 
+        </div>
+
+        <div className="mt-6">
+          <Turnstile
+            sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onVerify={(token) => setTurnstileToken(token)}
+            onExpire={() => setTurnstileToken(null)}
+          />
         </div>
 
         <div className="flex items-center justify-between mt-6">

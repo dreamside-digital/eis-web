@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef } from 'react'
 import { createNewsletterSubscriber } from '@/lib/data-access'
 import { ArrowPathIcon } from '@heroicons/react/24/solid'
 import { useTranslations } from 'next-intl'
