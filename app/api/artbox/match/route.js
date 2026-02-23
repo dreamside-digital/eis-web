@@ -41,16 +41,13 @@ export async function POST(request) {
           'profile_id.public_name',
         ],
         filter: {
-          _and: [
-            { color_palette: { _nnull: true } },
-            { status: { _eq: 'published' } },
-          ],
+          color_palette: { _nnull: true },
         },
         limit: -1,
       })
     )
 
-    console.log(`[match] Found ${artworks.length} published artworks with palettes`)
+    console.log(`[match] Found ${artworks.length} artworks with palettes`)
     artworks.forEach(a => {
       console.log(`[match]   - "${a.title}" (id: ${a.id}) palette: ${JSON.stringify(a.color_palette)}, images: ${a.images?.length || 0}`)
     })
