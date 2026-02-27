@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/artbox/backfill-palettes",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

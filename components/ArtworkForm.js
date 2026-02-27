@@ -264,6 +264,7 @@ export default function ArtworkForm({user, defaultArtwork, tags, profiles, local
                 className="w-full p-2 border border-gray-300 rounded"
                 disabled={fileUploading || selectedFiles.length >= 6}
               />
+              <p className="text-xs text-gray-500 mt-1">Max 2MB per image</p>
               {fileUploading && (
                 <div className="flex items-center mt-2">
                   <ArrowPathIcon className="h-4 w-4 animate-spin mr-2" />
