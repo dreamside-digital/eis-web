@@ -42,6 +42,7 @@ export async function POST(request) {
         ],
         filter: {
           color_palette: { _nnull: true },
+          status: { _eq: 'published' },
         },
         limit: -1,
       })
