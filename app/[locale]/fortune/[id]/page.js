@@ -25,7 +25,11 @@ export default async function TarotPage({ params }) {
     </section>
     <section className="text-dark relative">
       <div className="container max-w-screen-lg mx-auto px-6 my-8 md:my-12">
-        <p className="text-xl leading-relaxed mb-6">{fortune.oracle_reading}</p>
+        <div className="text-xl leading-relaxed mb-6 space-y-4">
+          {fortune.oracle_reading?.split('\n\n').map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
         <div className="w-full flex justify-center">
           <Link href="/oracle" className="text-center text-dark font-title font-semibold text-2xl">
             {t('oracle_button')}
