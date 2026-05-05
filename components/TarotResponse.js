@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import SavedResponses from './SavedResponses';
 import { MicrophoneIcon } from '@heroicons/react/24/solid';
 
@@ -10,6 +10,13 @@ export default function TarotResponse({ activePrompt, locale, onSave, savedRespo
   const recognitionRef = useRef(null);
   const baseTextRef = useRef('');
   const speechSupported = typeof window !== 'undefined' && !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+
+  useEffect(() => {
+    recognitionRef.current?.stop();
+    setIsListening(false);
+    setResponse('');
+    setError('');
+  }, [activePrompt?.id]);
 
   const toggleListening = () => {
     if (isListening) {
