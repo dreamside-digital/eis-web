@@ -4,7 +4,9 @@ import { readItems, updateItem } from '@directus/sdk'
 import sharp from 'sharp'
 import { kMeansPalette } from '@/lib/color-utils'
 
-async function runBackfill(limit = 8) {
+export const maxDuration = 300
+
+async function runBackfill(limit = 50) {
   const api = directus(process.env.DIRECTUS_TOKEN)
 
   const artworks = await api.request(
